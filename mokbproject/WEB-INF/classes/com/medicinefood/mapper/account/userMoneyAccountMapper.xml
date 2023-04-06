@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.account.UserMoneyAccountMapper">
+  <insert id="insertUserMoneyAccount" parameterType="UserMoneyAccountEntity" useGeneratedKeys="true" keyProperty="user_money_account_id">
+  INSERT INTO user_money_account (user_basics_id,account_value,account_add_date,account_explain,account_reason,account_correlation_id)
+  VALUE(
+  #{user_basics_id,jdbcType=INTEGER},
+  #{account_value,jdbcType=INTEGER},
+  #{account_add_date,jdbcType=INTEGER},
+  #{account_explain,jdbcType=VARCHAR},
+  #{account_reason,jdbcType=INTEGER},
+  #{account_correlation_id,jdbcType=INTEGER}
+  )
+  </insert>
+  <select id="selectUserMoneyAccount" resultType="UserMoneyAccountEntity" parameterType="int">
+    SELECT user_money_account_id,user_basics_id,account_value,account_add_date,account_explain,
+    account_reason,account_correlation_id
+    FROM user_money_account
+    WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+  </select>
+
+</mapper>

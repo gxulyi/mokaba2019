@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 用户完整信息 -->
+<mapper namespace="com.medicinefood.mapper.usermapper.UserInformationMapper">
+ <insert id="insertUserInformationEntity" useGeneratedKeys="true" keyProperty="user_information_id">
+     INSERT INTO user_information (user_basics_id,information_phone,information_qq,
+     information_Email,information_compellation,information_card,company_id,co_founder,co_user_basics_id)
+     VALUE(
+     #{user_basics_id,jdbcType=INTEGER},
+     #{information_phone,jdbcType=VARCHAR},
+     #{information_qq,jdbcType=BIGINT},
+     #{information_Email,jdbcType=VARCHAR},
+     #{information_compellation,jdbcType=VARCHAR},
+     #{information_card,jdbcType=VARCHAR},
+     #{company_id,jdbcType=INTEGER},
+     #{co_founder,jdbcType=INTEGER},
+     #{co_user_basics_id,jdbcType=INTEGER}
+     );
+ </insert>
+ <select id="selectUserInformationEntityToUserId" resultType="UserInformationEntity" parameterType="int">
+  SELECT user_information_id,user_basics_id,information_phone,information_qq,information_Email,
+  information_compellation,information_card,company_id,card_end,information_sex,nick_name,
+  live_address,registered_address,information_weixin,card_picture,information_age,co_founder
+  ,co_user_basics_id,information_age
+   FROM user_information
+  WHERE 1=1 
+  and user_basics_id=#{user_basics_id,jdbcType=INTEGER};
+ </select>
+  <select id="findUserInformation" resultType="UserInformationEntity">
+  SELECT user_information_id,user_basics_id,information_phone,information_qq,information_Email,
+  information_compellation,information_card,company_id,card_end,information_sex,nick_name,
+  live_address,registered_address,information_weixin,card_picture,information_age,co_founder,co_user_basics_id 
+   FROM user_information where 1=1;
+ </select>
+ <update id="updateUserInformation" parameterType="UserInformationEntity">
+ 	update user_information set 
+ 	user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+ 	<if test="information_phone!=null">
+ 	,information_phone=#{information_phone,jdbcType=VARCHAR}
+ 	</if>
+ 	<if test="company_id!=null">
+ 	,company_id=#{company_id,jdbcType=INTEGER}
+ 	</if>
+ 	<if test="information_qq!=null">
+ 	,information_qq=#{information_qq,jdbcType=BIGINT}
+ 	</if>
+ 	<if test="information_Email!=null">
+ 	,information_Email=#{information_Email,jdbcType=VARCHAR}
+ 	</if>
+ 	<if test="information_compellation!=null">
+ 	,information_compellation=#{information_compellation,jdbcType=VARCHAR}
+ 	</if>
+ 	<if test="information_card!=null">
+ 	,information_card=#{information_card,jdbcType=VARCHAR}
+ 	</if>
+ 	<if test="card_end!=null">
+ 	,card_end=#{card_end,jdbcType=BIGINT}
+ 	</if>
+ 	<if test="information_sex!=null">
+ 	,information_sex=#{information_sex,jdbcType=INTEGER}
+ 	</if>
+ 	<if test="nick_name!=null">
+ 	,nick_name=#{nick_name,jdbcType=VARCHAR}
+ 	</if>
+ 	<if test="live_address!=null">
+ 	,live_address=#{live_address,jdbcType=VARCHAR}
+ 	</if>
+ 	<if test="registered_address!=null">
+ 	,registered_address=#{registered_address,jdbcType=VARCHAR}
+ 	</if>
+ 	<if test="information_weixin!=null">
+ 	,information_weixin=#{information_weixin,jdbcType=VARCHAR}
+ 	</if>
+ 	<if test="card_picture!=null">
+ 	,card_picture=#{card_picture,jdbcType=VARCHAR}
+ 	</if>
+ 	<if test="information_age!=null">
+ 	,information_age=#{information_age,jdbcType=INTEGER}
+ 	</if>
+ 	<if test="co_founder!=null">
+ 	,co_founder=#{co_founder,jdbcType=INTEGER}
+ 	</if>
+ 	<if test="co_user_basics_id!=null">
+ 	,co_user_basics_id=#{co_user_basics_id,jdbcType=INTEGER}
+ 	</if>
+ 	where 1=1 and user_basics_id=#{user_basics_id,jdbcType=INTEGER};
+ </update>
+ <select id="selectUidToCard" resultType="int" parameterType="String">
+ SELECT user_basics_id FROM user_information WHERE information_card=#{information_card,jdbcType=VARCHAR} 
+ </select>
+</mapper>

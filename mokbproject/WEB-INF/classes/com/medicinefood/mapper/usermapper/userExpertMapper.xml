@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.usermapper.UserExpertMapper">
+
+	<insert id="addExpert" parameterType="ExpertEntity"
+		useGeneratedKeys="true" keyProperty="expert_id">
+		insert into user_expert
+		(user_basics_id,expert_academic,expert_portrait,expert_expert,add_user_basics_id,add_date,expert_name)
+		value (#{user_basics_id,jdbcType=INTEGER}
+		,#{expert_academic,jdbcType=VARCHAR}
+		,#{expert_portrait,jdbcType=VARCHAR}
+		,#{expert_expert,jdbcType=VARCHAR}
+		,#{add_user_basics_id,jdbcType=INTEGER}
+		,#{add_date,jdbcType=BIGINT}
+		,#{expert_name,jdbcType=VARCHAR}
+		);
+	</insert>
+	<select id="findExpert" resultType="ExpertEntity" parameterType="ExpertEntity">
+		select * from user_expert where 1=1 
+		<if test="user_basics_id!=null">
+			and user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+		</if>
+		<if test="expert_id!=null">
+			and expert_id=#{expert_id,jdbcType=INTEGER}
+		</if>
+		<if test="expert_academic!=null">
+			and expert_academic=#{expert_academic,jdbcType=VARCHAR}
+		</if>
+		<if test="add_user_basics_id!=null">
+			and add_user_basics_id=#{add_user_basics_id,jdbcType=INTEGER}
+		</if>
+		order by expert_id asc;
+	</select>
+	 <update id="updateExpert" parameterType="ExpertEntity">
+	UPDATE user_expert  set 
+	  user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+	 ,expert_name=#{expert_name,jdbcType=VARCHAR}
+	 ,expert_academic=#{expert_academic,jdbcType=VARCHAR}
+	 ,expert_portrait=#{expert_portrait,jdbcType=VARCHAR}
+	 ,expert_expert=#{expert_expert,jdbcType=VARCHAR}
+	 ,add_user_basics_id=#{add_user_basics_id,jdbcType=INTEGER}
+	 ,add_date=#{add_date,jdbcType=BIGINT}
+     WHERE 1=1 
+     and expert_id=#{expert_id,jdbcType=INTEGER}
+	</update>
+	<delete id="deleteExpert" parameterType="int">
+		delete from user_expert where 1=1 and expert_id=#{expert_id,jdbcType=INTEGER}
+	</delete>
+</mapper>

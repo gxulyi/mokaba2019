@@ -1,0 +1,216 @@
+.myintel_banner{
+	width: 100%;
+	height: 130px;
+	background: url(../images/myintegral/banner.png) no-repeat;
+	background-size: 100% 100%;
+	display: flex; 
+	justify-content: center;
+	align-items:center;
+}
+.user-portrait{
+	width: 74px;
+	height: 74px;
+	float:left;
+	overflow: hidden;
+	border-radius: 50%;
+	webkit-border-radius:50%;
+	-moz-border-radius:50%;
+	border: 1px solid #04757d;
+}
+.user-portrait img{
+	width: 100%;
+	height: 100%;
+}
+.user-info{
+	float: left;
+	padding: 10px 0 10px 10px;
+	color: #04757d;
+	font-size:13px;
+}
+ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.flash-sale-time{
+	width: 100%;
+	height: 30px;
+}
+.flash-sale-time li{
+	width: 33.3%;
+	line-height: 30px;
+	float: left;
+	text-align: center;
+	border: 1px solid #c65280;
+	font-size: 13px;
+	color: #c65280;
+}
+.flash-sale-time li:nth-child(2){
+	border-left: 0;
+	border-right: 0;
+}
+.return-div{
+	width: 100%;
+	height: 40px;
+	background:#04757d;
+	position: fixed;
+	bottom: 0;
+	line-height: 40px;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 15px;
+}
+.default-text-color{
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap
+}
+.detail-box{
+	padding: 5px;
+	padding-bottom: 20px;
+} 
+
+.detail-single {
+	width: 90%;
+    margin: 0 auto;
+    border-bottom: 1px solid #adadad;
+    padding: 10px 0 0 0;
+    display: flex; 
+	justify-content: center;
+	align-items:center;
+}
+
+.detail-single h5 {
+	width: 100%;
+	font-size: 16px;
+	color: #000;
+	text-align: left;
+	font-weight: bold;
+}
+
+.detail-base{
+	position: relative;
+    clear: both;
+	color: #979696;;
+	font-size:11px;
+}
+
+.detail-money{
+	color:#62bca3;
+}
+.myintel_nr_jf{
+	text-align: right;
+}
+.myintel_nr_jf span{
+	font-size: 23px;
+	color: #04757d;
+}
+.bgdiv{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.2);
+	position: fixed;	
+	top: 0;
+	left: 0;
+	display: none;
+}
+.box{
+	width: 100%;
+	min-height: 300px;
+	position: fixed;
+    left: 0;
+    bottom: 0;
+	z-index: 1;
+	display: none;
+	border-radius: 5px 5px 0 0;
+	background: #FFFFFF;
+	padding: 20px;
+}
+.box span{
+	font-size: 14px;
+}
+.guanbie{
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	right: 10px;
+	top:10px;
+	cursor: pointer;
+}
+.box_tit{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	font-size: 13px;
+	color: #333333;
+	border-bottom: 1px solid #adadad;
+}
+.mui-card{
+    margin: 0; 
+    margin-top: 20px;
+    border: none;
+    border-radius: 15px;
+}
+.box_neirong{
+	width: 55%;
+	margin: 0 10px;
+}
+.box_neirong p{
+	font-size: 14px;
+	color: #fff;
+}
+.box_neirong span{
+	font-size: 11px;
+	color: #fff;
+}
+.box_neirong-btn{
+	width: 60px;
+	height: 20px;
+	display: flex;
+	align-items:center;/*垂直居中*/
+  	justify-content: center;/*水平居中*/
+	white-space: normal;
+	background: #fff;
+	border-radius: 10px;
+	font-size: 12px;
+	color: #85c9e8;
+}
+.box_neirong_img{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background: url(../images/myintegral/lansey.png) no-repeat;
+	background-size: 100% 100%;
+	display: flex;
+	align-items:center;/*垂直居中*/
+  	justify-content: center;/*水平居中*/
+	white-space: normal;
+	font-size: 24px;
+	color: #85c9e8;
+}
+.box_neirong_img1{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background: url(../images/myintegral/zisey.png) no-repeat;
+	background-size: 100% 100%;
+	display: flex;
+	align-items:center;/*垂直居中*/
+  	justify-content: center;/*水平居中*/
+	white-space: normal;
+	font-size: 24px;
+	color: #a89ad8;
+}
+.box_neirong_img2{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background: url(../images/myintegral/lvsey.png) no-repeat;
+	background-size: 100% 100%;
+	display: flex;
+	align-items:center;/*垂直居中*/
+  	justify-content: center;/*水平居中*/
+	white-space: normal;
+	font-size: 24px;
+	color: #4db4af;
+}

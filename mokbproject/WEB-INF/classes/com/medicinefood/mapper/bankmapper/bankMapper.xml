@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.bankmapper.BankMapper">
+ <!-- 新增协议 -->
+ <insert id="addBank" parameterType="BankEntity" useGeneratedKeys="true" keyProperty="card_id" >
+  insert into real_bank_card
+		(user_basics_id,bank_card,affiliated_bank,tel,card_type) 
+		value(
+		 #{user_basics_id,jdbcType=INTEGER}
+		,#{bank_card,jdbcType=VARCHAR}
+		,#{affiliated_bank,jdbcType=VARCHAR}
+		,#{tel,jdbcType=VARCHAR}
+		,#{card_type,jdbcType=INTEGER}
+		);
+ </insert>
+ <!-- 查询所有银行卡信息-->
+ <select id="findAllBank" resultType="BankEntity" parameterType="BankEntity">
+         select * from real_bank_card where 1=1 
+         <if test="user_basics_id!=null">
+            and user_basics_id = #{user_basics_id,jdbcType=INTEGER}
+         </if>
+         order by card_id ASC;
+ </select>
+ <!-- 查询单个银行卡信息-->
+ <select id="findBankById" resultType="BankEntity" parameterType="BankEntity">
+         select * from real_bank_card where 1=1
+          and card_id =#{card_id,jdbcType=INTEGER}
+ </select>
+ <!-- 修改单个银行卡信息-->
+ <update id="updateBank" parameterType="BankEntity">
+	  update real_bank_card set
+	  	 user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+		,bank_card=#{bank_card,jdbcType=VARCHAR}
+		,affiliated_bank=#{affiliated_bank,jdbcType=VARCHAR}
+		,tel=#{tel,jdbcType=VARCHAR}
+		,card_type=#{card_type,jdbcType=INTEGER}
+	  where card_id=#{card_id,jdbcType=INTEGER} 
+	</update>  
+ 
+ <!-- 删除银行卡信息-->
+ <delete id="deleteBank" parameterType="BankEntity" >
+		delete from real_bank_card where card_id=#{card_id,jdbcType=INTEGER} ;
+	</delete>
+ 
+	
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<item>
+  <value>
+  team_num
+  </value>
+  <toValue>
+  团队人数
+  </toValue>
+</item>
+<item>
+  <value>
+  direct_team_num
+  </value>
+  <toValue>
+  直接推荐人数
+  </toValue>
+</item>
+<item>
+  <value>
+  records_integral
+  </value>
+  <toValue>
+  历史积分
+  </toValue>
+</item>
+<item>
+  <value>
+  records_bonus
+  </value>
+  <toValue>
+  历史奖金
+  </toValue>
+</item>
+<item>
+  <value>
+  team_consume
+  </value>
+  <toValue>
+ 团队消费
+  </toValue>
+</item>
+<item>
+  <value>
+  direct_team_consume
+  </value>
+  <toValue>
+  直接推荐团队消费
+  </toValue>
+</item>
+</root>

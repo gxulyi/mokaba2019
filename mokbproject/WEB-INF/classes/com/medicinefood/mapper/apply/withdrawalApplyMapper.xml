@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.apply.WithdrawalApplyMapper">
+  <insert id="insertWithdrawalApply" parameterType="WithdrawalApplyEntity" useGeneratedKeys="true" keyProperty="withdrawal_apply_id">
+   INSERT INTO withdrawal_apply (
+   user_basics_id,
+   apply_add_date,
+   edit_user_basics_id,
+   apply_value,
+   apply_receipt_type,
+   apply_receipt_supplement,
+   apply_status,
+   apply_edit_date,
+   apply_type,
+   apply_explain,
+   edit_notes
+   )VALUE(
+   #{user_basics_id,jdbcType=INTEGER},
+   #{apply_add_date,jdbcType=INTEGER},
+   #{edit_user_basics_id,jdbcType=INTEGER},
+   #{apply_value,jdbcType=DOUBLE},
+   #{apply_receipt_type,jdbcType=INTEGER},
+   #{apply_receipt_supplement,jdbcType=INTEGER},
+   #{apply_status,jdbcType=INTEGER},
+   #{apply_edit_date,jdbcType=INTEGER},
+   #{apply_type,jdbcType=INTEGER},
+   #{apply_explain,jdbcType=VARCHAR},
+   #{edit_notes,jdbcType=VARCHAR}
+  )
+  </insert>
+  <update id="updateWithdrawalApply" parameterType="int">
+  UPDATE withdrawal_apply SET apply_status=#{apply_status,jdbcType=INTEGER},  apply_edit_date=#{apply_edit_date,jdbcType=INTEGER},
+  edit_user_basics_id=#{edit_user_basics_id,jdbcType=INTEGER},edit_notes=#{edit_notes,jdbcType=VARCHAR}
+  WHERE  withdrawal_apply_id=#{withdrawal_apply_id,jdbcType=INTEGER}
+  </update>
+  <select id="selectWithdrawalApplyToId" parameterType="int" resultType="WithdrawalApplyEntity">
+  SELECT withdrawal_apply_id,user_basics_id,apply_add_date,edit_user_basics_id,apply_value,
+  apply_receipt_type,apply_receipt_supplement,apply_status,apply_edit_date,apply_type,apply_explain,
+  edit_notes FROM withdrawal_apply
+  WHERE withdrawal_apply_id=#{withdrawal_apply_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectWithdrawalApplyToApplyStatus" parameterType="int" resultType="WithdrawalApplyEntity">
+  SELECT withdrawal_apply_id,user_basics_id,apply_add_date,edit_user_basics_id,apply_value,
+  apply_receipt_type,apply_receipt_supplement,apply_status,apply_edit_date,apply_type,apply_explain,
+  edit_notes FROM withdrawal_apply
+  WHERE apply_status=#{apply_status,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE configuration 
+        PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" 
+        "http://ibatis.apache.org/dtd/ibatis-3-config.dtd"> 
+<configuration> 
+    <!-- 实体类,简称 -设置别名 -->
+	<typeAliases>
+		<!-- User -->
+		<typeAlias alias="TeamInformation" type="com.medicinefood.entity.user.TeamInformation"/>
+		<typeAlias alias="UserWeiXinAndInformationGrade" type="com.medicinefood.entity.user.UserWeiXinAndInformationGrade"/>
+		<typeAlias alias="BasicsAndGradeEntity" type="com.medicinefood.entity.user.BasicsAndGradeEntity" />
+		<typeAlias alias="BasicsUser" type="com.medicinefood.entity.user.BasicsUser" />
+		<typeAlias alias="UserWeixin" type="com.medicinefood.entity.user.UserWeixin" />
+		<typeAlias alias="UserIntegral" type="com.medicinefood.entity.user.UserIntegral" />
+		<typeAlias alias="UserRecommend" type="com.medicinefood.entity.user.UserRecommend" />
+		<typeAlias alias="UserAchievement" type="com.medicinefood.entity.user.UserAchievement" />
+		<typeAlias alias="UserAchievementAccount" type="com.medicinefood.entity.user.UserAchievementAccount" />
+		<typeAlias alias="UserExpandId" type="com.medicinefood.entity.user.UserExpandId" />
+		<typeAlias alias="UserGrade" type="com.medicinefood.entity.user.UserGrade" />
+		<typeAlias alias="UserInformationEntity" type="com.medicinefood.entity.user.UserInformationEntity" />
+		<typeAlias alias="UserRecommendWinxinBasics" type="com.medicinefood.entity.user.UserRecommendWinxinBasics"/>
+		<typeAlias alias="UserTeamEntity" type="com.medicinefood.entity.user.UserTeamEntity"/>
+		<typeAlias alias="GradeUpgradeConditionEntity" type="com.medicinefood.entity.user.GradeUpgradeConditionEntity"/>
+		<typeAlias alias="gradeUpgradeConditionAccomplishEntity" type="com.medicinefood.entity.user.GradeUpgradeConditionAccomplishEntity"/>
+		<typeAlias alias="UserEntity" type="com.medicinefood.entity.user.UserEntity"/>
+		<typeAlias alias="UserBasicsAndWxAndInformationEntity" type="com.medicinefood.entity.user.UserBasicsAndWxAndInformationEntity"/>
+		<typeAlias alias="UserImportantEntity" type="com.medicinefood.entity.user.UserImportantEntity"/>
+		<typeAlias alias="ExpertEntity" type="com.medicinefood.entity.user.ExpertEntity"/>
+		<typeAlias alias="GradeUpgradeConditionGroupEntity" type="com.medicinefood.entity.user.GradeUpgradeConditionGroupEntity"/>
+		<typeAlias alias="GradeUpgradeConditionGroupConditionEntity" type="com.medicinefood.entity.user.GradeUpgradeConditionGroupConditionEntity"/>
+		<typeAlias alias="UserMessage" type="com.medicinefood.entity.user.UserMessage"/>
+		<typeAlias alias="ConverFlow" type="com.medicinefood.entity.user.ConverFlow"/>
+		<typeAlias alias="SignIntegral" type="com.medicinefood.entity.user.SignIntegral"/>
+		<!-- Store -->
+		<typeAlias alias="StoreBasics" type="com.medicinefood.entity.store.StoreBasics" />
+		<typeAlias alias="StoreEvaluation" type="com.medicinefood.entity.store.StoreEvaluation" />
+		<!-- Order -->
+		<typeAlias alias="OrderRestore" type="com.medicinefood.entity.order.OrderRestore" />
+		<typeAlias alias="OrderRefund" type="com.medicinefood.entity.order.OrderRefund" />
+		<typeAlias alias="OrderBasics" type="com.medicinefood.entity.order.OrderBasics" />
+		<typeAlias alias="OrderAddr" type="com.medicinefood.entity.order.OrderAddr" />
+		<typeAlias alias="OrderSupplement" type="com.medicinefood.entity.order.OrderSupplement" />
+		<typeAlias alias="OrderStore" type="com.medicinefood.entity.order.OrderStore" />
+		<typeAlias alias="ShoppingCart" type="com.medicinefood.entity.order.ShoppingCart" />
+		<!-- jointly -->
+		<!-- News -->
+		<typeAlias alias="News" type="com.medicinefood.entity.news.News" />
+		<typeAlias alias="NewsEvaluation" type="com.medicinefood.entity.news.NewsEvaluation" />
+		<!-- account -->
+		<typeAlias alias="CapitalAccount" type="com.medicinefood.entity.account.CapitalAccount" />
+		<typeAlias alias="IntegralAccount" type="com.medicinefood.entity.account.IntegralAccount" />
+		<typeAlias alias="UserMoneyAccountEntity" type="com.medicinefood.entity.account.UserMoneyAccountEntity"/>
+		<!-- core -->
+		<typeAlias alias="AwardOperationEntity" type="com.medicinefood.entity.core.AwardOperationEntity"/>
+		<!-- opinion -->
+		<typeAlias alias="SuggestionsOpinion" type="com.medicinefood.entity.oponion.SuggestionsOpinion"/>
+		<!-- apply -->
+		<typeAlias alias="BonusExtractApplyEntity" type="com.medicinefood.entity.apply.BonusExtractApplyEntity"/>
+		<typeAlias alias="BonusExtractApplyRecordEntity" type="com.medicinefood.entity.apply.BonusExtractApplyRecordEntity"/>
+		<typeAlias alias="WithdrawalApplyEntity" type="com.medicinefood.entity.apply.WithdrawalApplyEntity"/>
+		<!-- Personal -->
+		<typeAlias alias="PersonalServer" type="com.medicinefood.entity.personal.PersonalServer"/>
+		<typeAlias alias="PersonalMode" type="com.medicinefood.entity.personal.PersonalMode"/>
+		<typeAlias alias="PersonalType" type="com.medicinefood.entity.personal.PersonalType"/>
+		<!-- Privilege -->
+		<typeAlias alias="PrivilegeEntity" type="com.medicinefood.entity.privilege.PrivilegeEntity"/>
+		<typeAlias alias="PrivilegeGatherEntity" type="com.medicinefood.entity.privilege.PrivilegeGatherEntity"/>
+		<typeAlias alias="PrivilegeGatherPrivilegeEntity" type="com.medicinefood.entity.privilege.PrivilegeGatherPrivilegeEntity"/>
+		<typeAlias alias="PrivilegeAdministrativeEntity" type="com.medicinefood.entity.privilege.PrivilegeAdministrativeEntity"/>
+		<typeAlias alias="PrivilegeAdministrativeGatherEntity" type="com.medicinefood.entity.privilege.PrivilegeAdministrativeGatherEntity"/>
+		<typeAlias alias="PrivilegeAdministrativeUserEntity" type="com.medicinefood.entity.privilege.PrivilegeAdministrativeUserEntity"/>
+		<typeAlias alias="UserOperationLog" type="com.medicinefood.entity.privilege.UserOperationLog"/>
+		<!-- system -->
+		<typeAlias alias="AdminLoginRecordEntity" type="com.medicinefood.entity.exception.LoginExceptionMedifood"/>
+		<!-- company -->
+	    <typeAlias alias="CompanyBasicsEntity" type="com.medicinefood.entity.company.CompanyBasicsEntity"/>
+	    <typeAlias alias="CompanyShow" type="com.medicinefood.entity.company.CompanyShow"/>
+	    <typeAlias alias="CompanyMonthSales" type="com.medicinefood.entity.company.CompanyMonthSales"/>
+	    <typeAlias alias="CoFounderMonSale" type="com.medicinefood.entity.company.CoFounderMonSale"/>
+	    <typeAlias alias="CompanyLeadFounderEntity" type="com.medicinefood.entity.company.CompanyLeadFounderEntity"/>
+	    <typeAlias alias="GoldPoolShare" type="com.medicinefood.entity.company.GoldPoolShare"/>
+	    <!-- protocol -->
+	    <typeAlias alias="ProtocolEntity" type="com.medicinefood.entity.protocol.ProtocolEntity"/>
+	     <!-- bank -->
+	    <typeAlias alias="BankEntity" type="com.medicinefood.entity.bank.BankEntity"/>
+	    <!--sowing -->
+	    <typeAlias alias="SowingEntity" type="com.medicinefood.entity.sowing.SowingEntity"/>
+	    <!--article -->
+	    <typeAlias alias="ArticleEntity" type="com.medicinefood.entity.article.ArticleEntity"/>
+	     <!-- bankManage -->
+	    <typeAlias alias="BankManageEntity" type="com.medicinefood.entity.bankManage.BankManageEntity"/>
+	    <!-- expertConsult -->
+	     <typeAlias alias="ExpertConsultEntity" type="com.medicinefood.entity.expertConsult.ExpertConsultEntity"/>
+	    <!-- pagestructure -->
+	    <typeAlias alias="MenuEntity" type="com.medicinefood.entity.pagestructure.MenuEntity"/>
+	    <!-- Invoice -->
+	    <typeAlias alias="InvoiceEntity" type="com.medicinefood.entity.invoice.InvoiceEntity"/>
+	    <typeAlias alias="InvoiceGainEntity" type="com.medicinefood.entity.invoice.InvoiceGainEntity"/>
+	    <!-- Medical -->
+	    <typeAlias alias="MedicalRecordEntity" type="com.medicinefood.entity.medical.MedicalRecordEntity"/>
+	    <typeAlias alias="MedicalReportEntity" type="com.medicinefood.entity.medical.MedicalReportEntity"/>
+	    <!-- Voucher -->
+	    <typeAlias alias="Voucher" type="com.medicinefood.entity.voucher.Voucher"/>
+	    <typeAlias alias="UserVoucher" type="com.medicinefood.entity.voucher.UserVoucher"/>
+	    <typeAlias alias="ObtainAward" type="com.medicinefood.entity.obtainAward.ObtainAward"/>
+	    <typeAlias alias="AwardRecord" type="com.medicinefood.entity.obtainAward.AwardRecord"/>
+	</typeAliases>
+	
+	
+	
+    <!-- mybatis插件 
+       <plugins>
+       <plugin interceptor="com.core.aop.mybatisinterceptor.InterceptorImpl">
+           <property name="databaseType" value="mysql"/>
+       </plugin>
+    </plugins>-->
+	
+	<!-- 添加分页拦截器 -->
+    <!-- <plugins>
+        <plugin interceptor="com.core.aop.controller.admin.PageInterceptor">
+     设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库         
+        <property name="dialect" value="mysql"/>
+        </plugin>
+	</plugins>  -->
+	
+	<!-- 实体接口映射资源 -->
+	<!--
+		说明：如果xxMapper.xml配置文件放在和xxMapper.java统一目录下，mappers也可以省略，因为org.mybatis.spring.mapper.MapperFactoryBean默认会去查找与xxMapper.java相同目录和名称的xxMapper.xml
+	-->
+	<mappers>
+	    <!-- search -->
+	    <mapper resource="com/medicinefood/mapper/search/searchUserMapper.xml"/>
+	    <!-- user -->
+	    <mapper resource="com/medicinefood/mapper/usermapper/userRecommendMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/basicUserMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/userWeixinMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/userIntegralMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/userAchievementMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/userExpandIdMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/userGradeMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/userInformationMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/gradeUpgradeConditionMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/gradeUpgradeConditionAccomplishMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/userMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/userExpertMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/gradeUpgradeConditionGroupConditionMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/gradeUpgradeConditionGroupMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/UserMessageMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/converFlowMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/usermapper/signIntegralMapper.xml"/>
+		<!-- Store -->
+		<mapper resource="com/medicinefood/mapper/storemapper/basicStoreMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/storemapper/storeEvaluationMapper.xml"/>
+		<!-- order -->
+		<mapper resource="com/medicinefood/mapper/ordermapper/basicOrderMapper.xml"/>
+		<mapper resource="com/medicinefood/mapper/ordermapper/orderAddrMapper.xml"/>
+		<!-- jointly -->
+		<mapper resource="com/medicinefood/mapper/jointlymapper/userUpdateMapper.xml" />
+		<mapper resource="com/medicinefood/mapper/jointlymapper/pageMapper.xml" />
+		<!-- News -->
+		<mapper resource="com/medicinefood/mapper/newsmapper/newsMapper.xml" />
+		<!-- account -->
+		<mapper resource="com/medicinefood/mapper/account/capitalAccountMapper.xml" />
+		<mapper resource="com/medicinefood/mapper/account/integralMapper.xml" />
+		<mapper resource="com/medicinefood/mapper/account/userMoneyAccountMapper.xml" />
+		<!-- opinion -->
+		<mapper resource="com/medicinefood/mapper/opinionmapper/opinionMapper.xml" />
+	    <!-- apply -->
+	    <mapper resource="com/medicinefood/mapper/apply/bonusExtractApplyMapper.xml" />
+	    <mapper resource="com/medicinefood/mapper/apply/bonusExtractApplyRecordMapper.xml" />
+	    <mapper resource="com/medicinefood/mapper/apply/withdrawalApplyMapper.xml" />
+	    <!-- Personal -->
+	    <mapper resource="com/medicinefood/mapper/personalmapper/personalMapper.xml" />
+	    <!-- Privilege -->
+	    <mapper resource="com/medicinefood/mapper/privilegemapper/privilegeMapper.xml" />
+	    <mapper resource="com/medicinefood/mapper/privilegemapper/userOperationLogMapper.xml" />
+	    <!-- system -->
+	    <mapper resource="com/medicinefood/mapper/systemmapper/systemLoginMapper.xml"/>
+	    
+	    <!-- company -->
+	    <mapper resource="com/medicinefood/mapper/company/companyMapper.xml"/>
+	    <mapper resource="com/medicinefood/mapper/company/CompanyMonthMapper.xml"/>
+	    <mapper resource="com/medicinefood/mapper/company/CompanyBasicsMapper.xml"/>
+	    <mapper resource="com/medicinefood/mapper/company/coFounderMonSaleMapper.xml"/>
+	    <mapper resource="com/medicinefood/mapper/company/goldPoolShareMapper.xml"/>
+	    <!-- protocol -->
+	    <mapper resource="com/medicinefood/mapper/protocolmapper/protocolMapper.xml"/>
+	    <!-- bank -->
+	    <mapper resource="com/medicinefood/mapper/bankmapper/bankMapper.xml"/>
+	    <!-- sowing -->
+	    <mapper resource="com/medicinefood/mapper/sowingmapper/sowingMapper.xml"/>
+	    <!-- article -->
+	    <mapper resource="com/medicinefood/mapper/articlemapper/articleMapper.xml"/>
+	     <!--bankManage -->
+	    <mapper resource="com/medicinefood/mapper/bankManagemapper/bankManageMapper.xml"/>
+	     <!--expertConsult -->
+	    <mapper resource="com/medicinefood/mapper/expertConsultmapper/expertConsultMapper.xml"/>
+	    <!-- pagestructuremapper -->
+	    <mapper resource="com/medicinefood/mapper/pagestructuremapper/MeusMapper.xml"/>
+	    <!-- invoice -->
+	    <mapper resource="com/medicinefood/mapper/invoice/invoiceMapper.xml"/>
+	    <!-- medical -->
+	    <mapper resource="com/medicinefood/mapper/medicalmapper/medicalRecordMapper.xml"/>
+	    <mapper resource="com/medicinefood/mapper/medicalmapper/medicalReportMapper.xml"/>
+	    <!-- Voucher -->
+	    <mapper resource="com/medicinefood/mapper/vouchermapper/voucherMapper.xml"/>
+	    <mapper resource="com/medicinefood/mapper/vouchermapper/userVoucherMapper.xml"/>
+	    <mapper resource="com/medicinefood/mapper/obtainAwardmapper/obtainAwardMapper.xml"/>
+	    <mapper resource="com/medicinefood/mapper/obtainAwardmapper/awardRecordMapper.xml"/>
+	</mappers>
+	
+	
+
+</configuration>  

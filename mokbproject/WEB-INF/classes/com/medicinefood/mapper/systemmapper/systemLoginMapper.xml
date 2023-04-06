@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.systemmapper.SystemLoginMapper">
+  <insert id="insertAdminLoginRecordEntity" parameterType="AdminLoginRecordEntity" useGeneratedKeys="true" keyProperty="admin_login_record_id">
+   INSERT INTO admin_login_record 
+   (login_facility,login_mode,facility,user_basics_id,login_finally,login_data,login_ip)
+   values
+   (
+   #{login_facility,jdbcType=INTEGER},
+   #{login_mode,jdbcType=INTEGER},
+   #{facility,jdbcType=VARCHAR},
+   #{user_basics_id,jdbcType=INTEGER},
+   #{login_finally,jdbcType=INTEGER},
+   #{login_data,jdbcType=INTEGER},
+   #{login_ip,jdbcType=VARCHAR}
+   )
+  </insert>
+</mapper>

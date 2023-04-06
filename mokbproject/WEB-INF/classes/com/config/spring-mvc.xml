@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	"
+	>
+	
+	
+	<!--设置配置方案 -->
+    <context:annotation-config /> 
+    
+	<mvc:annotation-driven/>
+	
+	<!--  spring 可以自动去扫描 base-package下面的包或子包下面的Java文件，如果扫描到有Spring的相关
+         注解的类，则把这些类注册为Spring的bean -->
+	<!-- 注解扫描包controller -->
+	<context:component-scan base-package="com.medicinefood.controller" />
+	<!-- .切面：controller -->
+    <bean id="adminControllerAspect" class="com.core.aop.controller.admin.Aspect">
+      <!--  <property name="privilege" ref="privilege"></property>-->
+    </bean>
+    <!--<bean id="privilege" class="com.core.aop.controller.admin.Privilege">
+    </bean>-->
+     <!-- 配置切面 -->
+    <aop:config>
+        <!-- 切入点表达式，确认目标类 controller.admin包中的所有类中的所有方法 -->
+      <aop:pointcut expression="execution(* com.medicinefood.controller.admin1.*.*(..))" id="performAdmin"/>
+        <!-- ref指向的对象就是切面 -->
+        <aop:aspect ref="adminControllerAspect">
+            <!-- 环绕通知 -->
+          <aop:before method="doBefore" pointcut-ref="performAdmin"/> 
+          <aop:after-returning method="doAfterReturning" pointcut-ref="performAdmin" returning="result"/>
+          <aop:after method="doAfter" pointcut-ref="performAdmin" /> 
+          <aop:around method="doAround" pointcut-ref="performAdmin" /> 
+          <aop:after-throwing method="doAfterThrowing" pointcut-ref="performAdmin" throwing="ex"/>
+        </aop:aspect>
+    </aop:config>
+	
+	<!-- zrm   用户操作日志 
+	<bean id="logAspect" class="com.core.aop.controller.admin.AccountSysOptionLogAspect"/> 
+    <aop:config>
+		<aop:aspect ref="logAspect">
+			<aop:pointcut id="logPointCut" expression="execution(* com.medicinefood.controller.admin.*.*(..))"/>
+			<aop:around pointcut-ref="logPointCut" method="doSystemLog"/>
+		</aop:aspect>
+	</aop:config> 
+-->
+	<!--
+		配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理，3.04新增功能，需要重新设置spring-mvc-3.0.xsd
+	-->
+    <mvc:resources mapping="/file/**" location="/file/" />
+     <mvc:resources mapping="/html/**" location="/html/" />  
+	<mvc:resources mapping="/js/**" location="/js/" /> 
+	<mvc:resources mapping="/css/**" location="/css/" /> 
+	<mvc:resources mapping="/MP_verify_KfaHASnWkKqkk7xA.txt" location="/MP_verify_KfaHASnWkKqkk7xA.txt" /> 
+	<mvc:resources mapping="/ueditor/**" location="/ueditor/" /> 
+	<mvc:resources mapping="/font/**" location="/font/" /> 
+	<mvc:resources mapping="/fonts/**" location="/fonts/" /> 
+	<mvc:resources mapping="/images/**" location="/images/" /> 
+	<mvc:resources mapping="/product_img/**" location="/product_img/" /> 
+	<mvc:resources mapping="/skin/**" location="/skin/" /> 
+	<!--  <mvc:resources mapping="/helpdoc/**" location="/helpdoc/" />-->
+
+   
+
+	<!-- 定义跳转的文件的前后缀 ，视图模式配置-->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+		
+		
+		
+	</bean>
+	  <!-- 文件上传 -->  
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+	<property name="defaultEncoding" value="utf-8"/>  
+    <!-- 设置上传文件的最大尺寸为1GB -->  
+    <property name="maxUploadSize">  
+        <value>10242880000</value>  
+    </property>  
+</bean> 
+
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">      
+        <property name="messageConverters">      
+            <list >      
+                <ref bean="mappingJacksonHttpMessageConverter"/>      
+            </list>      
+        </property>      
+    </bean>  
+    
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">    
+    
+    <property name="supportedMediaTypes">    
+        <list>    
+            <value>application/json;charset=UTF-8</value>    
+       </list>    
+    </property> 
+  
+</bean> 
+
+        <!-- 拦截器 
+        <mvc:interceptors>  
+        <mvc:interceptor>
+        <mvc:mapping path="/HomeController/**"/>
+        <mvc:mapping path="/maid/**"/>
+        <mvc:mapping path="/weixin_news/**"/>
+        <mvc:mapping path="/order_weixin/**"/>
+        <mvc:mapping path="/QRcod/**"/>
+        <mvc:mapping path="/wenxin_storer/**"/>
+        <mvc:mapping path="/user_weixin/**"/> 
+        <mvc:mapping path="/expand/**"/> 
+         -->
+        		<!-- 不拦截静态资源
+               <mvc:exclude-mapping path="/js/**"/>
+               <mvc:exclude-mapping path="/css/**"/>
+               <mvc:exclude-mapping path="/file/**"/>
+               <mvc:exclude-mapping path="/user_weixin/**"/>
+               <mvc:exclude-mapping path="/fonts/**"/>
+               <mvc:exclude-mapping path="/html/**"/>
+               <mvc:exclude-mapping path="/images/**"/>
+                -->
+               <!-- 不拦截 微信服务器发来的消息
+               <mvc:exclude-mapping path="/weixinEventController/**"/>
+               
+                <bean class="com.core.interceptor.LoginInterceptor"></bean>  
+        </mvc:interceptor>
+           
+        </mvc:interceptors> 
+        -->
+
+ 
+</beans>

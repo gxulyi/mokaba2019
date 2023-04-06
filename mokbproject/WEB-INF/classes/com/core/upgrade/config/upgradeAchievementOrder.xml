@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<upgradeAchievementOrder>
+<upgradeName>
+            根据成就升级会员等级的顺序
+</upgradeName>
+  <ruleList>
+    <rule>
+      <!-- 等级名字 -->
+      <userGradeName>
+                      蓝钻会员
+      </userGradeName>
+      <!-- 等级id -->
+      <userGradeId>
+      4
+      </userGradeId>
+      <!-- 排序大小 -->
+      <userOrder>
+      1
+      </userOrder>
+    </rule>
+    <rule>
+      <!-- 等级名字 -->
+       <userGradeName>
+                      红钻会员
+      </userGradeName>
+      <!-- 等级id -->
+      <userGradeId>
+      5
+      </userGradeId>
+      <userOrder>
+      2
+      </userOrder>
+    </rule>
+    <rule>
+      <!-- 等级名字 -->
+      <userGradeName>
+                     绿钻会员
+      </userGradeName>
+      <!-- 等级id -->
+      <userGradeId>
+      6
+      </userGradeId>
+      <userOrder>
+      3
+      </userOrder>
+    </rule>
+    <rule>
+      <!-- 等级名字 -->
+      <userGradeName>
+                     金钻会员
+      </userGradeName>
+      <!-- 等级id -->
+      <userGradeId>
+      7
+      </userGradeId>
+      <!-- 排序大小 -->
+      <userOrder>
+      4
+      </userOrder>
+    </rule>
+    
+  </ruleList>
+
+</upgradeAchievementOrder>

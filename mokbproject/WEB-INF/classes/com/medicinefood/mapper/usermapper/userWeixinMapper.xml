@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.usermapper.UserWeixinMapper" >
+
+<select id="findUserBasicsIdWeixinId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+     select IFNULL(MAX(user_basics_id),1) user_basics_id from user_weixin where  weixin_id=#{weixin_id,jdbcType=VARCHAR}
+</select>
+<update id="editUserWeixin"  parameterType="UserWeixin">
+     UPDATE user_weixin
+     <trim prefix="set" suffixOverrides=",">
+       <if test="weixin_portrait!=null">weixin_portrait=#{weixin_portrait,jdbcType=VARCHAR},</if>
+       <if test="weixin_nickname!=null">weixin_nickname=#{weixin_nickname,jdbcType=VARCHAR},</if>
+       <if test="weixin_gender!=null">weixin_gender=#{weixin_gender,jdbcType=INTEGER},</if>
+       <if test="weixin_follow_choice!=null">weixin_follow_choice=#{weixin_follow_choice,jdbcType=INTEGER},</if>
+       <if test="weixin_follow_data_yes!=null">weixin_follow_data_yes=#{weixin_follow_data_yes,jdbcType=BIGINT},</if>
+       <if test="weixin_follow_data_no!=null">weixin_follow_data_no=#{weixin_follow_data_no,jdbcType=BIGINT},</if>
+       <if test="share_img!=null">share_img=#{share_img,jdbcType=VARCHAR},</if>
+       <if test="share_img_dated!=null">share_img_dated=#{share_img_dated,jdbcType=BIGINT},</if>
+     </trim>
+     WHERE 
+     <choose>
+       <when test="user_weixin_id!=null">
+        user_weixin_id=#{user_weixin_id,jdbcType=INTEGER}
+       </when>
+       <otherwise>
+          <choose>
+            <when test="user_basics_id!=null">
+               user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+            </when>
+            <otherwise>
+              weixin_id=#{weixin_id,jdbcType=VARCHAR}
+            </otherwise>
+          </choose>
+       </otherwise>
+      </choose>
+   </update>
+   <select id="findUserWeixin" parameterType="java.lang.String" resultType="UserWeixin">
+   SELECT user_weixin_id,weixin_id,weixin_portrait,weixin_nickname,weixin_gender,weixin_follow_choice,
+   weixin_follow_data_yes,weixin_follow_data_no,user_basics_id,share_img,share_img_dated FROM user_weixin
+    WHERE weixin_id=#{_parameter,jdbcType=VARCHAR}
+   
+   </select>
+   <select id="findUserWeixinUserBasicsId" parameterType="java.lang.String" resultType="UserWeixin">
+   SELECT user_weixin_id,weixin_id,weixin_portrait,weixin_nickname,weixin_gender,weixin_follow_choice,
+   weixin_follow_data_yes,weixin_follow_data_no,user_basics_id,share_img,share_img_dated FROM user_weixin
+    WHERE user_basics_id=#{_parameter,jdbcType=INTEGER}
+   </select>
+   <select id="findUserUserWeinxinNameBasicsId" resultType="java.lang.String" parameterType="int">
+   SELECT weixin_nickname,weixin_portrait FROM user_weixin
+    WHERE user_basics_id=#{_parameter,jdbcType=INTEGER}
+   </select>
+   <select id="findUserWeixinUserBasicsOne" resultType="UserWeixin" parameterType="int">
+SELECT a.*,b.information_compellation FROM user_weixin a left join user_information b on a.user_basics_id=b.user_basics_id
+    where b.user_basics_id=#{_parameter,jdbcType=INTEGER}
+   </select>
+</mapper>

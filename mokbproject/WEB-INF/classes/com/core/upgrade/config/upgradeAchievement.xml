@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<user_grade_upgrade>
+   <upgradeName>
+            根据成就升级会员等级
+   </upgradeName>
+     <!--   获取所有根据成就升级的级别  -->
+   <ruleList>
+    <!-- 每个级别对应一个rank -->
+   <rule>
+      <!-- 等级名字 -->
+      <userGradeName>
+                      蓝钻会员
+      </userGradeName>
+      <!-- 等级id -->
+      <userGradeId>
+      4
+      </userGradeId>
+      <!-- 升级条件 -->
+      <upgradeCondition>
+        <item>
+         <!-- 成就类型 -->
+          <achievementType>
+            records_integral
+          </achievementType>
+          <!-- 成就值 -->
+          <achievementValue>
+            654
+          </achievementValue>
+        </item>
+        <item>
+         <!-- 成就类型 -->
+          <achievementType>
+            direct_team_num
+          </achievementType>
+          <!-- 成就值 -->
+          <achievementValue>
+            6
+          </achievementValue>
+        </item>
+      
+      </upgradeCondition>
+   </rule>
+      <rule>
+      <!-- 等级名字 -->
+      <userGradeName>
+                      红钻会员
+      </userGradeName>
+      <!-- 等级id -->
+      <userGradeId>
+      5
+      </userGradeId>
+      <!-- 升级条件 -->
+      <upgradeCondition>
+        <item>
+         <!-- 成就类型 -->
+          <achievementType>
+            records_integral
+          </achievementType>
+          <!-- 成就值 -->
+          <achievementValue>
+            51800
+          </achievementValue>
+        </item>
+        <item>
+         <!-- 成就类型 -->
+          <achievementType>
+            custom
+          </achievementType>
+          <!-- 成就值 -->
+          <achievementValue>
+            1
+          </achievementValue>
+        </item>
+         <item>
+         <!-- 成就类型 -->
+          <achievementType>
+            custom
+          </achievementType>
+          <!-- 成就值 -->
+          <achievementValue>
+            2
+          </achievementValue>
+        </item>
+      
+      </upgradeCondition>
+   </rule>
+      <rule>
+      <!-- 等级名字 -->
+      <userGradeName>
+                     绿钻会员
+      </userGradeName>
+      <!-- 等级id -->
+      <userGradeId>
+      6
+      </userGradeId>
+      <!-- 升级条件 -->
+      <upgradeCondition>
+        <item>
+         <!-- 成就类型 -->
+          <achievementType>
+            records_integral
+          </achievementType>
+          <!-- 成就值 -->
+          <achievementValue>
+            121800
+          </achievementValue>
+        </item>
+        <item>
+         <!-- 成就类型 -->
+          <achievementType>
+            custom
+          </achievementType>
+          <!-- 成就值 -->
+          <achievementValue>
+            3
+          </achievementValue>
+        </item>
+         <item>
+         <!-- 成就类型 -->
+          <achievementType>
+            custom
+          </achievementType>
+          <!-- 成就值 -->
+          <achievementValue>
+             4
+          </achievementValue>
+        </item>
+      
+      </upgradeCondition>
+   </rule>
+      <rule>
+      <!-- 等级名字 -->
+      <userGradeName>
+                     金钻会员
+      </userGradeName>
+      <!-- 等级id -->
+      <userGradeId>
+      7
+      </userGradeId>
+      <!-- 升级条件 -->
+      <upgradeCondition>
+        <item>
+         <!-- 成就类型 -->
+          <achievementType>
+            records_integral
+          </achievementType>
+          <!-- 成就值 -->
+          <achievementValue>
+            321800
+          </achievementValue>
+        </item>
+        <item>
+         <!-- 成就类型 -->
+          <achievementType>
+            custom
+          </achievementType>
+          <!-- 成就值 -->
+          <achievementValue>
+              5
+          </achievementValue>
+        </item>
+         <item>
+         <!-- 成就类型 -->
+          <achievementType>
+            custom
+          </achievementType>
+          <!-- 成就值 -->
+          <achievementValue>
+             6
+          </achievementValue>
+        </item>
+        <item>
+         <!-- 成就类型 -->
+          <achievementType>
+            custom
+          </achievementType>
+          <!-- 成就值 -->
+          <achievementValue>
+             7
+          </achievementValue>
+        </item>
+      
+      </upgradeCondition>
+   </rule>
+   </ruleList>
+</user_grade_upgrade>

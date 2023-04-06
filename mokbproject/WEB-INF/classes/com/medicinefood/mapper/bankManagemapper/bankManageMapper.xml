@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.bankManagemapper.BankManageMapper">
+ <!-- 新增银行信息 -->
+ <insert id="addBankManage" parameterType="BankManageEntity" useGeneratedKeys="true" keyProperty="bank_id" >
+  insert into manage_bank
+		(user_basics_id,area,bank_name,bank_type,status_state,limit_money,add_date) 
+		value(
+		 #{user_basics_id,jdbcType=INTEGER}
+		,#{area,jdbcType=VARCHAR}
+		,#{bank_name,jdbcType=VARCHAR}
+		,#{bank_type,jdbcType=INTEGER}
+		,#{status_state,jdbcType=INTEGER}
+		,#{limit_money,jdbcType=VARCHAR}
+		,#{add_date,jdbcType=INTEGER}
+		);
+ </insert>
+ <!-- 查询所有银行信息-->
+ <select id="findAllBankManage" resultType="BankManageEntity" parameterType="BankManageEntity">
+         select * from manage_bank where 1=1
+         <if test="status_state!=null">
+            and status_state = #{status_state,jdbcType=INTEGER}
+         </if> 
+         <if test="user_basics_id!=null">
+            and user_basics_id = #{user_basics_id,jdbcType=INTEGER}
+         </if>
+         order by bank_id ASC;
+ </select>
+ <!-- 查询单个银行信息-->
+ <select id="findBankManageById" resultType="BankManageEntity" parameterType="BankManageEntity">
+         select * from manage_bank where 1=1
+          and bank_id =#{bank_id,jdbcType=INTEGER}
+ </select>
+ <!-- 修改单个银行信息-->
+ <update id="updateBankManage" parameterType="BankManageEntity">
+	  <!-- update manage_bank set
+	  	 user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+		,bank_card=#{bank_card,jdbcType=VARCHAR}
+		,affiliated_bank=#{affiliated_bank,jdbcType=VARCHAR}
+		,tel=#{tel,jdbcType=VARCHAR}
+		,card_type=#{card_type,jdbcType=INTEGER}
+	  where card_id=#{card_id,jdbcType=INTEGER}  -->
+	</update>  
+ 
+ <!-- 删除银行信息-->
+ <update id="deleteBankManage" parameterType="BankManageEntity">
+         update manage_bank set status_state=#{status_state,jdbcType=INTEGER} 
+	     where bank_id=#{bank_id,jdbcType=INTEGER} 
+ </update>
+</mapper>

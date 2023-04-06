@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.vouchermapper.VoucherMapper">
+    <insert id="addVoucher" parameterType="Voucher"
+		useGeneratedKeys="true" keyProperty="voucher_id">
+		insert into store_voucher
+		(voucher_type,user_basics_id,voucher_days,full_money,give_money,reduce_money,group_reduction,start_time,end_time,add_date,voucher_intro)
+		value (#{voucher_type,jdbcType=INTEGER}
+		,#{user_basics_id,jdbcType=INTEGER}
+		,#{voucher_days,jdbcType=INTEGER}
+		,#{full_money,jdbcType=DOUBLE}
+		,#{give_money,jdbcType=DOUBLE}
+		,#{reduce_money,jdbcType=DOUBLE}
+		,#{group_reduction,jdbcType=DOUBLE}
+		,#{start_time,jdbcType=BIGINT}
+		,#{end_time,jdbcType=BIGINT}
+		,#{add_date,jdbcType=BIGINT}
+		,#{voucher_intro,jdbcType=VARCHAR}
+		);
+	</insert>
+	
+	<!-- 根据审核状态状态为0查询券信息 -->
+    <select id="findVoucherByState" resultType="Voucher" parameterType="Voucher">
+      select * from store_voucher where 1=1
+        <if test="status_state!=null">
+          and status_state=#{status_state,jdbcType=INTEGER}
+        </if>
+    </select>	
+
+	
+</mapper>

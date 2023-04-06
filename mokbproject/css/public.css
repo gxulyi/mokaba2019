@@ -1,0 +1,149 @@
+/*设置页面的背景色*/
+body {
+	background-color: #fff;
+}
+
+/*导航栏设置*/
+.mui-bar {
+	/* background-color: #fff; */
+	/* -webkit-box-shadow: none; */
+	/* box-shadow:none; */
+	z-index: 999;
+}
+
+/*设置顶部导航栏阴影*/
+.mui-bar-nav {
+	/* top: 0; */
+	/* -webkit-box-shadow: none; */
+	box-shadow: none;
+}
+
+.mui-bar-tab {
+	bottom: 0;
+	display: table;
+	width: 100%;
+	height: 50px;
+	padding: 0;
+	table-layout: fixed;
+	border-top: 1px solid #eeeeee !important;
+	border-bottom: 0;
+	-webkit-touch-callout: none;
+}
+
+/*顶部导航栏*/
+.nav-left {
+	width: 100px;
+	height: 44px;
+	float: left;
+}
+
+.nav-left img {
+	width: 100%;
+	height: 100%;
+}
+
+.mui-bar .mui-btn-link {
+	font-size: 16px;
+	line-height: 30px;
+	top: 0;
+	padding: 0;
+	border: 0;
+}
+
+.mui-bar-tab .mui-tab-item.mui-active {
+	color: #62bca3;
+}
+
+.shade-active {
+	background-color: #62bca3;
+	-webkit-text-fill-color: transparent;
+	/* 将字体设置成透明色 */
+	-webkit-background-clip: text;
+	/* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
+	-webkit-background-size: 200% 100%;
+}
+
+.mui-bar {
+	-webkit-box-shadow: none;
+}
+
+.mui-bar {
+	border-top-color: #fff;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+.nav-right {
+	width: 30px;
+	height: 30px;
+}
+
+.nav-right img {
+	width: 100%;
+	height: 100%;
+}
+
+.mui-bar {
+	background-color: #fff;
+}
+
+/*主体部分*/
+.mui-content {
+	background-color: #fff;
+	-webkit-overflow-scrolling: touch;
+}
+
+/*底部导航栏*/
+
+
+/*渐变颜色*/
+.shade {
+	background-color: #999;
+	-webkit-text-fill-color: transparent;
+	/* 将字体设置成透明色 */
+	-webkit-background-clip: text;
+	/* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
+	-webkit-background-size: 200% 100%;
+}
+
+.mdfd-content {
+	position: relative;
+	clear: all;
+	overflow: hidden;
+}
+
+.position-relative {
+	position: relative;
+	clear: all;
+	overflow: hidden;
+}
+
+.default-text-color {
+	color: #3d2f55
+}
+
+/*公共--浮动设置*/
+.float-l {
+	float: left;
+}
+
+.float-r {
+	float: right;
+}
+
+/*公共--字体对齐方式*/
+.text-align-c {
+	text-align: center;
+}
+
+.text-align-l {
+	text-align: left;
+}
+
+.text-align-r {
+	text-align: right;
+}
+
+p{
+	margin-bottom:0px;
+}

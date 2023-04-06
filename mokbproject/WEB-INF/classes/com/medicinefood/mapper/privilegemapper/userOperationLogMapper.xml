@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.privilegemapper.UserOperationLogMapper">
+	<insert id="addUserOperationLog" parameterType="UserOperationLog" useGeneratedKeys="true" keyProperty="operation_id">
+		insert into user_operation_log 
+		(user_basics_id,operation_module,operation_mothod,rsponse_time,ip,operation_date,operation_commite,operation_type) 
+		value (#{user_basics_id,jdbcType=INTEGER}
+		,#{operation_module,jdbcType=VARCHAR}
+		,#{operation_mothod,jdbcType=VARCHAR}
+		,#{rsponse_time,jdbcType=VARCHAR}
+		,#{ip,jdbcType=VARCHAR}
+		,#{operation_date,jdbcType=BIGINT}
+		,#{operation_commite,jdbcType=INTEGER}
+		,#{operation_type,jdbcType=INTEGER}
+		);
+	</insert>
+	<select id="findAllOperationLog" resultType="UserOperationLog" parameterType="UserOperationLog">
+		select * from user_operation_log
+		 WHERE 1=1
+		 <if test="user_basics_id!=null">
+		 and user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+		 </if>
+		 <if test="operation_type!=null">
+		 and operation_type=#{operation_type,jdbcType=INTEGER}
+		 </if>
+		 order by operation_date desc;
+	</select>
+</mapper>

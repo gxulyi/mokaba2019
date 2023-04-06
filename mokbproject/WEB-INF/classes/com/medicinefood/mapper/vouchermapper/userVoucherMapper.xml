@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.vouchermapper.UserVoucherMapper">
+    <insert id="addUserVoucher" parameterType="UserVoucher"
+		useGeneratedKeys="true" keyProperty="user_voucher_id">
+		insert into user_voucher
+		(user_basics_id,voucher_id,begin_time,end_time,days,if_expire)
+		value (#{user_basics_id,jdbcType=INTEGER}
+		,#{voucher_id,jdbcType=INTEGER}
+		,#{begin_time,jdbcType=BIGINT}
+		,#{end_time,jdbcType=BIGINT}
+		,#{days,jdbcType=INTEGER}
+		,#{if_expire,jdbcType=INTEGER}
+		);
+	</insert>
+	<select id="findUserVoucher" resultType="Voucher" parameterType="UserVoucher">
+ 		SELECT b.*,a.user_voucher_id,a.begin_date,a.end_date,a.if_expire FROM user_voucher a  
+     	LEFT JOIN store_voucher b
+		on a.voucher_id=b.voucher_id
+		where 1=1 
+		and a.user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+  		and a.end_date&gt;=#{end_date,jdbcType=BIGINT}
+  		and a.if_expire=0
+  		<if test="user_basics_id!=null">
+  		and a.user_voucher_id=#{user_voucher_id,jdbcType=INTEGER}
+  		</if>
+  		order by a.end_date asc
+  </select>
+  <select id="findVoucher" resultType="Voucher" parameterType="UserVoucher">
+ 		SELECT b.* 
+     	from  store_voucher b
+		where 1=1 
+		<if test="end_date!=null">
+		and b.end_date&gt;=#{end_date,jdbcType=BIGINT}
+		</if>
+  		<if test="voucher_type!=null">
+  		and b.voucher_type=#{voucher_type,jdbcType=INTEGER}
+  		</if>
+  		order by a.end_date asc
+  </select>
+	
+
+	
+</mapper>

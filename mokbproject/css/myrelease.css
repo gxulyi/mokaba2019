@@ -1,0 +1,151 @@
+.title_div {
+	width: 60%;
+	margin: 0 auto;
+	font-size: 16px;
+}
+
+.title_div_li {
+	width: 33%;
+	line-height: 45px;
+	float: left;
+	color: #fff;
+	text-align: center;
+}
+.mui-content>.mui-table-view:first-child{
+	margin: 0;
+}
+.mui-table-view .mui-media-object{
+	border-radius: 50%;
+}
+.myrel label{
+	font-size: 12px;
+	color: #ddba76;
+	display: block;
+	line-height: 12px;
+	margin-top: 8px;
+}
+.myrel span{
+	font-size: 9px;
+	color: #afafaf;
+	line-height: 12px;
+}
+.mui-ellipsis{
+	line-height: 30px;
+	font-size: 13px;
+	color: #333333;
+}
+ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.myrel-ul li:nth-child(1){
+	margin: 0;
+}
+.myrel-ul li{
+	float: left;
+	margin-left: 15px;
+}
+.myrel-ul-ul{
+	width: 100%;
+	height: 40px;
+	border: 1px solid #F0F0F0;
+	border-left: none;
+	border-right: none;
+	padding: 5px 0;
+}
+.myrel-ul-ul li{
+	width: 33.3%;
+	height: 30px;
+	float: left;
+	font-size: 11px;
+	color: #afafaf;
+	border-left: 1px solid #F0F0F0;
+	display: flex; 
+	justify-content: center;
+	align-items:center;
+}
+.mui-table-view:before{
+	height: 0;
+}
+.mui-table-view:after{
+	height: 0;
+}
+.fenxiang:before {
+	content: '';
+	display: block;
+	width: 15px;
+	height: 15px;
+	background: url(../images/myrelease/fenxiang.png) no-repeat 0 1px;
+	background-size:100% 100%;
+	margin-right: 3px;
+	
+}
+.fx{
+	display: block;
+	width: 15px;
+	height: 15px;
+	background: url(../images/myrelease/fenxiang.png) no-repeat;
+	background-size:100% 100%;
+	margin-right: 3px;
+}
+.pl{
+	display: block;
+	width: 15px;
+	height: 15px;
+	background: url(../images/myrelease/pinlin.png) no-repeat;
+	background-size:100% 100%;
+	margin-right: 3px;
+}
+.dz{
+	display: block;
+	width: 15px;
+	height: 15px;
+	background: url(../images/myrelease/dianzan.png) no-repeat;
+	background-size:100% 100%;
+	margin-right: 3px;
+}
+.mui-navigate-right p{
+	padding: 0 10px;
+	font-size: 12px;
+	color: #666666;
+	width: 90%;
+	line-height: 16px;
+}
+.mui-card{
+	border: none;
+}
+.order-detail {
+	display: block;
+	padding:0 15px;
+	position: relative;
+	clear: both;
+	overflow: hidden;
+}
+
+.order-img {
+	position: absolute;
+    top: 0;
+    left: -10px;
+    padding:0 5px;
+    width: 100px;
+    height: auto;
+}
+.order-info {
+	position: relative;
+    clear: both;
+    overflow: hidden;
+    line-height: 1.8;
+    padding: 0 5px 0 100px;
+    background: #f0f0f0;
+    border-radius: 5px;
+}
+.mui-media-body-wz {
+    font-size: 13px;
+    color: #333;
+}
+.mui-pull-right{
+	font-size: 12px;
+    color: #999;
+    line-height: 30px;
+}

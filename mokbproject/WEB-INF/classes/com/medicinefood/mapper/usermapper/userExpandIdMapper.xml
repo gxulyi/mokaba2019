@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.usermapper.UserExpandIdMapper" >
+	<insert id="addaddress" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="user_expand_id">
+		insert into user_expand 
+		(user_details_id,user_basics_id,details_value,details_ps,priority_level) 
+		value (#{user_details_id,jdbcType=INTEGER}
+		,#{user_basics_id,jdbcType=INTEGER}
+		,#{details_value,jdbcType=VARCHAR}
+		,#{details_ps,jdbcType=VARCHAR}
+		,#{priority_level,jdbcType=INTEGER}
+		);
+	</insert>
+   <select id="findaddress" parameterType="int" resultType="UserExpandId">
+   SELECT * FROM user_expand WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER} and user_details_id=3 order by priority_level asc;
+   </select>
+	
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.usermapper.GradeUpgradeConditionAccomplishMapper" >
+ <insert id="insertGradeUpgradeConditionAccomplish" parameterType="GradeUpgradeConditionAccomplishEntity" keyProperty="grade_upgrade_condition_accomplish_id" useGeneratedKeys="true">
+      INSERT INTO grade_upgrade_condition_accomplish (grade_upgrade_condition_id,user_basics_id,
+      user_grade_id,add_date,condition_describe,condition_type,accomplish_status)
+      VALUE(
+      #{grade_upgrade_condition_id,jdbcType=INTEGER},
+      #{user_basics_id,jdbcType=INTEGER},
+      #{user_grade_id,jdbcType=INTEGER},
+      #{add_date,jdbcType=INTEGER},
+      #{condition_describe,jdbcType=VARCHAR},
+      #{condition_type,jdbcType=INTEGER},
+      #{accomplish_status,jdbcType=INTEGER}
+       )
+ </insert>
+ <select id="selectGradeUpgradeConditionAccomplishToAnd" resultType="GradeUpgradeConditionAccomplishEntity" >
+      SELECT grade_upgrade_condition_accomplish_id,grade_upgrade_condition_id,user_basics_id,
+      user_grade_id,add_date,condition_describe,condition_type,accomplish_status
+      FROM grade_upgrade_condition_accomplish
+      WHERE 1=1 
+     <if test="grade_upgrade_condition_accomplish_id!=null and grade_upgrade_condition_accomplish_id!=''">
+     AND grade_upgrade_condition_accomplish_id= #{grade_upgrade_condition_accomplish_id,jdbcType=INTEGER}
+     </if>
+     <if test="grade_upgrade_condition_id!=null and grade_upgrade_condition_id!=''">
+     AND grade_upgrade_condition_id= #{grade_upgrade_condition_id,jdbcType=INTEGER}
+     </if>
+     <if test="user_basics_id!=null and user_basics_id!=''">
+     AND user_basics_id= #{user_basics_id,jdbcType=INTEGER}
+     </if>
+     <if test="user_grade_id!=null and user_grade_id!=''">
+     AND user_grade_id= #{user_grade_id,jdbcType=INTEGER}
+     </if>
+     <if test="add_date!=null and add_date!=''">
+     AND add_date= #{add_date,jdbcType=INTEGER}
+     </if>
+     <if test="condition_describe!=null and condition_describe!=''">
+     AND condition_describe= #{condition_describe,jdbcType=INTEGER}
+     </if>
+     <if test="condition_type!=null and condition_type!=''">
+     AND condition_type= #{condition_type,jdbcType=INTEGER}
+     </if>
+     <if test="accomplish_status!=null and accomplish_status!=''">
+     AND accomplish_status= #{accomplish_status,jdbcType=INTEGER}
+     </if>
+ </select>
+ <select id="selectGradeUpgradeConditionAccomplishToUbIdGucIdAstatus" resultType="GradeUpgradeConditionAccomplishEntity" >
+   SELECT grade_upgrade_condition_accomplish_id,grade_upgrade_condition_id,user_basics_id,
+      user_grade_id,add_date,condition_describe,condition_type,accomplish_status
+      FROM grade_upgrade_condition_accomplish
+      WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+      AND
+      grade_upgrade_condition_id=#{grade_upgrade_condition_id,jdbcType=INTEGER}
+      AND 
+      accomplish_status=#{accomplish_status,jdbcType=INTEGER}
+ </select>
+ <select  id="selectGradeUpgradeConditionAccomplishToUbIdGucId"  resultType="GradeUpgradeConditionAccomplishEntity">
+ SELECT grade_upgrade_condition_accomplish_id,grade_upgrade_condition_id,user_basics_id,
+      user_grade_id,add_date,condition_describe,condition_type,accomplish_status
+      FROM grade_upgrade_condition_accomplish
+      WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+      AND
+      grade_upgrade_condition_id=#{grade_upgrade_condition_id,jdbcType=INTEGER}
+  </select>
+ <delete id="deleteGradeUpgradeConditionAccomplishToGucaIdToUGA">
+  DELETE FROM grade_upgrade_condition_accomplish
+  WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+      AND
+      grade_upgrade_condition_id=#{grade_upgrade_condition_id,jdbcType=INTEGER}
+      AND 
+      accomplish_status=#{accomplish_status,jdbcType=INTEGER}
+ </delete>
+ <update id="updateGradeUpgradeConditionAccomplishToGucaIdAstatus" >
+ UPDATE grade_upgrade_condition_accomplish SET  accomplish_status=#{accomplish_status,jdbcType=INTEGER}
+  WHERE grade_upgrade_condition_accomplish_id=#{grade_upgrade_condition_accomplish_id,jdbcType=INTEGER}
+ </update>
+</mapper>

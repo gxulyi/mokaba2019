@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+.teamnumber {
+	position: relative;
+	clear: all;
+	overflow: hidden;
+	text-align: center;
+	background-color: #DCDDDF;
+	border-radius: 10px;
+	padding: 5px;
+	margin-top: 10px;
+}
+
+.teamnumber span {
+	display: block;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.bonus-show {
+	background: url(../file/jointly/images/icon/666867818258836251.png) no-repeat;
+	background-size: 100% 100%;
+	height: 150px;
+	text-align: center;
+	padding: 35px 0;
+	line-height: 40px;
+}
+
+.mdfd-content_huiyuan {
+	height: 45px;
+	padding: 5px 0;
+	line-height: 35px;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.mdfd-content_huiyuan li {
+	width: 50%;
+	float: left;
+	text-align: center;
+	font-size: 16px;
+	color: #333;
+}
+
+.mdfd-content_zonghuiyuan {
+	width:100%;
+	/* height: 100px; */
+	background: #eeeeee;
+	z-index: 999;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	padding-bottom: 20px;
+}
+
+.mdfd-content_zonghuiyuan p {
+	color: #333;
+	padding: 10px 20px !important;
+}
+
+.mdfd-content_zonghuiyuan li {
+	width: 50%;
+	height: 35px;
+	line-height: 35px;
+	font-size: 14px;
+	float: left;
+	color: #fff;
+	text-align: center;
+}
+
+.mdfd-content_zonghuiyuan li span{
+	padding: 10px 20px;
+    background: #62bca3;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+
+.mdfd-content_huiyuans p {
+	color: #333;
+	padding: 10px 20px 0 20px;
+}
+
+.mdfd-content_huiyuans {
+	position: relative;
+	min-height: 200px;
+}

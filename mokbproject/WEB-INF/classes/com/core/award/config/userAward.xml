@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <root>
+      <award id="award" class="style">
+      <!--奖金配置  -->
+          <bonus id="bonus">
+          <name>
+                             奖金配置
+          </name>
+          <!-- 下级购买上级获取奖金 -->
+           <lowerBuy id="lowerBuy">
+           <name>
+                                下级购买获取奖金
+           </name>
+             <item>
+              <!-- 奖励名 -->
+              <name>
+                                            下级购买尊享包
+              </name>
+              <!-- 奖励人群 -->
+              <correlatedCrowd>
+                <item>
+                 <!-- 一级上级 -->
+                  <name>
+                  L1
+                  </name>
+                  <!-- 奖励算法 （1为设置具体金额，2为百分比）-->
+                  <bonusArithmetic>
+                  1
+                  </bonusArithmetic>
+                  <!-- 奖励值 -->
+                  <bonusValue>
+                  1744
+                  </bonusValue>
+                </item>
+                <item>
+                 <!-- 二级上级 -->
+                  <name>
+                  L2
+                  </name>
+                  <!-- 奖励算法 （1为设置具体金额，2为百分比）-->
+                  <bonusArithmetic>
+                  1
+                  </bonusArithmetic>
+                  <!-- 奖励值 -->
+                  <bonusValue>
+                  981
+                  </bonusValue>
+                </item>
+                 <item>
+                 <!-- 三级上级 -->
+                  <name>
+                  L3
+                  </name>
+                  <!-- 奖励算法 （1为设置具体金额，2为百分比）-->
+                  <bonusArithmetic>
+                  1
+                  </bonusArithmetic>
+                  <!-- 奖励值 -->
+                  <bonusValue>
+                  545
+                  </bonusValue>
+                </item>
+              </correlatedCrowd>
+             </item>
+             <item>
+              <!-- 奖励名 -->
+              <name>
+                                            下级购买尊贵包
+              </name>
+              <!-- 奖励人群 -->
+              <correlatedCrowd>
+                <item>
+                 <!-- 一级上级 -->
+                  <name>
+                  L1
+                  </name>
+                  <!-- 奖励算法 （1为设置具体金额，2为百分比）-->
+                  <bonusArithmetic>
+                  1
+                  </bonusArithmetic>
+                  <!-- 奖励值 -->
+                  <bonusValue>
+                  2944
+                  </bonusValue>
+                </item>
+                <item>
+                 <!-- 二级上级 -->
+                  <name>
+                  L2
+                  </name>
+                  <!-- 奖励算法 （1为设置具体金额，2为百分比）-->
+                  <bonusArithmetic>
+                  1
+                  </bonusArithmetic>
+                  <!-- 奖励值 -->
+                  <bonusValue>
+                  1656
+                  </bonusValue>
+                </item>
+                 <item>
+                 <!-- 三级上级 -->
+                  <name>
+                  L3
+                  </name>
+                  <!-- 奖励算法 （1为设置具体金额，2为百分比）-->
+                  <bonusArithmetic>
+                  1
+                  </bonusArithmetic>
+                  <!-- 奖励值 -->
+                  <bonusValue>
+                  920
+                  </bonusValue>
+                </item>
+              </correlatedCrowd>
+             </item>
+           </lowerBuy>
+          </bonus>
+          <!-- 积分配置 -->
+          <integral id="integral">
+          </integral>
+      </award>
+     <test>测试</test>
+     <test>其他用途</test>
+ </root>

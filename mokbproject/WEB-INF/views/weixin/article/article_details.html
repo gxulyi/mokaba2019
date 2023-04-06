@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>文章详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/icons-extra.css" />
+		<link rel="stylesheet" href="css/article_details.css" />
+		<script type="text/javascript" src="js/jquery-1.7.1.js" ></script>
+	</head>
+	<body style="background: #FFFFFF;">
+		<div class="mui-content" style="padding-bottom: 50px;">
+			<div class="article_div_img" style="position: relative;">
+				<img src="images/17.png"/>
+				<div class="article_div_imgss">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				</div>
+				<ul class="myrel-ul-ul">
+		        	<li>
+	        			<i  class="fx"></i>
+	        			<label>分享</label>
+		        	</li>
+		        	<li>
+	        			<i  class="pl"></i>
+	        			<label>评论</label>
+	        			<label>45</label>
+		        	</li>
+		        	<li>
+	        			<i  class="dz"></i>
+	        			<label>点赞</label>
+	        			<label>146</label>
+		        	</li>
+		        </ul>
+			</div>
+			<ul class="mui-table-view mui-grid-view">
+		        <li class="mui-table-view-cell mui-media mui-col-xs-12">
+	                <div class="mui-media-body">不骚扰用户的通知设计</div>
+	                <p class="mui-media-times">2018-10-10 12:30</p>
+		            <div class="desc">
+						<ul>
+					    	<li>
+					        	<div class="branddesc">
+					        		 拿出你的手机，看你每天能收到多少条通知？实际很多用户大概跟我一样，根本不关心这些通知讲的是什么。安装的应用越来越多，骚扰
+					        		 拿出你的手机，看你每天能收到多少条通知？实际很多用户大概跟我一样，根本不关心这些通知讲的是什么。安装的应用越来越多
+					        	</div>
+					        </li>
+					    </ul>
+					</div>
+		        </li>
+		    </ul>
+		    <div style="height: 5px;background: #eeeeee;"></div>
+		    <ul class="mui-table-view">
+		        <li class="mui-table-view-cell mui-media mui-table-view-li">
+	                <img class="mui-media-object mui-pull-left article_img" src="http://placehold.it/20x20">
+	                <p class="mui-ellipsis">用户名</p>
+	                <div class="mui-ellipsis-article">选择合理的通知方式，知晓用户喜欢那种通知，是提高用户体验的关键。</div>
+	                <p class="mui-article-times">2018-10-10 12:30</p>
+		        </li>
+		        <li class="mui-table-view-cell mui-media mui-table-view-li">
+	                <img class="mui-media-object mui-pull-left article_img" src="http://placehold.it/20x20">
+	                <p class="mui-ellipsis">用户名</p>
+	                <div class="mui-ellipsis-article">选择合理的通知方式，知晓用户喜欢那种通知，是提高用户体验的关键。</div>
+	                <p class="mui-article-times">2018-10-10 12:30</p>
+		        </li>
+		    </ul>
+		</div>
+		<div class="article_div_fabiao">
+			<input type="text" id="" value="快来谈谈你的看法吧！" onfocus="if (value =='快来谈谈你的看法吧！'){value =''}" onblur="if (value ==''){value='快来谈谈你的看法吧！'}" />
+			<p>发表</p>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			//文字超出省略号，点击显示全部、收起
+			(function($){
+			$.fn.moreText = function(options) {
+			var defaults = {
+				maxLength: 50,
+				mainCell: ".branddesc",
+				openBtn: '显示全部',
+				closeBtn: '收起'
+			}
+			return this.each(function() {
+				var _this = $(this);
+
+				var opts = $.extend({}, defaults, options);
+				var maxLength = opts.maxLength;
+				var TextBox = $(opts.mainCell, _this);
+				var openBtn = opts.openBtn;
+				var closeBtn = opts.closeBtn;
+
+				var countText = TextBox.html();
+				var newHtml = '';
+				if (countText.length > maxLength) {
+					newHtml = countText.substring(0, maxLength) + '...<p class="more">' + openBtn + '</p>';
+				} else {
+					newHtml = countText;
+				}
+				TextBox.html(newHtml);
+				TextBox.on("click", ".more", function() {
+					if ($(this).text() == openBtn) {
+						TextBox.html(countText + ' <p class="more">' + closeBtn + '</p>');
+					} else {
+						TextBox.html(newHtml);
+					}
+				})
+			})
+			}
+			})(jQuery);
+			$(function() {
+				$(".desc ul li").moreText({
+					maxLength: 90, //默认最大显示字数，超过...
+					mainCell: '.branddesc' //文字容器
+				});
+			})
+		</script>
+	</body>
+
+</html>

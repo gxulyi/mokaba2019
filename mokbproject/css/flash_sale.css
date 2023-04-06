@@ -1,0 +1,107 @@
+ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.flash-sale-time{
+	width: 100%;
+	height: 46px;
+}
+.flash-sale-time li{
+	width: 33.3%;
+	height: 100%;
+	float: left;
+	text-align: center;
+	border: 1px solid #04757D;
+	font-size: 12px;
+	padding: 6px 0;
+	color: #04757D;
+	line-height: 16px;
+}
+.flash-sale-time li:nth-child(2){
+	border-left: 0;
+	border-right: 0;
+}
+.flash-sale-time li span{
+	display: inline-block;
+}
+.jiezhi-time{
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #9c9c9c;
+	padding: 0 15px;
+	color: #d02368;
+	font-size: 12px;
+	background: #FFFFFF;
+}
+.mui-media-object{
+	max-width: 97px !important;
+	height: 75px !important;
+}
+.mui-media-body{
+	padding: 5px 0;
+	font-size: 14px;
+	color: #262626;
+}
+.progress {
+	width: 80%;
+	overflow: hidden;
+	height: 12px;
+	background-color: #3daea5;
+	-webkit-box-shadow: inset 0 0 2px #04757d;
+	-moz-box-shadow: inset 0 0 2px #04757d;
+	box-shadow: inset 0 0 2px #04757d;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+	
+.progress .bar {
+	width: 0%;
+	height: 100%;
+	color: #ffffff;
+	float: left;
+	font-size: 12px;
+	text-align: center;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color: #04757d;
+	-webkit-box-shadow: inset 0 0 2px #04757d;
+	-moz-box-shadow: inset 0 0 2px #04757d;
+	box-shadow: inset 0 0 2px #04757d;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: width 0.6s ease;
+	-moz-transition: width 0.6s ease;
+	-o-transition: width 0.6s ease;
+	transition: width 0.6s ease;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+.mashangqiang{
+	width: 50px;
+	height: 25px;
+	line-height: 25px;
+	background: #d02368;
+	float: right;
+	color: #FFFFFF;
+	font-size: 10px;
+	text-align: center;
+	border-radius: 5px;
+	margin-top: 15px;
+}
+.return-div{
+	width: 100%;
+	height: 40px;
+	background-image:-webkit-linear-gradient(left,#7ecbc2,#3a9299);
+	position: fixed;
+	bottom: 0;
+	line-height: 40px;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 18px;
+}

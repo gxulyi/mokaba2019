@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.usermapper.UserGradeMapper" >
+  <select id="findUserGrade" resultType="UserGrade" parameterType="int">
+     SELECT user_grade_id,grade_name,grade_describe,grade_nickname,grade_benefit,upgrade_order,grade_introduce 
+     FROM user_grade WHERE user_grade_id=#{user_grade_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllGrade" resultType="UserGrade">
+     SELECT user_grade_id,grade_name,grade_describe,grade_nickname,
+     grade_benefit,upgrade_order,grade_introduce FROM user_grade
+  </select>
+  <select id="selectGradeToUpgrade_order" resultType="UserGrade" parameterType="int">
+  SELECT user_grade_id,grade_name,grade_describe,grade_nickname,grade_benefit,upgrade_order 
+  FROM user_grade WHERE upgrade_order=#{upgrade_order,jdbcType=INTEGER}
+  </select>
+  <update id="updateUserGrade" parameterType="UserGrade">
+	UPDATE user_grade  set 
+	  grade_describe=#{user_grade_id,jdbcType=VARCHAR}
+	 ,grade_nickname=#{grade_nickname,jdbcType=VARCHAR}
+	 ,grade_introduce=#{grade_introduce,jdbcType=VARCHAR}
+     WHERE user_grade_id=#{user_grade_id,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.weixin.WeiXinTemplatMapper" >
+
+<select id="AllUsers" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+     select * from user_weixin ;
+</select>
+ <insert id="AddConten" parameterType="java.util.HashMap"  useGeneratedKeys="true" keyProperty="article_id">
+		insert into t_weixin_article(article_type,template_type,title,author,content_introduction,content,writing_time,modification_time,browse_volume,status,remarks,pictures_url,audio_url) 
+values(#{article_type,jdbcType=INTEGER},
+       #{template_type,jdbcType=INTEGER},
+       #{title,jdbcType=VARCHAR},
+       #{author,jdbcType=VARCHAR},
+       #{content_introduction,jdbcType=VARCHAR},
+       #{content,jdbcType=VARCHAR},
+       #{writing_time,jdbcType=BIGINT},
+       #{modification_time,jdbcType=BIGINT},
+       #{browse_volume,jdbcType=INTEGER},
+       #{status,jdbcType=INTEGER},
+       #{remarks,jdbcType=VARCHAR},
+       #{pictures_url,jdbcType=VARCHAR}
+       
+       
+       <if test="audio_url!=null">, #{audio_url,jdbcType=VARCHAR} </if>
+    
+   
+       
+         ) ;
+     
+	</insert>
+	<select id="SelectArticle" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+     select * from t_weixin_article where  article_id=#{article_id,jdbcType=INTEGER};
+</select>
+
+<select id="SelectArticleList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+     select * from t_weixin_article
+     
+      where  
+     
+     <trim  suffixOverrides="and">
+      <if test="true"> 1=1 and</if>
+       <if test="article_type!=null"> article_type=#{article_type,jdbcType=INTEGER} and</if>
+       <if test="template_type!=null"> template_type=#{template_type,jdbcType=INTEGER} and</if>
+        <if test="status!=null"> status=#{status,jdbcType=INTEGER}</if>
+      </trim> ;
+</select>
+
+
+<select id="AutoReturn" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+     select * from t_weixin_article
+     
+      where  
+     
+     <trim  suffixOverrides="and">
+      <if test="true"> 1=1 </if>
+       <if test="template_type!=null">and template_type=#{template_type,jdbcType=INTEGER} </if>
+      
+        <if test="status!=null"> and status=#{status,jdbcType=INTEGER}  </if>        
+        
+         <if test="article_type1!=null">and ( article_type=#{article_type1,jdbcType=INTEGER} </if>
+          <if test="article_type2!=null">or article_type=#{article_type2,jdbcType=INTEGER} </if>
+           <if test="article_type3!=null">or article_type=#{article_type3,jdbcType=INTEGER} </if>
+            <if test="article_type4!=null">or article_type=#{article_type4,jdbcType=INTEGER} </if>
+             <if test="article_type5!=null">or article_type=#{article_type5,jdbcType=INTEGER} )</if>
+      </trim> ;
+</select>
+
+   <update id="DeleteConten" parameterType="java.util.HashMap">
+		update t_weixin_article set status=#{status,jdbcType=INTEGER} where article_id=#{article_id,jdbcType=INTEGER};
+	</update>
+	
+	<select id="TopSelectArticleList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+     select  * from t_weixin_article where 
+       <trim  suffixOverrides="and">
+      <if test="true"> status=0 and</if>
+       <if test="article_type!=null"> article_type=#{article_type,jdbcType=INTEGER} </if>
+       order by article_id   desc
+      limit 7 
+      </trim> ;
+   </select>
+	
+	
+	<update id="updateConten" parameterType="java.util.HashMap">
+		update t_weixin_article set 
+		
+		
+		
+	 article_type= #{article_type,jdbcType=INTEGER},
+      
+       title=#{title,jdbcType=VARCHAR},
+       author=#{author,jdbcType=VARCHAR},
+       content_introduction=#{content_introduction,jdbcType=VARCHAR},
+      content= #{content,jdbcType=VARCHAR},
+      
+      modification_time=#{modification_time,jdbcType=BIGINT},
+      
+       
+      remarks=#{remarks,jdbcType=VARCHAR},
+       
+       pictures_url=#{pictures_url,jdbcType=VARCHAR}
+		
+		<if test="audio_url!=null">, audio_url=#{audio_url,jdbcType=VARCHAR} </if>
+		
+		
+		
+		 where article_id=#{article_id,jdbcType=INTEGER};
+	</update>
+	
+	
+	
+	
+	<select id="picture_add_json" parameterType="java.util.HashMap" resultType="java.util.HashMap" >
+	
+  
+CALL function_product_info(0
+,#{store_price,jdbcType=DOUBLE}
+,#{store_picture,jdbcType=VARCHAR}
+,#{store_intro,jdbcType=VARCHAR}
+,#{user_basics_id,jdbcType=INTEGER}
+,#{add_date,jdbcType=BIGINT}
+,#{store_name,jdbcType=VARCHAR}
+,#{store_type,jdbcType=INTEGER}
+,#{old_price,jdbcType=DOUBLE}
+,#{initial_sales_volume,jdbcType=INTEGER}
+,#{place,jdbcType=VARCHAR}
+,#{remarks,jdbcType=VARCHAR}
+,#{courier,jdbcType=DOUBLE}
+,#{content,jdbcType=VARCHAR});
+ 
+   
+     
+	</select>
+	<select id="function_updata" parameterType="java.util.HashMap" resultType="java.util.HashMap" >
+	
+  
+CALL function_updata(0
+,#{store_id,jdbcType=INTEGER}
+,#{store_price,jdbcType=DOUBLE}
+,#{store_picture,jdbcType=VARCHAR}
+,#{store_intro,jdbcType=VARCHAR}
+,#{user_basics_id,jdbcType=INTEGER}
+,#{add_date,jdbcType=BIGINT}
+,#{store_name,jdbcType=VARCHAR}
+,#{store_type,jdbcType=INTEGER}
+,#{old_price,jdbcType=DOUBLE}
+,#{initial_sales_volume,jdbcType=INTEGER}
+,#{place,jdbcType=VARCHAR}
+,#{remarks,jdbcType=VARCHAR}
+,#{courier,jdbcType=DOUBLE}
+,#{content,jdbcType=VARCHAR});
+ 
+   
+     
+	</select>
+	
+	<select id="Products_List" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+   SELECT * FROM store_basics,t_product_info WHERE store_basics.store_id=t_product_info.store_id AND store_basics.store_type=#{store_type,jdbcType=INTEGER};
+</select>
+
+	
+	<select id="pageSize_List_json" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	
+
+   SELECT * FROM store_basics,t_product_info WHERE store_basics.store_id=t_product_info.store_id AND store_basics.store_type=#{store_type,jdbcType=INTEGER} limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER};
+</select>
+	
+	
+	<update id="DeleteStoreid" parameterType="java.util.HashMap">
+		update store_basics set 
+		
+		
+		
+	 store_type= #{store_type,jdbcType=INTEGER}
+      
+     
+		
+		 where store_id=#{store_id,jdbcType=INTEGER};
+	</update>
+	
+	
+	
+	<select id="Products_one" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+   SELECT * FROM store_basics,t_product_info WHERE store_basics.store_id=t_product_info.store_id AND store_basics.store_type=#{store_type,jdbcType=INTEGER} and store_basics.store_id=#{store_id,jdbcType=INTEGER};
+</select>
+	
+</mapper>

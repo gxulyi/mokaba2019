@@ -1,0 +1,52 @@
+.mybew_divcol{
+	width: 8px;
+	height: 8px;
+	background: #ff428e;
+	border-radius: 100%;
+	margin: 15px;
+	margin-top: 20px;
+	float: left;
+}
+.mybew_divcols{
+	width: 8px;
+	height: 8px;
+	background: #a99de5;
+	border-radius: 100%;
+	margin: 15px;
+	margin-top: 20px;
+	float: left;
+}
+.mybew_divcolss{
+	width: 8px;
+	height: 8px;
+	background: #07c9ce;
+	border-radius: 100%;
+	margin: 15px;
+	margin-top: 20px;
+	float: left;
+}
+.mui-card{
+	background: #FFFFFF;
+	box-shadow:#ffb6d3 0 0 10px;
+	border: none;
+	margin-top: 15px;
+}
+.mui-card-title {
+    font-size: 13px;
+    color: #3f3f3f;
+    line-height: ;
+}
+.mui-card-nr{
+	font-size: 11px;
+	color: #828282;
+	margin-top: 2px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap
+}
+.detail-base{
+	position: relative;
+    clear: both;
+	color: #828282;;
+	font-size:11px;
+}

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.storemapper.BasicStoreMapper" >
+
+<select id="findStoreBasics" resultType="StoreBasics" parameterType="StoreBasics">
+select * from store_basics where status_state=0 and store_id=#{store_id,jdbcType=INTEGER};
+	</select>
+	<select id="findCountStore" resultType="int" parameterType="java.util.HashMap">
+		select count(*) from store_basics where status_state=0 
+		<if test="store_type!=null">
+		 and store_type=#{store_type,jdbcType=INTEGER};
+		 </if>
+	</select>
+    <select id="findAllStoreBasics" resultType="StoreBasics" parameterType="java.util.HashMap">
+		select * from store_basics where 1=1 
+		<if test="store_type!=null">
+		and store_type=#{store_type,jdbcType=INTEGER} 
+		</if>
+		<!-- <if test="status_state==null">
+		 and status_state=0 
+		 </if> -->
+		 <if test="status_state!=null">
+		 and status_state=#{status_state,jdbcType=INTEGER} 
+		 </if>
+		 ;
+	</select>
+	<select id="findStoreBasicsByPage" resultType="StoreBasics" parameterType="java.util.HashMap">
+		select * from store_basics 
+		where 1=1
+		<if test="store_type!=null">
+		and store_type=#{store_type,jdbcType=INTEGER} 
+		</if>
+		<if test="status_state!=null">
+		 and status_state=#{status_state,jdbcType=INTEGER} 
+		 </if>
+		order by  add_date desc 
+		<!-- limit #{begin_page,jdbcType=INTEGER},10; -->
+	</select>
+
+    <insert id="addStore" parameterType="StoreBasics" useGeneratedKeys="true" keyProperty="store_id">
+		insert into store_basics 
+		(store_type,store_price,store_picture,store_intro,user_basics_id,add_date,store_name,status_state,
+		prime_price,net_weight,sales_num,stock_num,full_money,give_money,required_integral,start_date,end_date,is_post) 
+		value (#{store_type,jdbcType=INTEGER}
+		,#{store_price,jdbcType=DOUBLE}
+		,#{store_picture,jdbcType=VARCHAR}
+		,#{store_intro,jdbcType=VARCHAR}
+		,#{user_basics_id,jdbcType=INTEGER}
+		,#{add_date,jdbcType=BIGINT}
+		,#{store_name,jdbcType=VARCHAR}
+		,1
+		,#{prime_price,jdbcType=DOUBLE}
+		,#{net_weight,jdbcType=DOUBLE}
+		,#{sales_num,jdbcType=INTEGER}
+		,#{stock_num,jdbcType=INTEGER}
+		,#{full_money,jdbcType=DOUBLE}
+		,#{give_money,jdbcType=DOUBLE}
+		,#{required_integral,jdbcType=INTEGER}
+		,#{start_date,jdbcType=BIGINT}
+		,#{end_date,jdbcType=BIGINT}
+		,#{is_post,jdbcType=INTEGER}
+		);
+	</insert>
+	<update id="deleteStore" parameterType="java.util.HashMap">
+		update store_basics set status_state=3 where store_id=#{store_id,jdbcType=INTEGER};
+	</update>
+	<select id="findPersonalStoreBasics" resultType="StoreBasics" parameterType="String">
+		select * from store_basics where status_state=0 and store_type=1;
+	</select>
+	<update id="updateStore" parameterType="java.util.HashMap">
+		update store_basics set 
+		 store_name=#{store_name,jdbcType=VARCHAR} 
+		,store_price=#{store_price,jdbcType=DOUBLE}
+		,prime_price=#{prime_price,jdbcType=VARCHAR}
+		,net_weight=#{net_weight,jdbcType=DOUBLE}
+		,full_money=#{full_money,jdbcType=DOUBLE}
+		,give_money=#{give_money,jdbcType=DOUBLE}
+		,required_integral=#{required_integral,jdbcType=INTEGER}
+		,start_date =#{start_date,jdbcType=BIGINT}
+		,end_date =#{end_date,jdbcType=BIGINT}
+		,store_intro =#{store_intro,jdbcType=VARCHAR}
+		,store_picture =#{store_picture,jdbcType=BIGINT}
+		where store_id=#{store_id,jdbcType=INTEGER};
+	</update>
+	<update id="updateStoreByStatus" parameterType="StoreBasics">
+		update store_basics set status_state=#{status_state,jdbcType=INTEGER}
+		where store_id=#{store_id,jdbcType=INTEGER};
+	</update>
+	<!-- 根据审核状态状态为0查询商品信息 -->
+    <select id="findStoreByState" resultType="StoreBasics" parameterType="StoreBasics">
+      select * from store_basics where 1=1
+        <if test="status_state!=null">
+          and status_state=#{status_state,jdbcType=INTEGER}
+        </if>
+        <if test="store_type!=null">
+          and store_type=#{store_type,jdbcType=INTEGER}
+        </if>
+    </select>	
+    
+    <select id="findStoress" resultType="StoreBasics" parameterType="java.util.List">
+      select * from store_basics where 1=1
+        and store_id in 
+       (
+     <foreach collection="listint" separator="," item="store_id" index="idx">
+        #{store_id,jdbcType=INTEGER}
+    </foreach>
+      )
+      and stock_num&gt;0
+      and status_state=0
+    </select>	
+</mapper>

@@ -1,0 +1,106 @@
+.mui-media-object{
+	height: 156px !important;
+	border-radius: 5px;
+}
+.mui-content>.mui-table-view:first-child{
+	margin: 0;
+}
+.mui-media-body{
+	text-align: left;
+	height: 25px !important;
+	line-height: 25px !important;
+	font-size: 16px !important;
+	color: #333333 !important;
+}
+.mui-media-times{
+	font-size: 11px;
+	color: #999999;
+	text-align: left;
+}
+.mui-table-view:after{
+	background: #dee7f1;
+	margin-left: 14px;
+}
+.mui-table-view:before{
+	height: 0;
+}
+.article_div{
+	border-bottom: 5px solid #f4f4f4;
+}
+.article_div_fwl{
+	width: 100%;
+	height: 40px;
+	padding: 0 14px;
+}
+ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.article_div_fwl li{
+	display: flex; 
+	justify-content: center;
+	align-items:center;
+	float: left;
+	font-size: 11px;
+	color: #999999;
+}
+.article_div_fwl li:nth-child(1){
+	width: 40%;
+	height: 100%;
+	display:flex;
+	align-items:center;/*垂直居中*/
+	justify-content:flex-start;/*水平居左*/
+}
+.article_div_fwl li:nth-child(2){
+	width: 30%;
+	height: 100%;
+}
+.article_div_fwl li:nth-child(3){
+	width: 30%;
+	height: 100%;
+}
+.fx{
+	display: block;
+	width: 19px;
+	height: 19px;
+	border-radius: 100%;
+	background: url(../images/Commodity_details/kfs.png) no-repeat;
+	background-size:100% 100%;
+}
+.fx1{
+	display: block;
+	width: 19px;
+	height: 19px;
+	border-radius: 100%;
+	background: url(../images/Commodity_details/kf.png) no-repeat;
+	background-size:100% 100%;
+	margin-left: -3px;
+}
+.fx2{
+	display: block;
+	width: 19px;
+	height: 19px;
+	border-radius: 100%;
+	background: url(../images/integral/shangpin.png) no-repeat;
+	background-size:100% 100%;
+	margin-right: 5px;
+	margin-left: -3px;
+}
+.pl{
+	display: block;
+	width: 15px;
+	height: 15px;
+	background: url(../images/myrelease/pinlin.png) no-repeat;
+	background-size:100% 100%;
+	margin-right: 5px;
+}
+.dz{
+	display: block;
+	width: 15px;
+	height: 15px;
+	background: url(../images/myrelease/dianzan.png) no-repeat;
+	background-size:100% 100%;
+	margin-right: 5px;
+}
+

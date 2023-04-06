@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.usermapper.UserRecommendMapper" >
+<insert id="addUserRecommend" parameterType="UserRecommend" useGeneratedKeys="true" keyProperty="recommend_id">
+       insert into user_recommend 
+		(recommend_superior,recommend_type,user_basics_id) 
+		value (#{recommend_superior,jdbcType=INTEGER}
+		,#{recommend_type,jdbcType=INTEGER}
+		,#{user_basics_id,jdbcType=INTEGER}
+		);
+</insert>
+<update id="updateUserRecommend"  parameterType="UserRecommend">
+		UPDATE user_recommend  
+		set recommend_superior=#{recommend_superior,jdbcType=INTEGER}
+		WHERE 1=1
+		and user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+</update>
+<select id="findUserSuperiorUserid"  resultType="UserRecommend">
+    <if test="round==1">
+      SELECT recommend_superior FROM user_recommend  WHERE user_basics_id =#{userid,jdbcType=INTEGER}
+    </if>
+    <if test="round==2">
+     SELECT recommend_superior FROM user_recommend WHERE user_basics_id = (SELECT recommend_superior FROM user_recommend  WHERE user_basics_id =#{userid,jdbcType=INTEGER} );
+    </if>
+    <if test="round==3">
+      SELECT recommend_superior FROM user_recommend WHERE user_basics_id = (SELECT recommend_superior FROM user_recommend WHERE user_basics_id = (SELECT recommend_superior FROM user_recommend  WHERE user_basics_id =#{userid,jdbcType=INTEGER} ));
+    </if>
+     <if test="round==4">
+      SELECT recommend_superior FROM user_recommend WHERE user_basics_id = (SELECT recommend_superior FROM user_recommend WHERE user_basics_id = (SELECT recommend_superior FROM user_recommend  WHERE user_basics_id =(SELECT recommend_superior FROM user_recommend  WHERE user_basics_id =#{userid,jdbcType=INTEGER}) ));
+    </if>
+     <if test="round==5">
+      SELECT recommend_superior FROM user_recommend WHERE user_basics_id = (SELECT recommend_superior FROM user_recommend WHERE user_basics_id = (SELECT recommend_superior FROM user_recommend  WHERE user_basics_id =(SELECT recommend_superior FROM user_recommend  WHERE user_basics_id =(SELECT recommend_superior FROM user_recommend  WHERE user_basics_id =#{userid,jdbcType=INTEGER})) ));
+    </if>
+</select>
+<select id="findUserSubordinateUserWeixinUserid" resultType="UserWeixin" parameterType="int">
+   SELECT uw.user_basics_id,uw.weixin_nickname FROM user_recommend ur LEFT JOIN user_weixin uw ON
+   (ur.user_basics_id=uw.user_basics_id) WHERE ur.recommend_superior=#{user_basics_id,jdbcType=INTEGER}
+</select>
+<select id="selectOlderUser" resultType="com.medicinefood.entity.user.UserInformationEntity" parameterType="int">
+   select * from user_information where user_basics_id =
+   (select recommend_superior from user_recommend where user_basics_id=#{user_basics_id,jdbcType=INTEGER});
+</select>
+<select id="selectOlderUserWx" resultType="com.medicinefood.entity.user.UserWeixin" parameterType="int">
+   select * from user_weixin where user_basics_id =
+   (select recommend_superior from user_recommend where user_basics_id=#{user_basics_id,jdbcType=INTEGER});
+</select>
+<select id="findUserSubordinateSuperiorName" resultType="java.util.Map" parameterType="int">
+     SELECT uw.user_basics_id,uw.weixin_nickname,ur.recommend_superior,uw1.weixin_nickname as superior_name  FROM user_recommend ur 
+ LEFT JOIN user_weixin uw ON(ur.user_basics_id=uw.user_basics_id)LEFT JOIN user_weixin uw1 ON(ur.recommend_superior=uw1.user_basics_id)
+ Inner Join capital_account ca ON(ca.to_user_basics_id=uw.user_basics_id)    
+WHERE ur.recommend_superior=#{user_basics_id,jdbcType=INTEGER}
+</select>
+<select id="findUserSubordinateNotBuySuperiorName" resultType="java.util.Map" parameterType="int">
+     SELECT uw.user_basics_id,uw.weixin_nickname,ur.recommend_superior,uw1.weixin_nickname as superior_name  FROM user_recommend ur 
+ LEFT JOIN user_weixin uw ON(ur.user_basics_id=uw.user_basics_id)LEFT JOIN user_weixin uw1 ON(ur.recommend_superior=uw1.user_basics_id)
+WHERE ur.recommend_superior=#{user_basics_id,jdbcType=INTEGER} AND uw.user_basics_id NOT IN(SELECT tui.to_user_basics_id  FROM capital_account tui)
+</select>
+<select id="findUserSubordinateBuySuperiorName" resultType="java.util.Map" parameterType="int">
+ SELECT  ur.user_basics_id,ob.order_id,uw.weixin_nickname,uw1.weixin_nickname,ur.recommend_superior 
+FROM user_recommend ur 
+RIGHT  JOIN order_basics ob ON(ur.user_basics_id=ob.user_basics_id) 
+LEFT JOIN user_weixin uw ON(ur.user_basics_id=uw.user_basics_id) 
+LEFT JOIN user_weixin uw1 ON(ur.recommend_superior=uw1.user_basics_id) 
+WHERE ur.recommend_superior=#{user_basics_id,jdbcType=INTEGER} AND ob.order_status=11 group   by   uw.user_basics_id     having   count(*)>1
+</select>
+<select id="findUserSubordinateBuyUserWeixinUserid" resultType="UserWeixin" parameterType="int">
+    SELECT uw.user_basics_id,uw.weixin_nickname FROM user_recommend ur Inner Join user_weixin uw  ON
+   (ur.user_basics_id=uw.user_basics_id  ) Inner Join capital_account ca ON(ca.to_user_basics_id=uw.user_basics_id) 
+   WHERE ur.recommend_superior=#{user_basics_id,jdbcType=INTEGER} group   by   uw.user_basics_id     having   count(*)>1
+</select>
+<select id="findUserSubordinateBuyUserWeixinUseridNum" resultType="UserWeixin" parameterType="int">
+    SELECT COUNT(*) FROM user_recommend ur Inner Join user_weixin uw  ON
+   (ur.user_basics_id=uw.user_basics_id  ) Inner Join capital_account ca ON(ca.to_user_basics_id=uw.user_basics_id) 
+   WHERE ur.recommend_superior=#{user_basics_id,jdbcType=INTEGER}
+</select>
+<select id="findUserSubordinateUserWeixinUseridNum" resultType="UserWeixin" parameterType="int">
+   SELECT COUNT(*) FROM user_recommend ur LEFT JOIN user_weixin uw ON
+   (ur.user_basics_id=uw.user_basics_id) WHERE ur.recommend_superior=#{user_basics_id,jdbcType=INTEGER}
+</select>
+<select id="findUserSubordinateNotBuyUserWeixinUserid" resultType="UserWeixin" parameterType="int">
+     SELECT uw.user_basics_id,uw.weixin_nickname FROM user_recommend ur Inner Join user_weixin uw  ON
+   (ur.user_basics_id=uw.user_basics_id  ) 
+   WHERE ur.recommend_superior=#{user_basics_id,jdbcType=INTEGER} AND uw.user_basics_id NOT IN(SELECT tui.to_user_basics_id  FROM capital_account tui)
+</select>
+<select id="selectUserRecommendIncludeOrderBasics3" resultType="UserTeamEntity" >
+SELECT ub1.user_nickname as superior_user_nickname,ub.user_nickname,ub.user_grade_id as user_grade_id,
+uw.weixin_portrait, uw.user_basics_id,uw.weixin_nickname,ur.recommend_superior,
+uw1.weixin_nickname as superior_weixin_nickname 
+FROM user_recommend ur 
+ LEFT JOIN user_weixin uw ON(ur.user_basics_id=uw.user_basics_id)
+ LEFT JOIN user_weixin uw1 ON(ur.recommend_superior=uw1.user_basics_id)
+ LEFT JOIN user_basics ub ON(ur.user_basics_id=ub.user_basics_id) 
+ LEFT JOIN user_basics ub1 ON(ur.recommend_superior=ub1.user_basics_id) 
+WHERE ur.recommend_superior in
+(
+     <foreach collection="recommend_superiors" separator="," item="recommend_superior" index="idx">
+        #{recommend_superior,jdbcType=INTEGER}
+    </foreach>
+      )
+group by user_basics_id
+</select>
+<select id="selectUserRecommendWinxinBasicsToRecommend_superior" resultType="UserRecommendWinxinBasics" >
+SELECT ub1.user_nickname as superior_user_nickname,ub.user_nickname, uw.user_basics_id,uw.weixin_nickname,ur.recommend_superior,uw1.weixin_nickname as superior_weixin_nickname 
+FROM user_recommend ur 
+ LEFT JOIN user_weixin uw ON(ur.user_basics_id=uw.user_basics_id)LEFT JOIN user_weixin uw1 ON(ur.recommend_superior=uw1.user_basics_id)
+ LEFT JOIN user_basics ub ON(ur.user_basics_id=ub.user_basics_id) LEFT JOIN user_basics ub1 ON(ur.recommend_superior=ub1.user_basics_id) 
+WHERE ur.recommend_superior in
+(
+     <foreach collection="recommend_superiors" separator="," item="recommend_superior" index="idx">
+        #{recommend_superior,jdbcType=INTEGER}
+    </foreach>
+      )
+</select>
+
+<select id="findSubordinate" resultType="Integer" >
+SELECT user_basics_id 
+FROM user_recommend  
+WHERE 1=1 
+and recommend_superior in
+(
+     <foreach collection="barr" separator="," item="recommend_superior" index="idx">
+        #{recommend_superior,jdbcType=INTEGER}
+    </foreach>
+      )
+</select>
+
+<select id="selectUserRecommendIncludeOrderBasics" resultType="UserTeamEntity" >
+SELECT ob.order_id,max(ob.order_status) as order_status,ob.order_add_date,ob.store_picture,ob.all_price,ob.store_picture,ub1.user_nickname as superior_user_nickname,ub.user_nickname,uw.weixin_portrait, uw.user_basics_id,uw.weixin_nickname,ur.recommend_superior,uw1.weixin_nickname as superior_weixin_nickname 
+FROM user_recommend ur 
+ LEFT JOIN user_weixin uw ON(ur.user_basics_id=uw.user_basics_id)LEFT JOIN user_weixin uw1 ON(ur.recommend_superior=uw1.user_basics_id)
+ LEFT JOIN user_basics ub ON(ur.user_basics_id=ub.user_basics_id) LEFT JOIN user_basics ub1 ON(ur.recommend_superior=ub1.user_basics_id) 
+ LEFT JOIN order_basics ob ON(ur.user_basics_id=ob.user_basics_id)
+WHERE ur.recommend_superior in
+(
+     <foreach collection="recommend_superiors" separator="," item="recommend_superior" index="idx">
+        #{recommend_superior,jdbcType=INTEGER}
+    </foreach>
+      )
+group by user_basics_id
+</select>
+<select id="selectUserCountToSuperiorIdGradeId" resultType="int">
+SELECT COUNT(*) FROM user_recommend ur
+ right JOIN user_basics ub ON(ur.user_basics_id=ub.user_basics_id) 
+ WHERE ur.recommend_superior=#{recommend_superior,jdbcType=INTEGER} AND 
+ ub.user_grade_id=#{user_grade_id,jdbcType=INTEGER}
+
+</select>
+</mapper>

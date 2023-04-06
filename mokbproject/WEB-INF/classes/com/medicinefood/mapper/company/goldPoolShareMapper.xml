@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.company.GoldPoolShareMapper" >
+ <insert id="addGoldPoolShare" keyProperty="gold_pool_share_id" useGeneratedKeys="true" parameterType="GoldPoolShare">
+	INSERT INTO gold_pool_share (
+    user_basics_id,
+    share_money,
+    month_date,
+    add_date,
+    gold_pool
+    ) 
+    VALUE
+    (#{user_basics_id,jdbcType=INTEGER},
+     #{share_money,jdbcType=DOUBLE},
+     #{month_date,jdbcType=VARCHAR},
+     #{add_date,jdbcType=BIGINT},
+     #{gold_pool,jdbcType=INTEGER}
+   )
+ </insert>
+ <select id="findUserShare" resultType="GoldPoolShare" parameterType="GoldPoolShare">
+   SELECT *
+   FROM gold_pool_share where 1=1 
+   <if test="gold_pool_share_id!=null">
+   and gold_pool_share_id=#{gold_pool_share_id,jdbcType=INTEGER}
+   </if>
+   <if test="user_basics_id!=null">
+   and user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+   </if>
+   <if test="month_date!=null">
+   and month_date=#{month_date,jdbcType=VARCHAR}
+   </if>
+   <if test="gold_pool!=null">
+   and gold_pool=#{gold_pool,jdbcType=INTEGER}
+   </if>
+</select>
+</mapper>

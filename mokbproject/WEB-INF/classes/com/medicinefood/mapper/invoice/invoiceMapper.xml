@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.invoice.InvoiceMapper">
+  <insert id="insertInvoice" parameterType="InvoiceEntity" useGeneratedKeys="true" keyProperty="invoice_id" >
+   INSERT INTO invoice (
+   invoice_type,invoice_num,invoice_name,invoice_address,invoice_mobile,
+   invoice_openbank,invoice_banknum,user_basics_id,invoice_status)
+   VALUE(
+   #{invoice_type,jdbcType=INTEGER},
+   #{invoice_num,jdbcType=INTEGER},
+   #{invoice_name,jdbcType=VARCHAR},
+   #{invoice_address,jdbcType=VARCHAR},
+   #{invoice_mobile,jdbcType=INTEGER},
+   #{invoice_openbank,jdbcType=VARCHAR},
+   #{invoice_banknum,jdbcType=INTEGER},
+   #{user_basics_id,jdbcType=INTEGER},
+   #{invoice_status,jdbcType=INTEGER}
+   )
+  </insert>
+  <select id="selectInvoiceTostatus" parameterType="int" resultType="InvoiceEntity">
+   SELECT  invoice_type,invoice_num,invoice_name,invoice_address,invoice_mobile,
+   invoice_openbank,invoice_banknum,user_basics_id,invoice_status,invoice_id
+   FROM invoice WHERE invoice_status=#{invoice_status,jdbcType=INTEGER}
+  </select>
+  <select id="selectInvoiceToUid" resultType="InvoiceEntity">
+  SELECT  invoice_type,invoice_num,invoice_name,invoice_address,invoice_mobile,
+   invoice_openbank,invoice_banknum,user_basics_id,invoice_status,invoice_id
+  FROM invoice
+  WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+  AND
+  invoice_status=#{invoice_status,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteInvoiceToInvoice_id" parameterType="int">
+  delete from invoice WHERE invoice_id=#{invoice_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertInvoiceGain" parameterType="InvoiceGainEntity" useGeneratedKeys="true" keyProperty="invoice_gain_id">
+  INSERT INTO invoice_gain (gain_status,add_date,edit_date,edit_user_id,invoice_id) 
+  VALUE
+  (
+  #{gain_status,jdbcType=INTEGER},
+  #{add_date,jdbcType=INTEGER},
+  #{edit_date,jdbcType=INTEGER},
+  #{edit_user_id,jdbcType=INTEGER},
+  #{invoice_id,jdbcType=INTEGER}
+  )
+  </insert>
+</mapper>

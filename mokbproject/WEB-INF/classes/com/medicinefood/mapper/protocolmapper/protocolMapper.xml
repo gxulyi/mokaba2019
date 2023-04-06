@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.protocolmapper.ProtocolMapper">
+ <!-- 新增协议 -->
+ <insert id="addProtocol" parameterType="ProtocolEntity" useGeneratedKeys="true" keyProperty="protocol_id" >
+  insert into protocol
+		(protocol_type,protocol_title,protocol_content,status_state) 
+		value(
+		 #{protocol_type,jdbcType=INTEGER}
+		,#{protocol_title,jdbcType=VARCHAR}
+		,#{protocol_content,jdbcType=VARCHAR}
+		,#{status_state,jdbcType=INTEGER}
+		);
+ </insert>
+ <!-- 查询所有协议-->
+ <select id="findAllProtocol" resultType="ProtocolEntity" parameterType="ProtocolEntity">
+         select * from protocol where 1=1
+ </select>
+ <!-- 查询单个协议-->
+ <select id="findProtocolById" resultType="ProtocolEntity" parameterType="ProtocolEntity">
+         select * from protocol where 1=1
+          and protocol_id =#{protocol_id,jdbcType=INTEGER}
+ </select>
+ <!-- 修改单个协议-->
+ <update id="updateProtocol" parameterType="ProtocolEntity">
+	  update protocol set
+	  	 protocol_type=#{protocol_type,jdbcType=INTEGER}
+		,protocol_title=#{protocol_title,jdbcType=VARCHAR}
+		,protocol_content=#{protocol_content,jdbcType=VARCHAR}
+		,status_state=#{status_state,jdbcType=INTEGER}
+	  where protocol_id=#{protocol_id,jdbcType=INTEGER} 
+	</update>  
+ 
+ <!-- 删除协议-->
+ <delete id="deleteProtocol" parameterType="ProtocolEntity" >
+		delete from protocol where protocol_id=#{protocol_id,jdbcType=INTEGER} ;
+	</delete>
+ 
+	
+</mapper>

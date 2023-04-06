@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.usermapper.UserMapper">
+	<select id="selectUserBasicsAndWxAndInformationtoUserId"
+		resultType="UserBasicsAndWxAndInformationEntity">
+		SELECT
+		ub.user_basics_id,ub.user_password,ub.user_register_data,ub.user_register_address,ub.user_grade_id,
+		uw.weixin_id,uw.weixin_portrait,uw.weixin_nickname,uw.weixin_gender,uw.weixin_follow_choice,uw.weixin_follow_data_yes,uw.weixin_follow_data_no,uw.share_img,uw.share_img_dated,
+		ui.user_information_id,ui.information_phone,ui.information_qq,ui.information_Email,ui.information_compellation,ui.information_card,ui.company_id,ui.card_end,ui.information_sex,
+		ui.nick_name,ui.live_address,ui.registered_address,ui.information_weixin,ui.card_picture,ui.information_age,ui.co_founder,ui.co_user_basics_id
+		FROM user_basics ub
+		LEFT JOIN user_weixin uw
+		ON(ub.user_basics_id=uw.user_basics_id)
+		LEFT JOIN user_information ui
+		ON(ub.user_basics_id=ui.user_basics_id)
+		WHERE
+		ub.user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+	</select>
+	<select id="selectUserToadministrativeId" parameterType="int"
+		resultType="UserBasicsAndWxAndInformationEntity">
+		SELECT
+		ub.user_basics_id,ub.user_password,ub.user_register_data,ub.user_register_address,ub.user_grade_id,
+		uw.weixin_id,uw.weixin_portrait,uw.weixin_nickname,uw.weixin_gender,uw.weixin_follow_choice,uw.weixin_follow_data_yes,uw.weixin_follow_data_no,uw.share_img,uw.share_img_dated,
+		ui.user_information_id,ui.information_phone,ui.information_qq,ui.information_Email,ui.information_compellation,ui.information_card,ui.company_id,ui.card_end,ui.information_sex,
+		ui.nick_name,ui.live_address,ui.registered_address,ui.information_weixin,ui.card_picture,ui.information_age,ui.co_founder,ui.co_user_basics_id
+		FROM user_basics ub
+		LEFT JOIN user_weixin uw
+		ON(ub.user_basics_id=uw.user_basics_id)
+		LEFT JOIN user_information ui
+		ON(ub.user_basics_id=ui.user_basics_id)
+		WHERE ub.user_basics_id IN(
+		SELECT user_basics_id FROM privilege_administrative_user
+		WHERE
+		administrative_id =#{administrative_id,jdbcType=INTEGER}
+		)
+	</select>
+	<select id="selectUserImportantEntityToUid" parameterType="int"
+		resultType="UserImportantEntity">
+		SELECT
+		ub.user_basics_id,ub.user_grade_id,ub.user_account_num,
+		uw.weixin_id,
+		ui.information_phone,ui.information_card,ui.information_compellation,
+		ur.recommend_id
+		FROM user_basics ub
+		LEFT JOIN user_weixin uw
+		ON(ub.user_basics_id=uw.user_basics_id)
+		LEFT JOIN user_information ui
+		ON(ub.user_basics_id=ui.user_basics_id)
+		LEFT JOIN user_recommend ur
+		ON(ub.user_basics_id=ur.user_basics_id)
+		WHERE ub.user_basics_id =#{user_basics_id,jdbcType=INTEGER}
+    </select>
+
+</mapper>

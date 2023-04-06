@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.apply.BonusExtractApplyMapper">
+	<insert id="addBonusExtractApply" parameterType="BonusExtractApplyEntity"
+		useGeneratedKeys="true" keyProperty="bonus_extract_apply_id">
+		INSERT INTO bonus_extract_apply
+		(user_basics_id
+		,apply_add_date
+		,apply_edit_date
+		,edit_user_basics_id
+		,apply_sum
+		,apply_status
+		,apply_postscript
+		,receive_bank_card
+		,receive_name)VALUES
+		(#{user_basics_id,jdbcType=INTEGER}
+		,#{apply_add_date,jdbcType=BIGINT}
+		,#{apply_edit_date,jdbcType=BIGINT}
+		,#{edit_user_basics_id,jdbcType=INTEGER}
+		,#{apply_sum,jdbcType=INTEGER}
+		,#{apply_status,jdbcType=INTEGER}
+		,#{apply_postscript,jdbcType=VARCHAR}
+		,#{receive_bank_card,jdbcType=BIGINT}
+		,#{receive_name,jdbcType=INTEGER}
+		)
+	</insert>
+	<select id="findBonusExtractApply" resultType="BonusExtractApplyEntity"
+		parameterType="BonusExtractApplyEntity">
+		SELECT
+		bonus_extract_apply_id,user_basics_id,apply_add_date,apply_edit_date,
+		edit_user_basics_id,apply_sum,apply_status,apply_postscript,receive_bank_card,
+		receive_name
+		FROM bonus_extract_apply
+		<where>
+			<trim prefix="" prefixOverrides="AND|OR">
+				<if
+					test="bonus_extract_apply_id!=null ">
+					bonus_extract_apply_id=#{bonus_extract_apply_id,jdbcType=INTEGER}
+				</if>
+				<if test="user_basics_id!=null ">
+					AND user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=1
+					OR user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=3
+					OR user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=8
+				</if>
+				<if test="apply_status!=null">
+				    AND apply_status=#{apply_status,jdbcType=INTEGER}
+				</if>
+				<if test="apply_add_date!=null">
+				   <if test="apply_add_date1!=null">
+				    AND apply_add_date <![CDATA[ >= ]]> #{apply_add_date,jdbcType=BIGINT} AND apply_add_date <![CDATA[ <= ]]> #{apply_add_date1,jdbcType=BIGINT} AND apply_status=1
+				   </if>
+				</if>
+			</trim>
+			order by apply_add_date desc
+		</where>
+	</select>
+	<select id="findBonusPutForward" resultType="BonusExtractApplyEntity"
+		parameterType="map">
+		SELECT
+		bonus_extract_apply_id,user_basics_id,apply_add_date,apply_edit_date,
+		edit_user_basics_id,apply_sum,apply_status,apply_postscript,receive_bank_card,
+		receive_name
+		FROM bonus_extract_apply
+		<where>
+			<trim prefix="" prefixOverrides="AND|OR">
+				<if test="bonus_extract_apply_id!=null ">
+					bonus_extract_apply_id=#{bonus_extract_apply_id,jdbcType=INTEGER}
+				</if>
+				<if test="user_basics_id!=null ">
+					AND user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=1
+					OR user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=3
+					OR user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=8
+				</if>
+				<if test="apply_status!=null">
+				    AND apply_status=#{apply_status,jdbcType=INTEGER}
+				</if>
+				<if test="user_basics_id!=null ">
+					AND user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=1
+					OR user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=3
+				    OR user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=8
+				</if>
+				<if test="apply_add_date2!=null">
+				   <if test="apply_add_date1!=null">
+				    AND apply_add_date >= #{apply_add_date2,jdbcType=BIGINT} AND apply_add_date&lt;#{apply_add_date1,jdbcType=BIGINT} AND apply_status=1
+				    OR apply_add_date >= #{apply_add_date2,jdbcType=BIGINT} AND apply_add_date&lt;#{apply_add_date1,jdbcType=BIGINT} AND apply_status=3
+				    OR apply_add_date >= #{apply_add_date2,jdbcType=BIGINT} AND apply_add_date&lt;#{apply_add_date1,jdbcType=BIGINT} AND apply_status=8
+				  </if>
+				</if>
+			</trim>
+			order by apply_add_date desc
+		</where>
+	</select>
+	<select id="findBonusMoney" resultType="BonusExtractApplyEntity"
+		parameterType="map">
+		SELECT
+		bonus_extract_apply_id,user_basics_id,apply_add_date,apply_edit_date,
+		edit_user_basics_id,apply_sum,apply_status,apply_postscript,receive_bank_card,
+		receive_name
+		FROM bonus_extract_apply
+		<where>
+			<trim prefix="" prefixOverrides="AND|OR">
+				<if test="bonus_extract_apply_id!=null ">
+					bonus_extract_apply_id=#{bonus_extract_apply_id,jdbcType=INTEGER}
+				</if>
+				<if test="user_basics_id!=null ">
+					AND user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=3
+					OR user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=4
+					OR user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=7
+				</if>
+				<if test="apply_status!=null">
+				    AND apply_status=#{apply_status,jdbcType=INTEGER}
+				</if>
+				<if test="user_basics_id!=null ">
+					AND user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=3
+					OR user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=4
+				    OR user_basics_id=#{user_basics_id,jdbcType=INTEGER} and apply_status=7
+				</if>
+				<if test="apply_edit_date2!=null">
+				   <if test="apply_edit_date1!=null">
+				    AND apply_edit_date >= #{apply_edit_date2,jdbcType=BIGINT} AND apply_edit_date&lt;#{apply_edit_date1,jdbcType=BIGINT} AND apply_status=3
+				    OR apply_edit_date >= #{apply_edit_date2,jdbcType=BIGINT} AND apply_edit_date&lt;#{apply_edit_date1,jdbcType=BIGINT} AND apply_status=4
+				    OR apply_edit_date >= #{apply_edit_date2,jdbcType=BIGINT} AND apply_edit_date&lt;#{apply_edit_date1,jdbcType=BIGINT} AND apply_status=7
+				  </if>
+				</if>
+			</trim>
+			order by apply_add_date desc
+		</where>
+	</select>
+	<select id="findTimeCombination" resultType="BonusExtractApplyEntity"
+		parameterType="map">
+		SELECT
+		bonus_extract_apply_id,user_basics_id,apply_add_date,apply_edit_date,
+		edit_user_basics_id,apply_sum,apply_status,apply_postscript,receive_bank_card,
+		receive_name
+		FROM bonus_extract_apply
+		<where>
+			<trim prefix="" prefixOverrides="AND|OR">
+				<if test="datetime2!=null">
+				   <if test="apply_edit_date!=null">
+				    AND apply_edit_date <![CDATA[ >= ]]> #{apply_edit_date,jdbcType=BIGINT} AND apply_edit_date &lt; #{datetime2,jdbcType=BIGINT} AND apply_status=3
+				    OR apply_edit_date <![CDATA[ >= ]]> #{apply_edit_date,jdbcType=BIGINT} AND apply_edit_date &lt; #{datetime2,jdbcType=BIGINT} AND apply_status=4
+				    OR apply_edit_date <![CDATA[ >= ]]> #{apply_edit_date,jdbcType=BIGINT} AND apply_edit_date &lt; #{datetime2,jdbcType=BIGINT} AND apply_status=7
+				   </if>
+				</if>
+			</trim>
+			order by apply_edit_date desc
+		</where>
+	</select>
+	<select id="presentTimeCombination" resultType="BonusExtractApplyEntity"
+		parameterType="map">
+		SELECT
+		bonus_extract_apply_id,user_basics_id,apply_add_date,apply_edit_date,
+		edit_user_basics_id,apply_sum,apply_status,apply_postscript,receive_bank_card,
+		receive_name
+		FROM bonus_extract_apply
+		<where>
+			<trim prefix="" prefixOverrides="AND|OR">
+				<if test="datetime2!=null">
+				   <if test="apply_add_date!=null">
+				    AND apply_add_date <![CDATA[ >= ]]> #{apply_add_date,jdbcType=BIGINT} AND apply_add_date &lt; #{datetime2,jdbcType=BIGINT} AND apply_status=1
+				    OR apply_add_date <![CDATA[ >= ]]> #{apply_add_date,jdbcType=BIGINT} AND apply_add_date &lt; #{datetime2,jdbcType=BIGINT} AND apply_status=3
+				    OR apply_add_date <![CDATA[ >= ]]> #{apply_add_date,jdbcType=BIGINT} AND apply_add_date &lt; #{datetime2,jdbcType=BIGINT} AND apply_status=8
+				   </if>
+				</if>
+			</trim>
+			order by apply_add_date desc
+		</where>
+	</select>
+	<select id="findCombinatorial" resultType="BonusExtractApplyEntity"
+		parameterType="map">
+		SELECT
+		bonus_extract_apply_id,user_basics_id,apply_add_date,apply_edit_date,
+		edit_user_basics_id,apply_sum,apply_status,apply_postscript,receive_bank_card,
+		receive_name
+		FROM bonus_extract_apply
+		<where>
+			<trim prefix="" prefixOverrides="AND|OR">
+				<if test="user_basics_id!=null ">
+				    user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+				</if>
+				<if test="apply_status!=null">
+				    AND apply_status=#{apply_status,jdbcType=INTEGER}
+				</if>
+				<if test="apply_edit_date!=null">
+				   <if test="datetime2!=null">
+				    AND apply_edit_date <![CDATA[ >= ]]> #{apply_edit_date,jdbcType=BIGINT} AND apply_edit_date <![CDATA[ <= ]]> #{datetime2,jdbcType=BIGINT} 
+				   </if>
+				</if>
+			</trim>
+			order by apply_edit_date desc
+		</where>
+	</select>
+	<select id="findPfCombinatorial" resultType="BonusExtractApplyEntity"
+		parameterType="map">
+		SELECT
+		bonus_extract_apply_id,user_basics_id,apply_add_date,apply_edit_date,
+		edit_user_basics_id,apply_sum,apply_status,apply_postscript,receive_bank_card,
+		receive_name
+		FROM bonus_extract_apply
+		<where>
+			<trim prefix="" prefixOverrides="AND|OR">
+				<if test="user_basics_id!=null ">
+				    user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+				</if>
+				<if test="apply_status!=null">
+				    AND apply_status=#{apply_status,jdbcType=INTEGER}
+				</if>
+				<if test="apply_add_date!=null">
+				   <if test="datetime2!=null">
+				    AND apply_add_date <![CDATA[ >= ]]> #{apply_add_date,jdbcType=BIGINT} AND apply_add_date <![CDATA[ <= ]]> #{datetime2,jdbcType=BIGINT} 
+				   </if>
+				</if>
+			</trim>
+			order by apply_add_date desc
+		</where>
+	</select>
+	<select id="findbonus" resultType="BonusExtractApplyEntity"
+		parameterType="int">
+		SELECT
+		bonus_extract_apply_id,user_basics_id,apply_add_date,apply_edit_date,
+		edit_user_basics_id,apply_sum,apply_status,apply_postscript,receive_bank_card,
+		receive_name
+		FROM bonus_extract_apply
+		WHERE bonus_extract_apply_id=#{bonus_extract_apply_id,jdbcType=INTEGER}
+	</select>
+	<update id="updatebonusstate" parameterType="BonusExtractApplyEntity">
+		update bonus_extract_apply set
+			apply_status=#{apply_status,jdbcType=INTEGER},
+			apply_edit_date=#{apply_edit_date,jdbcType=BIGINT}
+			<if test="edit_user_basics_id!=null and edit_user_basics_id!=0"> 
+			  edit_user_basics_id=#{edit_user_basics_id,jdbcType=INTEGER}
+			</if>
+		where
+		bonus_extract_apply_id = #{bonus_extract_apply_id,jdbcType=INTEGER}
+	</update>
+	<select id="findBonusExtractApplyState" resultType="BonusExtractApplyEntity" parameterType="map">
+		SELECT b.bonus_extract_apply_id,b.user_basics_id,ui.information_compellation,ui.information_card,b.apply_add_date,b.apply_edit_date,
+		b.edit_user_basics_id,b.apply_sum,apply_status,b.apply_postscript
+        FROM bonus_extract_apply b LEFT JOIN user_information ui ON(b.user_basics_id=ui.user_basics_id)
+        <where>
+         <trim prefix="" prefixOverrides="AND/OR">
+           <if test="information_compellation !=null and information_compellation !='' ">     
+            ui.information_compellation LIKE concat('%',#{information_compellation,jdbcType=VARCHAR},'%')     
+           </if>  
+           <if test="information_card!=null and information_card!= '' ">     
+           AND ui.information_card = #{information_card,jdbcType=VARCHAR}      
+           </if> 
+           <if test="apply_status !=null">
+           AND apply_status=#{apply_status,jdbcType=INTEGER}
+           </if>
+           <if test="apply_status ==null">
+           AND apply_status =5
+           </if>
+         </trim>
+        </where>
+	</select>
+	<select id="findBonusExtractOne" resultType="BonusExtractApplyEntity" parameterType="int">
+	   SELECT e.bonus_extract_apply_id,e.apply_add_date,e.apply_sum,e.apply_status,e.receive_bank_card,e.apply_postscript
+       FROM user_basics b LEFT JOIN bonus_extract_apply e ON(b.user_basics_id=e.user_basics_id)
+       WHERE b.user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+	</select>
+	<!--根据多ids查询提现审核信息表  -->
+   <select id="findBonusExtractByApplyIds" resultType="BonusExtractApplyEntity">
+	SELECT
+		bonus_extract_apply_id,user_basics_id,apply_add_date,
+		apply_sum,apply_status
+		FROM bonus_extract_apply
+	WHERE apply_status = 1 and bonus_extract_apply_id IN
+	  <foreach collection="bonus_extract_apply_ids" index="index" item="bonusExtractApplyIds" open="(" separator="," close=")">
+	    #{bonusExtractApplyIds,jdbcType=INTEGER}
+	  </foreach>
+	</select>
+	
+	
+</mapper>

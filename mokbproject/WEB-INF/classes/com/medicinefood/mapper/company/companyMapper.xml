@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.company.CompanyMapper">
+   <insert id="insertCompany" keyProperty="company_id" useGeneratedKeys="true" parameterType="CompanyBasicsEntity">
+   INSERT INTO company_basics (
+   company_name,
+   user_basics_id,
+   company_telephone,
+   company_type,
+   company_address,
+   company_account,
+   company_money,
+   status_state,
+   add_date,
+   examine_date,
+   apply_date,
+   if_co,
+   if_founder,
+   super_company_id,
+   company_lv,
+   company_province,
+   urban_district,
+   area,
+   low_company_id,
+   user_basics_id_referee
+   ) 
+   VALUE
+   (#{company_name,jdbcType=VARCHAR},
+   #{user_basics_id,jdbcType=INTEGER},
+   #{company_telephone,jdbcType=VARCHAR},
+   #{company_type,jdbcType=INTEGER},
+   #{company_address,jdbcType=VARCHAR},
+   #{company_account,jdbcType=VARCHAR},
+   #{company_money,jdbcType=DOUBLE},
+   #{status_state,jdbcType=INTEGER},
+   #{add_date,jdbcType=BIGINT},
+   #{examine_date,jdbcType=BIGINT},
+   #{apply_date,jdbcType=BIGINT},
+   #{if_co,jdbcType=INTEGER},
+   #{if_founder,jdbcType=INTEGER},
+   #{super_company_id,jdbcType=INTEGER},
+   #{company_lv,jdbcType=INTEGER},
+   #{company_province,jdbcType=VARCHAR},
+   #{urban_district,jdbcType=VARCHAR},
+   #{area,jdbcType=VARCHAR},
+   #{low_company_id,jdbcType=VARCHAR},
+   #{user_basics_id_referee,jdbcType=INTEGER}
+   )
+   </insert>
+<select id="findone" resultType="CompanyBasicsEntity" parameterType="CompanyBasicsEntity">
+   SELECT *
+   FROM company_basics where 1=1 
+   <if test="super_company_id!=null">
+   and super_company_id=#{super_company_id,jdbcType=INTEGER}
+   </if>
+   <if test="company_id!=null">
+   and company_id=#{company_id,jdbcType=INTEGER}
+   </if>
+</select>
+<select id="findLv" resultType="CompanyBasicsEntity" parameterType="CompanyBasicsEntity">
+   SELECT *
+   FROM company_basics where 1=1 
+   <!-- 
+   <if test="company_lv!=null">
+   and company_lv&lt;=#{company_lv,jdbcType=INTEGER}
+   </if>
+    -->
+   <if test="company_province!=null">
+   and company_province=#{company_province,jdbcType=VARCHAR}
+   </if>
+   or company_id=1
+   ORDER BY company_lv desc
+</select>
+<select id="selectCompanyMonth" resultType="CompanyBasicsEntity" parameterType="CompanyBasicsEntity">
+   SELECT *
+   FROM company_month_sales 
+   where 1=1 
+   <if test="company_id!=null">
+   and company_id=#{company_id,jdbcType=INTEGER}
+   </if>
+</select>
+   <select id="selectCompanyShow" resultType="CompanyShow" parameterType="int">
+   SELECT cb.company_telephone,cb.company_type,ui.information_card,ui.information_phone,
+   ui.information_compellation, ub.user_nickname,cb.company_id 
+   FROM company_basics cb 
+   LEFT JOIN user_information ui ON(cb.user_basics_id=ui.user_basics_id) 
+   LEFT JOIN user_basics ub ON(cb.user_basics_id=ub.user_basics_id)
+    WHERE 1=1
+   <if test="company_type!=0">
+   and cb.company_type=#{company_type,jdbcType=INTEGER}
+   </if>
+   </select>
+   <select id="findAllLeadFounder" resultType="CompanyLeadFounderEntity" parameterType="CompanyLeadFounderEntity">
+    SELECT ui.user_basics_id,ui.information_compellation,cb.company_id,cb.company_name,cb.company_address,cb.status_state,cb.apply_date,
+    cf.mon_sale_timely,cf.mon_sale_untimely,cf.founder_bonus,ut.integral_basics,ut.integral_travel,cf.month_date
+    FROM user_information ui LEFT JOIN company_basics cb ON(ui.user_basics_id=cb.user_basics_id)
+    LEFT JOIN co_founder_mon_sale cf ON(ui.user_basics_id=cf.user_basics_id)
+    LEFT JOIN user_integral ut ON(ui.user_basics_id=ut.user_basics_id)
+    LEFT JOIN user_basics ub ON(ui.user_basics_id=ub.user_basics_id)
+    WHERE 1=1
+    AND ui.co_founder=2	
+    AND ub.user_grade_id>3 
+    AND cb.status_state=0 OR cb.status_state=4
+   </select>
+   <select id="findStatisticalUnion" resultType="com.medicinefood.entity.user.UserInformationEntity" parameterType="java.util.HashMap">
+        select COUNT(b.user_basics_id) from  user_information b 
+		LEFT JOIN user_basics c on c.user_basics_id=b.user_basics_id 
+		where 1=1
+		and c.user_grade_id>=3 
+		and b.company_id=#{company_id,jdbcType=INTEGER}
+		and b.co_founder=3; 
+  </select>
+  <update id="updateCompany" parameterType="CompanyBasicsEntity">
+UPDATE company_basics 
+  SET super_company_id=#{super_company_id,jdbcType=INTEGER} 
+  where 1=1
+   and company_id=#{company_id,jdbcType=VARCHAR}
+</update>
+</mapper>

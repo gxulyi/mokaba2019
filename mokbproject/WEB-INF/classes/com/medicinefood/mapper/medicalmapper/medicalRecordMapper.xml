@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.medicalmapper.MedicalRecordMapper" >
+  <insert id="insertMedicalRecord" parameterType="MedicalRecordEntity" useGeneratedKeys="true" keyProperty="medical_report_id">
+  INSERT INTO medical_record(time,endTime,height,weight,systolic,diastolic,pulse,moisture,adiposerate,
+  bone,basalMetabolism,bmi,muscle,visceralfat,temperature,ecg,ecgPng,result,bloodoxygen,hb,bloodsugar,
+  uricacid,chol,LEU,NIT,UBG,PRO,PH,SG,BLD,KET,BIL,GLU,VC,user_basics_id,type,dtype,did,information_card,
+  record_add_date)
+  VALUE(
+  #{time,jdbcType=VARCHAR},#{endTime,jdbcType=VARCHAR},#{height,jdbcType=REAL},#{weight,jdbcType=REAL},
+  #{systolic,jdbcType=INTEGER},#{diastolic,jdbcType=INTEGER},#{pulse,jdbcType=INTEGER},#{moisture,jdbcType=REAL},
+  #{adiposerate,jdbcType=REAL},#{bone,jdbcType=REAL},#{basalMetabolism,jdbcType=DOUBLE},#{bmi,jdbcType=REAL},
+  #{muscle,jdbcType=REAL},#{visceralfat,jdbcType=INTEGER},#{temperature,jdbcType=REAL},#{ecg,jdbcType=VARCHAR},
+  #{ecgPng,jdbcType=VARCHAR},#{result,jdbcType=VARCHAR},#{bloodoxygen,jdbcType=REAL},#{hb,jdbcType=REAL},
+  #{bloodsugar,jdbcType=REAL},#{uricacid,jdbcType=REAL},#{chol,jdbcType=REAL},#{LEU,jdbcType=INTEGER},
+  #{NIT,jdbcType=INTEGER},#{UBG,jdbcType=INTEGER},#{PRO,jdbcType=INTEGER},#{PH,jdbcType=REAL},
+  #{SG,jdbcType=REAL},#{BLD,jdbcType=INTEGER},#{KET,jdbcType=INTEGER},#{BIL,jdbcType=INTEGER},
+  #{GLU,jdbcType=INTEGER},#{VC,jdbcType=VARCHAR},#{user_basics_id,jdbcType=INTEGER},#{type,jdbcType=INTEGER},
+  #{dtype,jdbcType=INTEGER},
+  #{did,jdbcType=VARCHAR},#{information_card,jdbcType=VARCHAR},#{record_add_date,jdbcType=BIGINT}
+  )
+  </insert>
+  <select id="selectMrepAddDate_Max" resultType="MedicalRecordEntity" parameterType="int">
+  SELECT * FROM medical_record 
+  WHERE record_add_date = (
+  SELECT MAX(record_add_date) FROM medical_record
+  )
+  AND user_basics_id=#{user_basics_id,jdbcType=INTEGER};
+  </select>
+  <select id="selectMrepAddDate_MaxToInfo_card" resultType="MedicalRecordEntity" parameterType="String">
+  SELECT
+   medical_record_id,user_basics_id,height,weight,systolic,diastolic,pulse,moisture,adiposerate,bone,
+   basalMetabolism,bmi,muscle,visceralfat,temperature,ecg,ecgPng,result,bloodoxygen,hb,bloodsugar,uricacid,
+   chol,LEU,NIT,UBG,PRO,PH,SG,BLD,KET,BIL,GLU,VC,record_add_date,information_card,type,dtype,did,endTime,time
+  FROM medical_record 
+  WHERE record_add_date = (
+  SELECT MAX(record_add_date) FROM medical_record
+  )
+  AND information_card=#{information_card,jdbcType=VARCHAR};
+  </select>
+  <select id="selectMrepToDateAndUid" resultType="MedicalRecordEntity" >
+   SELECT * FROM medical_record 
+  WHERE record_add_date <![CDATA[ >= ]]> #{startTime,jdbcType=BIGINT} 
+  AND record_add_date <![CDATA[ >= ]]>#{endTime,jdbcType=BIGINT}
+  AND user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectMrepToDateAndIcard" resultType="MedicalRecordEntity" >
+   SELECT * FROM medical_record 
+  WHERE record_add_date <![CDATA[ >= ]]> #{startTime,jdbcType=BIGINT} 
+  AND record_add_date <![CDATA[ <= ]]>#{endTime,jdbcType=BIGINT}
+  AND information_card=#{information_card,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

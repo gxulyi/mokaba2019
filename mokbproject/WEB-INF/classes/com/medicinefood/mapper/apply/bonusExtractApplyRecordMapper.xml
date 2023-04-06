@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.apply.BonusExtractApplyRecordMapper">
+	<insert id="addBonusExtractApplyRecord" parameterType="BonusExtractApplyRecordEntity"
+		useGeneratedKeys="true" keyProperty="bonus_extract_apply_record_id">
+		INSERT INTO bonus_extract_apply_record
+		(user_basics_id
+		,excel_date
+		,excel_name
+		,excel_url)VALUES
+		(#{user_basics_id,jdbcType=INTEGER}
+		,#{excel_date,jdbcType=BIGINT}
+		,#{excel_name,jdbcType=VARCHAR}
+		,#{excel_url,jdbcType=VARCHAR}
+		)
+	</insert>
+</mapper>

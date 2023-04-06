@@ -1,0 +1,133 @@
+.mui-content {
+	padding-bottom: 40px;
+}
+
+img {
+	width: 100%;
+	vertical-align: bottom;
+}
+
+.search-center h4 {
+	vertical-align: middle;
+}
+
+.category {
+	color: #fff;
+	font-size: 16px;
+}
+
+.search-center h4>span:last-child {
+	margin-left: 10px;
+}
+
+.category-active {
+	font-size: 16px;
+	border-bottom: 2px solid #fff;
+}
+
+/*�̳��ֲ�ͼ*/
+.store-banner-box {
+	position: relative;
+	clear: all;
+	overflow: hidden;
+}
+
+
+.mui-grid-view.mui-grid-9{
+	padding:10px 0;
+	border: none;
+	background: none;
+}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+	padding:0;
+	border:none;
+	border-right: 1px solid #eee;
+}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell > a:not(.mui-btn){
+	padding: 0;
+}
+.commodity-exchange-tit{
+	height: 30px;
+	line-height: 30px;
+	background: #999999;
+	font-size: 15px;
+	text-align: center;
+	color:#fff;
+}
+.mui-table-view::after{
+	height: 0;
+}
+.mui-table-view.mui-grid-view{
+	padding:10px 0;
+	background: #FFFFFF;
+}
+.ul-div{
+	width: 94% !important;
+	margin: 0 auto !important;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.3); 
+   	-moz-box-shadow: 0 3px 3px rgba(0,0,0,0.3); 
+    box-shadow: 0 3px 3px rgba(0,0,0,0.3);
+}
+.ui-li{
+	padding:0 !important;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell{
+	padding:10px 14px;
+}
+.commodity-exchange-img{
+	width:100%;
+	height: 121px;
+}
+.commodity-exchange-img img{
+	width:100%;
+	height: 100%;
+}
+.commodity-exchange-price{
+	width:100%;
+	height: 26px;
+	line-height: 26px;
+	background: #04757d;
+	color: #fff;
+	font-size: 13px;
+	font-weight: bold;
+	-webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.3); 
+   	-moz-box-shadow: 0 3px 3px rgba(0,0,0,0.3); 
+    box-shadow: 0 3px 3px rgba(0,0,0,0.3);
+}
+.commodity-exchange-price span:nth-child(1){
+	float: left;margin-left: 5px;
+}
+.commodity-exchange-price span:nth-child(2){
+	float: right;margin-right: 5px;
+}
+.commodity-exchange-name{
+	text-align: left;
+	color: #333333;
+	font-size: 14px;
+	font-weight: bold;
+	margin-top: 8px;
+}
+.commodity-exchange-jifen span:nth-child(1){
+	float: left;color: #d02368;
+	font-size: 12px;
+	font-weight: bold;
+}
+.commodity-exchange-jifen span:nth-child(2){
+	float: right;color: #999999;
+	font-size: 11px;
+}
+.return-div{
+	width: 100%;
+	height: 40px;
+	background-image:-webkit-linear-gradient(left,#7ecbc2,#3a9299);
+	position: fixed;
+	bottom: 0;
+	line-height: 40px;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 18px;
+}
+.commsd{
+	margin-top: 10px;
+}

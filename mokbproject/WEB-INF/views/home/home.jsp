@@ -1,0 +1,232 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>首页</title>
+	<base href="<%=basePath%>">
+
+		<meta charset="UTF-8">
+		<title>首页</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		
+		<link href="css/mui.min.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="css/fonts/iconfont/iconfont.css"/>
+		<script src="css/fonts/iconfont/iconfont.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/public.css"/>
+		<link rel="stylesheet" type="text/css" href="css/mainstyle.css"/>
+	</head>
+	
+	<body>
+		<!--顶部导航栏-->
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">
+		    	<span class="nav-left">
+		    		<img src="file/jointly/images/nav/nav-left.png"/>
+		    	</span>
+		    </h1>
+		   	<a class="mui-btn mui-btn-link mui-pull-right" style="padding: 5px;">
+		   		<div class="nav-right">
+		   			<div class="mask"></div>
+		   			<div class="nav-right-btn">
+			   			<i class="iconfont icon-caidan"></i>
+			   		</div>
+		   		</div>
+		   	</a>
+		</header>
+
+		
+		<!--主体部分-->
+		<div class="mui-content">
+			<!--首页轮播图-->
+			<div id="banner" class="banner">
+				<div id="slider" class="mui-slider">
+			      	<div class="mui-slider-group mui-slider-loop">
+				        <div class="mui-slider-item mui-slider-item-duplicate">
+			          		<a href="#">
+			          		<img src="file/jointly/images/banner/banner1.png">
+			            		
+			          		</a>
+			        	</div>
+				        <div class="mui-slider-item">
+					          <a href="http://www.baidu.com">
+					            <img src="file/jointly/images/banner/banner1.png">
+					          </a>
+				        </div>
+				        <div class="mui-slider-item">
+				          	<a href="#">
+				            	<img src="file/jointly/images/banner/banner2.png">
+				          	</a>
+				        </div>
+				        <div class="mui-slider-item">
+				          	<a href="#">
+				           		<img src="file/jointly/images/banner/banner3.png">
+				          	</a>
+				        </div>
+				        <div class="mui-slider-item">
+				          	<a href="#">
+				            	<img src="file/jointly/images/banner/banner4.png">
+				          	</a>
+				        </div>
+				        <div class="mui-slider-item mui-slider-item-duplicate">
+				          	<a href="#">
+				            	<img src="file/jointly/images/banner/banner1.png">
+				          	</a>
+				        </div>
+			      	</div>
+				    <div class="mui-slider-indicator">
+				        <div class="mui-indicator mui-active"></div>
+				        <div class="mui-indicator"></div>
+				        <div class="mui-indicator"></div>
+				        <div class="mui-indicator"></div>
+				    </div>
+			    </div>
+		   	</div>
+		    <style type="text/css">
+		    	.function-box{position: relative;width: 100%;clear: all;overflow: hidden;height: auto;padding-bottom: 10px;}
+		    	.function{position: relative;clear: all;overflow: hidden;margin-top: 10px;}
+		    	.knowledge-radiu{width: 46px;height: 46px;float: left;line-height: 46px;text-align: center;margin-left: 20px;color: white;}
+		    	.mask-knowledge{width: 42px;height: 42px;margin-top: 2px;border-radius: 50%;-webkit-filter: blur(2px);-moz-filter: blur(2px);-o-filter: blur(2px);-ms-filter: blur(2px);filter: blur(2px); background: -moz-radial-gradient(70% 60%, closest-corner, #C49CDB, #0083C9); background: -webkit-radial-gradient(70% 60%, closest-corner, #C49CDB, #0083C9);}
+		    	.dynamic-radiu{width: 42px;height: 42px;float: left;line-height: 42px;text-align: center;margin-left: 110px;color: white;}
+		    	.mask-dynamic{width: 37px;height: 37px;margin-top: 2px;border-radius: 50%;-webkit-filter: blur(2px);-moz-filter: blur(2px);-o-filter: blur(2px);-ms-filter: blur(2px);filter: blur(2px); background: -moz-radial-gradient(70% 40%, closest-corner, #00B392, #FAB0B7); background: -webkit-radial-gradient(70% 40%, closest-corner,#FAB0B7, #00B392);}
+		    	.fund-radiu{width: 36px;height: 36px;float: left;line-height: 36px;text-align: center;margin-left: 180px;color: white;}
+		    	.mask-fund{width: 30px;height: 30px;margin-top: 2px;border-radius: 50%;-webkit-filter: blur(2px);-moz-filter: blur(2px);-o-filter: blur(2px);-ms-filter: blur(2px);filter: blur(2px); background: -moz-radial-gradient(40% 50%, closest-corner, #FBD500, #FF3A1B); background: -webkit-radial-gradient(40% 50%, closest-corner, #FBD500, #FF3A1B);}
+		    	.essence-radiu{width: 24px;height: 24px;float: left;line-height: 24px;text-align: center;margin-left: 220px;border-radius: 50%;color: white;}
+		    	.mask-essence{width: 20px;height: 20px;margin-top: 2px;border-radius: 50%;-webkit-filter: blur(2px);-moz-filter: blur(2px);-o-filter: blur(2px);-ms-filter: blur(2px);filter: blur(2px); background: -moz-radial-gradient(30% 80%, closest-corner, #F4A4D7, #4E0089); background: -webkit-radial-gradient(50% 40%, closest-corner, #F4A4D7, #4E0089);}
+		    	.video-sigle{position: absolute;clear: all;overflow: hidden;top: 120px;z-index: 2;}
+		    	.video{width: 68px;height: 68px;float: left;line-height: 68px;text-align: center;margin-left: 20px;color: white;}
+		    	.mask-video{width: 60px;height: 60px;margin-top: 2px;border-radius: 50%;-webkit-filter: blur(2px);-moz-filter: blur(2px);-o-filter: blur(2px);-ms-filter: blur(2px);filter: blur(2px); background: -moz-radial-gradient(35% 25%, closest-corner, #DE3E9C, #8248dd); background: -webkit-radial-gradient(75% 50%, closest-corner, #0083C8, #DE3E9C);}
+		    </style>
+		    <!--功能按钮-->
+	    	<div class="function-box">
+		    	<div class="function">
+		    		<div class="knowledge-radiu">
+		    			<div class="mask-knowledge"></div>
+		    			<div style="position: absolute;top: 1px;left: 32px;">
+		    				<i class="iconfont icon-knowledge"></i>
+		    			</div>
+		    		</div>
+		    		<span style="line-height: 46px;">知识</span>
+		    	</div>
+		    	<div class="function">
+		    		<div class="dynamic-radiu">
+		    			<div class="mask-dynamic"></div>
+		    			<div style="position: absolute;top: 1px;left: 120px;">
+		    				<i class="iconfont icon-dynamic"></i>
+		    			</div>
+		    		</div>
+		    		<span style="line-height: 42px;">动态</span>
+		    	</div>
+		    	<div class="function">
+		    		<div class="fund-radiu">
+		    			<div class="mask-fund"></div>
+		    			<div style="position: absolute;top: 0px;left: 188px;">
+		    				<i class="iconfont icon-fund"></i>
+		    			</div>
+		    		</div>
+		    		<span style="line-height: 36px;">基金</span>
+		    	</div>
+		    	<div class="function">
+		    		<div class="essence-radiu">
+		    			<div class="mask-essence"></div>
+		    			<div class="" style="position: absolute;top: 0px;left: 221px;">
+		    				<i class="iconfont icon-essence"></i>
+		    			</div>
+		    		</div>
+		    		<span style="line-height: 24px;">精华</span>
+		    	</div>
+		    	<div class="function video-sigle">
+		    		<div class="video">
+		    			<div class="mask-video"></div>
+		    			<div style="position: absolute;top: 0px;left: 40px;">
+		    				<i class="iconfont icon-video"></i>
+		    			</div>
+		    		</div>
+		    		<span style="line-height: 68px;">视频</span>
+		    	</div>
+	    	</div>
+		</div>
+		
+		<!--底部导航栏-->
+		<nav class="mui-bar mui-bar-tab">
+		    <a class="mui-tab-item mui-active" href="home.html">
+		        <span class="mui-icon iconfont shade icon-tabber-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a class="mui-tab-item" href="store.html">
+		        <span class="mui-icon iconfont shade icon-tabber-store"></span>
+		        <span class="mui-tab-label">商城</span>
+		    </a>
+		    <a class="mui-tab-item" href="customize.html">
+		        <span class="mui-icon iconfont shade icon-tabber-customize"></span>
+		        <span class="mui-tab-label">定制</span>
+		    </a>
+		    <a class="mui-tab-item" href="maid.html">
+		        <span class="mui-icon iconfont shade icon-tabber-maid"></span>
+		        <span class="mui-tab-label">管家</span>
+		    </a>
+		</nav>
+		
+		<script src="js/mui.min.js"></script>
+		<script src="js/wx_common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			(function($,doc){
+				$.init();
+				
+				// 轮播图点击事件
+				$('.mui-slider-item').on('tap','a',function(){
+					mui.alert(this.href)
+				});
+				
+				var fun_btns = $('.function');
+				fun_btns.each(function(i,btn){
+					btn.addEventListener('tap',function(){
+						switch (i){
+							case 0:
+								var page_url = './knowledge.html';
+								var page_id = 'knowledge';
+								var argument = '';
+								break;
+							case 1:
+								var page_url = './dynamic.html';
+								var page_id = 'dynamic';
+								var argument = '';
+								break;
+							case 2:
+								alert("基金");
+								return;
+								break;
+							case 3:
+								alert("精华")
+								return;
+								break;
+							case 4:
+								var page_url = './video.html';
+								var page_id = 'video';
+								var argument = '';
+								break;
+						}
+						OpenPage(page_url,page_id,argument);
+					},false);
+				});
+				
+				// 底部导航栏点击事件
+				$('.mui-bar').on('tap','.mui-tab-item',function(){
+					var href_str = this.href;
+					var hrefArr = href_str.split('/');
+					var page_url = './'+hrefArr[hrefArr.length-1];
+					var page_id = hrefArr[hrefArr.length-1];
+					var argument = '';
+					OpenPage(page_url,page_id,argument);
+				});
+			})(mui,document);
+		</script>
+	</body>
+
+</html>

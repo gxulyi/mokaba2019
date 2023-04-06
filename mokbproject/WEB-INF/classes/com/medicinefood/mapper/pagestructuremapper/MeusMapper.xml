@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.pagestructuremapper.MeusMapper" >
+  <insert id="insertMeus" useGeneratedKeys="true" keyProperty="menu_id" parameterType="MenuEntity">
+   INSERT INTO pagestructure_menu(
+   menu_superior_id,
+   menu_priority,
+   menu_code_num,
+   menu_style,
+   menu_name,
+   menu_nature,
+   menu_url,
+   menu_series,
+   privilege_id
+   )
+   VALUE(
+   #{menu_superior_id,jdbcType=INTEGER},
+   #{menu_priority,jdbcType=INTEGER},
+   #{menu_code_num,jdbcType=INTEGER},
+   #{menu_style,jdbcType=VARCHAR},
+   #{menu_name,jdbcType=VARCHAR},
+   #{menu_nature,jdbcType=INTEGER},
+   #{menu_url,jdbcType=VARCHAR},
+   #{menu_series,jdbcType=VARCHAR},
+   #{privilege_id,jdbcType=VARCHAR}
+   )
+  </insert>
+ 
+ <select id="selectMenuToMenuCN_MenuS_MenuN" resultType="MenuEntity">
+ SELECT menu_id,menu_name,menu_superior_id,menu_priority,menu_code_num,menu_style,menu_url,menu_nature,menu_series,privilege_id 
+ FROM pagestructure_menu 
+ WHERE menu_code_num=#{menu_code_num,jdbcType=INTEGER} 
+ AND menu_series=#{menu_series,jdbcType=INTEGER}
+ AND menu_nature=#{menu_nature,jdbcType=INTEGER}
+ </select>
+ <select id="likeSelectMenuToMenu_url" parameterType="String" resultType="MenuEntity">
+ SELECT menu_id,menu_name,menu_superior_id,menu_priority,menu_code_num,menu_style,menu_url,menu_nature,menu_series,privilege_id 
+ FROM pagestructure_menu 
+ WHERE like concat(#{menu_url,jdbcType=VARCHAR},'%')
+ </select>
+ 
+ <delete id="deleteMenuToMid" parameterType="int">
+ DELETE FROM pagestructure_menu WHERE menu_id=#{menu_id,jdbcType=INTEGER}
+ </delete>
+ <select id="selectMenuToMenuCN_MenuN" resultType="MenuEntity">
+ SELECT menu_id,menu_name,menu_superior_id,menu_priority,menu_code_num,menu_style,menu_url,menu_nature,menu_series,privilege_id 
+ FROM pagestructure_menu 
+ WHERE menu_code_num=#{menu_code_num,jdbcType=INTEGER} 
+ AND menu_nature=#{menu_nature,jdbcType=INTEGER}
+ ORDER BY menu_priority ASC
+ 
+ </select>
+</mapper>

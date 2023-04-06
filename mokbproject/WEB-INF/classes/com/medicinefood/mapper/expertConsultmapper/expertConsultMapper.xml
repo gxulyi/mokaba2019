@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.expertConsultmapper.ExpertConsultMapper">
+ <!-- 新增专家咨询 -->
+  <insert id="addExpertConsult" parameterType="ExpertConsultEntity" useGeneratedKeys="true" keyProperty="consult_id" >
+  insert into user_consult_expert
+		(user_basics_id,expert_id,status_state,expert_state,add_date,user_message,expert_reply_state,thumbs_up) 
+		value(
+		 #{user_basics_id,jdbcType=INTEGER}
+		,#{expert_id,jdbcType=INTEGER}
+		,#{status_state,jdbcType=INTEGER}
+		,#{expert_state,jdbcType=INTEGER}
+		,#{add_date,jdbcType=BIGINT}
+		,#{user_message,jdbcType=VARCHAR}
+		,#{expert_reply_state,jdbcType=INTEGER}
+		,0
+		);
+ </insert>
+ <!-- 查询所有专家咨询信息-->
+  <select id="findAllExpertConsult" resultType="ExpertConsultEntity" parameterType="ExpertConsultEntity">
+         select a.*,b.weixin_nickname,b.weixin_portrait from user_consult_expert a 
+         left join user_weixin b on a.user_basics_id=b.user_basics_id
+         where 1=1
+         <if test="status_state!=null">
+            and a.status_state = #{status_state,jdbcType=INTEGER}
+         </if>
+         <if test="expert_state!=null">
+            and a.expert_state = #{expert_state,jdbcType=INTEGER}
+         </if>
+         <if test="user_state!=null">
+            and a.user_state = #{user_state,jdbcType=INTEGER}
+         </if>
+         <if test="expert_reply_state!=null">
+            and a.expert_reply_state = #{expert_reply_state,jdbcType=INTEGER}
+         </if>
+         <if test="user_message!=null">
+	       and a.user_message like #{user_message,jdbcType=VARCHAR}
+	       </if>
+         order by thumbs_up desc;
+ </select> 
+ 
+ 
+ <!-- 查询专家咨询情信息-->
+ <select id="findExpertConsultById" resultType="ExpertConsultEntity" parameterType="ExpertConsultEntity">
+         select * from user_consult_expert  where 1=1 and consult_id =#{consult_id,jdbcType=INTEGER}
+ </select>
+ 
+ <!-- 修改专家咨询信息-->
+  <update id="updateExpertConsult" parameterType="ExpertConsultEntity">
+	  update user_consult_expert set
+	  <trim  suffixOverrides="," >
+	    <if test="expert_message!=null">
+	       expert_message=#{expert_message,jdbcType=VARCHAR},
+	    </if>
+	     <if test="expert_state!=null">
+	       expert_state=#{expert_state,jdbcType=INTEGER},
+	    </if> 
+	    <if test="update_date!=null">
+	       update_date=#{update_date,jdbcType=INTEGER},
+	    </if> 
+	    <if test="status_state!=null">
+	       status_state=#{status_state,jdbcType=INTEGER},
+	    </if> 
+	     <if test="expert_reply_state!=null">
+	       expert_reply_state=#{expert_reply_state,jdbcType=INTEGER}
+	    </if> 
+	    <if test="thumbs_up!=null">
+	       thumbs_up=thumbs_up+#{thumbs_up,jdbcType=INTEGER}
+	    </if> 
+	  </trim>
+	  where 1=1 and consult_id=#{consult_id,jdbcType=INTEGER} 
+	</update>  
+	
+	<!-- 点赞-->
+  <update id="thumbs_up" parameterType="ExpertConsultEntity">
+	  update user_consult_expert set
+	       thumbs_up=thumbs_up+#{thumbs_up,jdbcType=INTEGER}
+	  where 1=1 and consult_id=#{consult_id,jdbcType=INTEGER} 
+	</update> 
+ 
+ <!-- 删除专家咨询信息-->
+ <update id="deleteExpertConsultById" parameterType="ExpertConsultEntity">
+         update user_consult_expert set
+	  	     status_state=#{status_state,jdbcType=INTEGER} 
+	     where consult_id=#{consult_id,jdbcType=INTEGER} 
+ </update>
+ 
+	
+</mapper>

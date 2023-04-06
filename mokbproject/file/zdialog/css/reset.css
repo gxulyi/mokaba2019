@@ -1,0 +1,126 @@
+/*
+KISSY CSS Reset
+鐞嗗康锛氭竻闄ゅ拰閲嶇疆鏄揣瀵嗕笉鍙垎鐨�
+鐗硅壊锛�.閫傚簲涓枃 2.鍩轰簬鏈�柊涓绘祦娴忚鍣�
+缁存姢锛氱帀浼�lifesinger@gmail.com), 姝ｆ烦(ragecarrier@gmail.com)
+*/
+
+/* 娓呴櫎鍐呭杈硅窛 */
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 缁撴瀯鍏冪礌 */
+dl, dt, dd, ul, ol, li, /* list elements 鍒楄〃鍏冪礌 */
+pre, /* text formatting elements 鏂囨湰鏍煎紡鍏冪礌 */
+fieldset, lengend, button, input, textarea, /* form elements 琛ㄥ崟鍏冪礌 */
+th, td { /* table elements 琛ㄦ牸鍏冪礌 */
+    margin: 0;
+    padding: 0;
+}
+*{ margin:0; padding:0;}
+textarea{ resize:none;}
+h4, h5, h6 { font-size: 100%; }
+
+address, cite, dfn, em, var { font-style: normal; } /* 灏嗘枩浣撴壎姝�*/
+code, kbd, pre, samp, tt { font-family: "Courier New", Courier, monospace; } /* 缁熶竴绛夊瀛椾綋 */
+small { } /* 灏忎簬 12px 鐨勪腑鏂囧緢闅鹃槄璇伙紝璁�small 姝ｅ父鍖�*/
+
+/* 閲嶇疆鍒楄〃鍏冪礌 */
+ul, li, ol { list-style: none; }
+
+/* 閲嶇疆鏂囨湰鏍煎紡鍏冪礌 */
+a { text-decoration: none; cursor: pointer;}
+a:hover { text-decoration: none; }
+
+abbr[title], acronym[title] { /* 娉細1.ie6 涓嶆敮鎸�abbr; 2.杩欓噷鐢ㄤ簡灞炴�閫夋嫨绗︼紝ie6 涓嬫棤鏁堟灉 */
+    border-bottom: 1px dotted;
+    cursor: help;
+}
+
+q:before, q:after { content: ''; }
+
+/* 閲嶇疆琛ㄥ崟鍏冪礌 */
+legend { color: #000; } /* for ie6 */
+fieldset, img { border: none; } /* img 鎼溅锛氳閾炬帴閲岀殑 img 鏃犺竟妗�*/
+/* 娉細optgroup 鏃犳硶鎵舵 */
+button, input, select, textarea {
+    font-size: 100%; /* 浣垮緱琛ㄥ崟鍏冪礌鍦�ie 涓嬭兘缁ф壙瀛椾綋澶у皬 */
+}
+
+/* 閲嶇疆琛ㄦ牸鍏冪礌 */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* 閲嶇疆 hr */
+hr {
+    border: none;
+    height: 1px;
+}
+
+.fl{ display: inline; float: left;}
+.fr{ display: inline; float: right;}
+
+/* 璁╅潪ie娴忚鍣ㄩ粯璁や篃鏄剧ず鍨傜洿婊氬姩鏉★紝闃叉鍥犳粴鍔ㄦ潯寮曡捣鐨勯棯鐑�*/
+/*html { overflow-y: scroll; }*/
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+    font-size:0;
+}
+.clearfix { *zoom:1;}
+
+/* chrome input鑷姩濉厖榛勮壊鑳屾櫙 */
+input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px white inset;}
+
+@font-face {font-family: "Siconfont";
+  /*
+  src: url('font/Siconfont.eot?t=1468829569'); 
+  src: url('font/Siconfont.eot?t=1468829569#iefix') format('embedded-opentype'), 
+  url('font/Siconfont.woff?t=1468829569') format('woff'), 
+  url('font/Siconfont.ttf?t=1468829569') format('truetype'), 
+  url('font/Siconfont.svg?t=1468829569#Siconfont') format('svg');
+  */
+}
+@font-face {font-family: "iconfont";
+  /*
+  src: url('font/iconfont.eot?t=1468804798');
+  src: url('font/iconfont.eot?t=1468804798#iefix') format('embedded-opentype'), 
+  url('font/iconfont.woff?t=1468804798') format('woff'), 
+  url('font/iconfont.ttf?t=1468804798') format('truetype'),
+  url('font/iconfont.svg?t=1468804798#iconfont') format('svg');
+  */
+}
+@font-face {font-family: "iconfontBank";
+  /*
+  src: url('font/iconfontBank.eot?t=1468804798');
+  src: url('font/iconfontBank.eot?t=1468804798#iefix') format('embedded-opentype'),
+  url('font/iconfontBank.woff?t=1468804798') format('woff'),
+  url('font/iconfontBank.ttf?t=1468804798') format('truetype'),
+  url('font/iconfontBank.svg?t=1468804798#iconfontBank') format('svg');
+  */
+}
+*:focus {outline: none;}
+a,em,.recruit_title{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+a,em,.recruit_title img{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+a{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+a img{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+a:focus{outline:none;}
+a {outline: none;}
+a,em,.recruit_title{outline: none;}
+a:active {star:expression_r(this.onFocus=this.blur());}
+a:active,em:active,.recruit_title:active {star:expression_r(this.onFocus=this.blur());}
+:focus { outline:0; }
+i{ font-style:normal;}
+h1,h2,h3{ font-weight:normal;}
+
+.noc,.noc a{
+-webkit-user-select: none; /* Chrome all / Safari all */
+-moz-user-select: none; /* Firefox all */
+-ms-user-select: none; /* IE 10+ */ /* No support for these yet, use at own risk */
+-o-user-select: none;
+user-select: none;
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.company.CoFounderMonSaleMapper" >
+<insert id="insertCoFounderMonSale" parameterType="CoFounderMonSale" useGeneratedKeys="true" keyProperty="co_founder_mon_sale_id">  
+    INSERT INTO co_founder_mon_sale (
+    user_basics_id
+    ,month_date
+    ,mon_sale_timely
+    ,mon_sale_untimely
+    ,team_bonus
+    ,avg_bonus
+    ,achievement_bonus
+    ,founder_bonus
+    ,start_time
+    ,end_time
+    ,if_settlement
+    )  
+    VALUES(
+     #{user_basics_id,jdbcType=INTEGER}
+    ,#{month_date,jdbcType=VARCHAR}
+    ,#{mon_sale_timely,jdbcType=DOUBLE}
+    ,#{mon_sale_untimely,jdbcType=DOUBLE}
+    ,#{team_bonus,jdbcType=DOUBLE}
+    ,#{avg_bonus,jdbcType=DOUBLE}
+    ,#{achievement_bonus,jdbcType=DOUBLE}
+    ,#{founder_bonus,jdbcType=DOUBLE}
+    ,#{start_time,jdbcType=BIGINT}
+    ,#{end_time,jdbcType=BIGINT}
+    ,#{if_settlement,jdbcType=INTEGER}
+    )  
+</insert> 
+<update id="updateCoFounderMonSale" parameterType="CoFounderMonSale">
+         update co_founder_mon_sale  
+         set user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+         <if test="mon_sale_timely!=null">
+         ,mon_sale_timely=mon_sale_timely+#{mon_sale_timely,jdbcType=DOUBLE} 
+         </if>
+         <if test="avg_bonus!=null">
+         ,avg_bonus=avg_bonus+#{avg_bonus,jdbcType=DOUBLE} 
+         </if>
+          <if test="achievement_bonus!=null">
+         ,achievement_bonus=achievement_bonus+#{achievement_bonus,jdbcType=DOUBLE} 
+         </if>
+         <if test="mon_sale_untimely!=null">
+         ,mon_sale_untimely=#{mon_sale_untimely,jdbcType=DOUBLE} 
+         </if>
+         <if test="team_bonus!=null">
+         ,team_bonus=team_bonus+#{team_bonus,jdbcType=DOUBLE} 
+         </if>
+         <if test="founder_bonus!=null">
+         ,founder_bonus=founder_bonus+#{founder_bonus,jdbcType=DOUBLE} 
+         </if>
+         <if test="if_settlement!=null">
+         ,if_settlement=#{if_settlement,jdbcType=INTEGER} 
+         </if>
+         where 1=1 
+         and user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+         and month_date=#{month_date,jdbcType=VARCHAR};
+ </update>
+<select id="findCoFounderOne" resultType="CoFounderMonSale" parameterType="CoFounderMonSale">
+         select * from co_founder_mon_sale 
+         where 1=1 
+         and user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+         and month_date=#{month_date,jdbcType=VARCHAR};
+ </select>
+ <select id="findCompanyCo" resultType="CoFounderMonSale" parameterType="java.util.HashMap">
+         select a.* from co_founder_mon_sale a LEFT JOIN user_information b on b.user_basics_id=a.user_basics_id
+		LEFT JOIN user_basics c on c.user_basics_id=a.user_basics_id 
+		where a.month_date=#{month_date,jdbcType=VARCHAR} 
+		and c.user_grade_id>=3 
+		and b.company_id=#{company_id,jdbcType=INTEGER} 
+		and b.co_founder=3; 
+ </select>
+<select id="findCompanyCountCountCo" resultType="com.medicinefood.entity.user.UserInformationEntity" parameterType="java.util.HashMap">
+        select b.* from  user_information b 
+		LEFT JOIN user_basics c on c.user_basics_id=b.user_basics_id 
+		where 1=1
+		and c.user_grade_id>=3 
+		and b.company_id=#{company_id,jdbcType=INTEGER}
+		and b.co_founder=3; 
+ </select>
+</mapper>

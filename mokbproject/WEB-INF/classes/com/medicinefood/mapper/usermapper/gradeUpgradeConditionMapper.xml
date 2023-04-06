@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.usermapper.GradeUpgradeConditionMapper">
+ <insert id="insertGradeUpgradeCondition" useGeneratedKeys="true" keyProperty="grade_upgrade_condition_id" parameterType="GradeUpgradeConditionEntity">
+    INSERT INTO grade_upgrade_condition(user_grade_id,condition_correlation_id,
+    condition_type,condition_option,condition_value,condition_supplement,condition_describe) VALUE
+    (
+    #{user_grade_id,jdbcType=INTEGER},
+    #{condition_correlation_id,jdbcType=INTEGER},
+    #{condition_type,jdbcType=INTEGER},
+    #{condition_option,jdbcType=VARCHAR},
+    #{condition_value,jdbcType=INTEGER},
+    #{condition_supplement,jdbcType=VARCHAR},
+    #{condition_describe,jdbcType=VARCHAR}
+    )
+ </insert>
+ <select id="selectGradeUpgradeConditionTo" parameterType="GradeUpgradeConditionEntity" resultType="GradeUpgradeConditionEntity">
+     SELECT grade_upgrade_condition_id,user_grade_id,condition_correlation_id,
+    condition_type,condition_option,condition_value,condition_supplement,condition_describe 
+    FROM grade_upgrade_condition
+    WHERE 1=1 
+    <if test="grade_upgrade_condition_id!=null and grade_upgrade_condition_id!=''">
+    AND grade_upgrade_condition_id= #{grade_upgrade_condition_id,jdbcType=INTEGER}
+    </if>
+    <if test="user_grade_id!=null and user_grade_id!=''">
+    AND user_grade_id= #{user_grade_id,jdbcType=INTEGER}
+    </if>
+    <if test="condition_correlation_id!=null and condition_correlation_id!=''">
+    AND condition_correlation_id= #{condition_correlation_id,jdbcType=INTEGER}
+    </if>
+    <if test="condition_type!=null and condition_type!=''">
+    AND condition_type= #{condition_type,jdbcType=INTEGER}
+    </if>
+    <if test="condition_option!=null and condition_option!=''">
+    AND condition_option= #{condition_option,jdbcType=VARCHAR}
+    </if>
+    <if test="condition_value!=null and condition_value!=''">
+    AND condition_value=#{condition_value,jdbcType=INTEGER}
+    </if>
+    <if test="condition_supplement!=null and condition_supplement!=''">
+    AND condition_supplement= #{condition_supplement,jdbcType=VARCHAR}
+    </if>
+    <if test="condition_describe!=null and condition_describe!=''">
+    AND condition_describe= #{condition_describe,jdbcType=VARCHAR}
+    </if>
+ </select>
+ <delete id="delectGradeUpgradeConditionTo" parameterType="GradeUpgradeConditionEntity">
+  DELETE FROM grade_upgrade_condition WHERE 1=1
+   <if test="grade_upgrade_condition_id!=null and grade_upgrade_condition_id!=''">
+    AND grade_upgrade_condition_id= #{grade_upgrade_condition_id,jdbcType=INTEGER}
+    </if>
+    <if test="user_grade_id!=null and user_grade_id!=''">
+    AND user_grade_id= #{user_grade_id,jdbcType=INTEGER}
+    </if>
+    <if test="condition_correlation_id!=null and condition_correlation_id!=''">
+    AND condition_correlation_id= #{condition_correlation_id,jdbcType=INTEGER}
+    </if>
+    <if test="condition_type!=null and condition_type!=''">
+    AND condition_type= #{condition_type,jdbcType=INTEGER}
+    </if>
+    <if test="condition_option!=null and condition_option!=''">
+    AND condition_option= #{condition_option,jdbcType=VARCHAR}
+    </if>
+    <if test="condition_value!=null and condition_value!=''">
+    AND condition_value=#{condition_value,jdbcType=INTEGER}
+    </if>
+    <if test="condition_supplement!=null and condition_supplement!=''">
+    AND condition_supplement= #{condition_supplement,jdbcType=VARCHAR}
+    </if>
+ </delete>
+ <select id="selectG_U_C_ToCondition_group_id" resultType="GradeUpgradeConditionEntity" parameterType="int">
+ SELECT guc.* FROM grade_upgrade_condition as guc 
+ LEFT JOIN grade_upgrade_condition_group_condition as gucgc 
+ ON guc.grade_upgrade_condition_id=gucgc.condition_id
+ WHERE gucgc.condition_group_id=#{condition_group_id,jdbcType=INTEGER};
+ </select>
+ <delete id="deleteG_U_C_ToCondition_group_id" parameterType="int">
+  delete FROM  grade_upgrade_condition WHERE grade_upgrade_condition_id in
+  (SELECT condition_id  FROM grade_upgrade_condition_group_condition 
+  WHERE condition_group_id=#{condition_group_id,jdbcType=INTEGER})
+ </delete>
+ 
+</mapper>

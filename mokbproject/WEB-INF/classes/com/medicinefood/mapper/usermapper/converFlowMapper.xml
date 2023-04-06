@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.usermapper.ConverFlowMapper">
+    <insert id="addConverFlow" parameterType="ConverFlow"
+		useGeneratedKeys="true" keyProperty="conver_id">
+		insert into conver_flow
+		(user_basics_id,conver_type,conver_num,conver_describe,conver_date,conver_table,table_id)
+		value (#{user_basics_id,jdbcType=INTEGER}
+		,#{conver_type,jdbcType=INTEGER}
+		,#{conver_num,jdbcType=INTEGER}
+		,#{conver_describe,jdbcType=VARCHAR}
+		,#{conver_date,jdbcType=BIGINT}
+		,#{conver_table,jdbcType=VARCHAR}
+		,#{table_id,jdbcType=INTEGER}
+		);
+	</insert>
+	<select id="findConverFlowByUserId" resultType="ConverFlow" parameterType="ConverFlow">
+		select * from conver_flow where 1=1 
+		<if test="user_basics_id!=null">
+		and user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+		</if>
+		order by conver_date desc;
+	</select>
+	
+
+	
+</mapper>

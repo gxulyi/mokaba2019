@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.usermapper.UserIntegralMapper" >
+<insert id="addUserIntegral" parameterType="UserIntegral" useGeneratedKeys="true" keyProperty="user_integral_id">
+       insert into user_integral 
+		(user_basics_id,integral_basics,integra_mdfdcurrency,integral_travel,integral_bonus) 
+		value (#{user_basics_id,jdbcType=INTEGER}
+		,#{integral_basics,jdbcType=INTEGER}
+		,#{integra_mdfdcurrency,jdbcType=INTEGER}
+		,#{integral_travel,jdbcType=INTEGER}
+		,#{integral_bonus,jdbcType=DOUBLE}
+		);
+</insert>
+<update id="updateConver"  parameterType="java.util.HashMap">
+UPDATE user_integral 
+SET 
+conver_num=conver_num+(#{conver_num,jdbcType=INTEGER}) 
+WHERE 1=1
+and user_basics_id=#{user_basics_id,jdbcType=INTEGER};
+</update>
+<update id="updateIntegral"  parameterType="java.util.HashMap">
+UPDATE user_integral SET ${integral}=${integral}+(#{integralOperate,jdbcType=DOUBLE}) WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER};
+</update>
+<update id="useUserIntegral"  parameterType="java.util.HashMap">
+UPDATE user_integral SET integral_basics=integral_basics-(#{integral_basics,jdbcType=INTEGER}) 
+,integral_bonus=integral_bonus+(#{integral_bonus,jdbcType=DOUBLE}) 
+WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER};
+</update>
+<update id="addBonus"  parameterType="java.util.HashMap">
+UPDATE user_integral SET 
+integral_bonus=integral_bonus+#{integral_bonus,jdbcType=DOUBLE} 
+WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER};
+</update>
+<select id="findUserIntegralAll" parameterType="java.util.HashMap" resultType="UserIntegral">
+SELECT a.*
+ FROM user_integral a left join user_basics b
+ on a.user_basics_id=b.user_basics_id
+ WHERE 1=1
+ and a.user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+ <if test="user_grade_id!=null">
+ and b.user_grade_id=#{user_grade_id,jdbcType=INTEGER}
+ </if>
+ <if test="integral_basics!=null">
+ and a.integral_basics&gt;=#{integral_basics,jdbcType=INTEGER}
+ </if>
+</select>
+<select id="findUserIntegral" resultType="UserIntegral">
+SELECT  ${listName} FROM user_integral WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+</select>
+<update id="operationIntegral" parameterType="AwardOperationEntity" >
+UPDATE user_integral SET ${AwardOption}=${AwardOption}+(#{AwardValue,jdbcType=DOUBLE}) 
+WHERE user_basics_id=#{AwardUserID,jdbcType=INTEGER};
+</update>
+<!-- 修改每次抽奖后中奖积分的数量 ，每抽一次积分数量减10 -->	
+ <update id="updateIntegralCount" parameterType="java.util.HashMap">
+  UPDATE user_integral 
+  SET 
+  integral_basics=integral_basics+(#{integral_basics,jdbcType=INTEGER}) 
+  WHERE 1=1
+  and user_basics_id = #{user_basics_id,jdbcType=INTEGER}
+ </update>
+</mapper>

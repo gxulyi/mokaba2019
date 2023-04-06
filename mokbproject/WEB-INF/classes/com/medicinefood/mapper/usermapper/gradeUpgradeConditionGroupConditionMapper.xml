@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.usermapper.GradeUpgradeConditionGroupConditionMapper">
+  <insert id="insertGradeUpgradeConditionGroupCondition" parameterType="GradeUpgradeConditionGroupConditionEntity" useGeneratedKeys="true" keyProperty="condition_group_condition_id">
+  INSERT INTO grade_upgrade_condition_group_condition (condition_group_id,condition_id)
+  VALUE(
+  #{condition_group_id,jdbcType=INTEGER},
+  #{condition_id,jdbcType=INTEGER}
+  )
+  </insert>
+  <delete id="deleteG_U_C_G_C_ToCondition_group_id" parameterType="int">
+  DELETE FROM grade_upgrade_condition_group_condition 
+  WHERE condition_group_id=#{condition_group_id,jdbcType=INTEGER}
+  </delete>
+</mapper>

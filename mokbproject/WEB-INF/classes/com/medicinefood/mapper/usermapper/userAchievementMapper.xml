@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.usermapper.UserAchievementMapper" >
+<insert id="addUserAchievement" parameterType="UserAchievement" useGeneratedKeys="true" keyProperty="achievement_id">
+       insert into user_achievement 
+		(
+          user_basics_id,
+          team_num,
+          direct_team_num,
+          records_integral,
+          records_bonus,
+          team_consume,
+          direct_team_consume
+		) 
+		value (
+          #{user_basics_id,jdbcType=INTEGER},
+          #{team_num,jdbcType=INTEGER},
+          #{direct_team_num,jdbcType=INTEGER},
+          #{records_integral,jdbcType=INTEGER},
+          #{records_bonus,jdbcType=INTEGER},
+          #{team_consume,jdbcType=INTEGER},
+          #{direct_team_consume,jdbcType=INTEGER}
+		);
+</insert>
+<select id="findUserAchievementAll" parameterType="int" resultType="UserAchievement">
+SELECT achievement_id,user_basics_id,team_num,direct_team_num,records_integral,records_bonus,team_consume,direct_team_consume FROM user_achievement WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+</select>
+<select id="findUserAchievementAccount" parameterType="int" resultType="UserAchievementAccount">
+SELECT user_basics_id,achievement_cutom_id,status  FROM user_achievement_custom 
+WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+</select>
+<update id="augmentUserAchievement" parameterType="UserAchievementAccount">
+UPDATE user_achievement SET 
+         <!-- 团队人数，暂不确定团队具体为几级之内 <if test="team_num!=null">
+          team_num=team_num + #{team_num,jdbcType=INTEGER}
+          </if>--> 
+        <trim prefix="" suffixOverrides=",">
+          <if test="direct_team_num!=null and direct_team_num!=0">
+          direct_team_num=direct_team_num + #{direct_team_num,jdbcType=INTEGER}
+          </if>
+          <if test="records_integral!=null and records_integral!=0">
+          records_integral=records_integral + #{records_integral,jdbcType=INTEGER}
+          </if>
+          <if test="records_bonus!=null and records_bonus!=0">
+          records_bonus=records_bonus + #{records_bonus,jdbcType=INTEGER}
+          </if>
+         <!-- 团队消费，暂不确定团队具体为几级之内 <if test="team_consume!=null">
+          team_consume + #{}
+          </if> -->
+          <if test="direct_team_consume!=null and direct_team_consume!=0">
+          direct_team_consume= direct_team_consume+ #{direct_team_consume,jdbcType=INTEGER} 
+          </if>
+        </trim>
+    WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+</update>
+<select id="findUserAchievement" resultType="UserAchievement">
+SELECT  ${listName} FROM user_achievement WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+
+</select>
+</mapper>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.privilegemapper.PrivilegeMapper">
+<insert id="batchInsertPrivilege">
+ INSERT INTO privilege(privilege_code_num,Privilege_url,privilege_describe,Privilege_operate_name,privilege_verify,
+ is_page,operation_type,is_operation_log)  
+        VALUES   
+        <foreach collection="privilegeEntityList" item="privilegeEntity" separator=",">  
+            (
+            #{privilegeEntity.privilege_code_num,jdbcType=INTEGER},
+            #{privilegeEntity.privilege_url,jdbcType=VARCHAR},
+            #{privilegeEntity.privilege_describe,jdbcType=VARCHAR},
+            #{privilegeEntity.privilege_operate_name,jdbcType=VARCHAR},
+            #{privilegeEntity.privilege_verify,jdbcType=INTEGER},
+            0,
+            0,
+            0
+            )  
+        </foreach>  
+</insert>
+<select id="selectAllPrivilegePrivilege_code_num" resultType="PrivilegeEntity" parameterType="int">
+SELECT privilege_id,privilege_code_num,Privilege_url,
+privilege_describe,Privilege_operate_name,privilege_verify,
+is_page,operation_type,is_operation_log 
+FROM privilege 
+WHERE 1=1 
+and privilege_code_num=#{privilege_code_num,jdbcType=INTEGER}
+</select>
+<select id="selectAllPrivilege" resultType="PrivilegeEntity">
+SELECT privilege_id,privilege_code_num,Privilege_url,
+privilege_describe,Privilege_operate_name,privilege_verify,
+is_page,operation_type,is_operation_log
+FROM privilege 
+</select>
+<delete id="emptyPrivilege">
+DELETE FROM privilege
+</delete>
+<delete id="emptyPrivilegeGatherPrivilege">
+DELETE FROM privilege_gather_privilege
+</delete>
+<delete id="emptyPrivilegeGather">
+DELETE FROM privilege_gather
+</delete>
+<delete id="emptyPrivilegeAdministrative">
+DELETE FROM privilege_administrative
+</delete>
+<delete id="emptyPrivilegeAdministrativeGather">
+DELETE FROM privilege_administrative_gather
+</delete>
+<delete id="emptyPrivilegeAdministrativeUser">
+DELETE FROM privilege_administrative_user
+</delete>
+<delete id="emptyUserPrivilege">
+DELETE FROM user_privilege
+</delete>
+<update id="updatePrivilegeVerifyToPrivilegeId" >
+UPDATE  privilege 
+SET privilege_verify=#{privilege_verify,jdbcType=INTEGER}
+WHERE 1=1 
+and privilege_id in
+ <foreach collection="privilegeIds" index="index" item="privilegeId"
+            open="(" separator="," close=")">
+            #{privilegeId,jdbcType=INTEGER}
+ </foreach>
+
+</update>
+<update id="updateOperationLog" >
+UPDATE  privilege 
+SET 
+operation_type=#{operation_type,jdbcType=INTEGER},
+is_operation_log=#{is_operation_log,jdbcType=INTEGER}
+WHERE 1=1 
+and privilege_id in
+ <foreach collection="is_operation_logs" index="index" item="privilege_id"
+            open="(" separator="," close=")">
+            #{privilege_id,jdbcType=INTEGER}
+ </foreach>
+
+</update>
+<select id="selectPrivilegesToPrivilegeIds" resultType="PrivilegeEntity">
+SELECT  privilege_id,privilege_code_num,Privilege_url,
+privilege_describe,Privilege_operate_name,privilege_verify,
+is_page,operation_type,is_operation_log 
+FROM privilege 
+WHERE privilege_id IN
+  <foreach collection="privilegeIds" index="index" item="privilegeId" open="(" separator="," close=")">
+    #{privilegeId,jdbcType=INTEGER}
+  </foreach>
+</select>
+<insert id="insertPrivilegeGather" useGeneratedKeys="true" keyProperty="privilege_gather_id">
+INSERT  INTO privilege_gather (privilege_gather_name,privilege_gather_describe,privilege_gather_type)
+VALUE
+(
+ #{privilege_gather_name,jdbcType=VARCHAR},
+ #{privilege_gather_describe,jdbcType=VARCHAR},
+ #{privilege_gather_type,jdbcType=INTEGER}
+)
+</insert>
+<insert id="insertBatchPrivilegeGatherPrivilege">
+INSERT 
+INTO privilege_gather_privilege (privilege_gather_id,privilege_id)
+VALUE
+ <foreach collection="privilegeGatherPrivilegeEntityList" index="privilegeGatherPrivilegeEntity" item="privilegeGatherPrivilegeEntity"  separator="," >
+ (
+ #{privilegeGatherPrivilegeEntity.privilege_gather_id,jdbcType=INTEGER},
+ #{privilegeGatherPrivilegeEntity.privilege_id,jdbcType=INTEGER}
+ )
+ </foreach>
+</insert>
+<select id="selectPrivilegeGatherToPrivilegeGatherType" resultType="PrivilegeGatherEntity">
+SELECT privilege_gather_id,privilege_gather_name,privilege_gather_describe,privilege_gather_type
+FROM privilege_gather
+WHERE privilege_gather_type IN
+ <foreach collection="privilegeGatherTypes" close=")" item="privilegeGatherType" index="index" open="(" separator=",">
+   #{privilegeGatherType,jdbcType=INTEGER}
+ </foreach>
+</select>
+<select id="selectPrivilegeGather" resultType="PrivilegeGatherEntity" parameterType="int">
+SELECT privilege_gather_id,privilege_gather_name,privilege_gather_describe,privilege_gather_type
+FROM privilege_gather
+WHERE privilege_gather_id=#{privilege_gather_id,jdbcType=INTEGER}
+</select>
+<select id="selectPrivilegesToPrivilegeGatherId" resultType="PrivilegeEntity" parameterType="int">
+SELECT g.privilege_id,g.privilege_code_num,g.privilege_url,g.privilege_describe,g.privilege_operate_name,g.privilege_verify 
+FROM privilege_gather AS pg 
+LEFT JOIN privilege_gather_privilege as pgp ON(pg.privilege_gather_id=pgp.privilege_gather_id)
+LEFT JOIN privilege as g ON(pgp.privilege_id=g.privilege_id) 
+WHERE pg.privilege_gather_id=#{privilege_gather_id,jdbcType=INTEGER}
+</select>
+<select id="selectPrivilegeGatherToPGId" resultType="PrivilegeGatherEntity" parameterType="int">
+SELECT privilege_gather_id,privilege_gather_name,privilege_gather_describe,
+privilege_gather_type FROM privilege_gather
+ WHERE privilege_gather_id IN
+ <foreach collection="privilege_gather_ids" close=")" item="privilege_gather_id" index="index" open="(" separator=",">
+   #{privilege_gather_id,jdbcType=INTEGER}
+ </foreach>
+</select>
+<insert id="insertPrivilegeAdministrative" parameterType="PrivilegeAdministrativeEntity" useGeneratedKeys="true" keyProperty="administrative_id">
+ INSERT INTO privilege_administrative (administrative_priority,administrative_name,administrative_describe) 
+ VALUE (
+  #{administrative_priority,jdbcType=INTEGER},
+  #{administrative_name,jdbcType=INTEGER},
+  #{administrative_describe,jdbcType=INTEGER}
+ )
+</insert>
+<insert id="insertPrivilegeAdministrativeGatherBatch" >
+INSERT INTO privilege_administrative_gather(administrative_id,prvilege_gather_id)
+VALUE
+<foreach collection="privilegeAdministrativeGatherList" item="privilegeAdministrativeGather"   index="index" separator=",">
+(
+#{privilegeAdministrativeGather.administrative_id,jdbcType=INTEGER},
+#{privilegeAdministrativeGather.prvilege_gather_id,jdbcType=INTEGER}
+)
+</foreach>
+</insert>
+<select id="selectAllPrivilegeAdministrative" resultType="PrivilegeAdministrativeEntity">
+SELECT 
+administrative_id,administrative_priority,administrative_name,administrative_describe
+FROM privilege_administrative
+</select>
+<select id="selectPrivilegeAdministrativeToPaId" resultType="PrivilegeAdministrativeEntity" parameterType="int">
+SELECT 
+administrative_id,administrative_priority,administrative_name,administrative_describe
+FROM privilege_administrative
+WHERE administrative_id=#{administrative_id,jdbcType=INTEGER}
+</select>
+<select id="selectPrivilegeGatherToPaId" resultType="PrivilegeGatherEntity" parameterType="int">
+SELECT privilege_gather_id,privilege_gather_name,privilege_gather_describe,privilege_gather_type
+FROM privilege_administrative_gather pag 
+LEFT JOIN privilege_gather pg 
+ON(pag.prvilege_gather_id=pg.privilege_gather_id) 
+WHERE pag.administrative_id=#{administrative_id,jdbcType=INTEGER}
+</select>
+<select id="selectPrivilegeToPaId" resultType="PrivilegeEntity" parameterType="int">
+SELECT * FROM privilege_administrative_gather pag 
+LEFT JOIN privilege_gather_privilege pgp ON (pag.prvilege_gather_id=pgp.privilege_gather_id) 
+LEFT JOIN privilege p ON(p.privilege_id=pgp.privilege_id) 
+WHERE pag.administrative_id=#{administrative_id,jdbcType=INTEGER}
+</select>
+<insert id="insertPrivilegeAdministrativeUser" parameterType="PrivilegeAdministrativeUserEntity">
+  INSERT INTO privilege_administrative_user (administrative_id,user_basics_id) VALUE(#{administrative_id,jdbcType=INTEGER},#{user_basics_id,jdbcType=INTEGER})
+</insert>
+<delete id="deletePrivilegeAdministrativeUser" parameterType="PrivilegeAdministrativeUserEntity">
+DELETE FROM 
+privilege_administrative_user 
+WHERE 
+administrative_id =#{administrative_id,jdbcType=INTEGER}
+AND
+user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+</delete>
+<insert id="insertUserPrivilegeAdminBatchToPidUids" >
+ INSERT INTO ${tableName}
+ (user_basics_id,privilege_id)
+ VALUE
+ <foreach collection="privilege_ids" item="privilege_id" separator=",">
+ (
+ #{user_basics_id,jdbcType=INTEGER},
+ #{privilege_id,jdbcType=INTEGER}
+ )
+ </foreach>
+</insert>
+<delete id="deleteUserPrivilegeAdminToPidUids">
+ DELETE FROM ${tableName}
+ WHERE
+ <foreach collection="privilege_ids" item="privilege_id" separator="OR">
+  (
+   user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+   AND
+   privilege_id=#{privilege_id,jdbcType=INTEGER}
+   )
+ </foreach>
+</delete>
+<select id="findPrivilegeAdministrativeUserToUid" parameterType="int" resultType="java.util.Map">
+  SELECT 
+  administrative_id,user_basics_id 
+  FROM privilege_administrative_user
+  WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+</select>
+<select id="selectPrivilegeToUid" resultType="PrivilegeEntity">
+SELECT p.privilege_id,p.privilege_code_num,p.Privilege_url,p.privilege_describe,p.privilege_operate_name,p.privilege_verify
+FROM ${tableName} upd 
+LEFT JOIN privilege p ON (upd.privilege_id=p.privilege_id)
+WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+</select>
+<select id="selectPrivilegeUrlToUid" resultType="String">
+SELECT p.Privilege_url
+FROM ${tableName} upd 
+LEFT JOIN privilege p ON (upd.privilege_id=p.privilege_id)
+WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+</select>
+<select id="selectPrivilegeUrlVerifyOffToPriCode" resultType="String" parameterType="int">
+SELECT Privilege_url FROM privilege 
+WHERE 
+privilege_verify=0 AND privilege_code_num=#{privilege_code_num,jdbcType=INTEGER}
+</select>
+<select id="likeSelectPrivilegeToPrivilege_url" resultType="PrivilegeEntity" parameterType="String">
+  SELECT privilege_id,privilege_code_num,Privilege_url,
+  privilege_describe,Privilege_operate_name,privilege_verify,
+  is_page,operation_type,is_operation_log 
+  FROM privilege 
+  WHERE Privilege_url like concat(#{Privilege_url,jdbcType=VARCHAR},'%') limit 0,5
+</select>
+<delete id="batchDeletePrivilege">
+  DELETE FROM privilege 
+  WHERE privilege_id IN
+  <foreach collection="privilegeEntityList" item="privilege" open="(" close=")" separator=",">
+    #{privilege.privilege_id,jdbcType=INTEGER}
+  </foreach>
+</delete>
+<delete id="batchDeletePrivilegeGP">
+  DELETE FROM privilege_gather_privilege 
+  WHERE privilege_id IN
+  <foreach collection="privilegeEntityList" item="privilege" open="(" close=")" separator=",">
+    #{privilege.privilege_id,jdbcType=INTEGER}
+  </foreach>
+</delete>
+<delete id="batchDeleteUserPrivilege">
+  DELETE FROM ${tableName} 
+  WHERE privilege_id IN
+  <foreach collection="privilegeEntityList" item="privilege" open="(" close=")" separator=",">
+    #{privilege.privilege_id,jdbcType=INTEGER}
+  </foreach>
+</delete>
+<update id="batchUpdatePrivilegeOperateName">
+UPDATE privilege SET privilege_operate_name = CASE privilege_id
+ <foreach collection="privilegeEntityList" item="privilege">
+    WHEN #{privilege.privilege_id,jdbcType=INTEGER} 
+    THEN #{privilege.privilege_operate_name,jdbcType=INTEGER}
+ </foreach>       
+  END 
+  WHERE privilege_id IN 
+ <foreach collection="privilegeEntityList" item="privilege" open="(" close=")" separator=",">+
+   #{privilege.privilege_id,jdbcType=INTEGER} 
+ </foreach>
+</update>
+
+</mapper>

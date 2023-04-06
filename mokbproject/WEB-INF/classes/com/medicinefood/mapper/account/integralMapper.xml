@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.account.IntegralMapper">
+<insert id="batchInsertIntegralAccount" parameterType="java.util.List">  
+    INSERT INTO integral_account (account_option
+    ,user_basics_id
+    ,account_change
+    ,account_add_date
+    ,integral_account_num
+    ,integral_account_explain)  
+    VALUES   
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.account_option,jdbcType=VARCHAR}
+        ,#{item.user_basics_id,jdbcType=INTEGER}
+        ,#{item.account_change,jdbcType=INTEGER}
+        ,#{item.account_add_date,jdbcType=BIGINT}
+        ,#{item.integral_account_num,jdbcType=INTEGER}
+        ,#{item.integral_account_explain,jdbcType=VARCHAR})  
+    </foreach>  
+</insert> 
+<insert id="addIntegralAccount" parameterType="IntegralAccount" useGeneratedKeys="true" keyProperty="integral_account_id">  
+    INSERT INTO integral_account (
+    account_option
+    ,user_basics_id
+    ,account_option_name
+    ,account_add_date
+    ,integral_account_num
+    ,integral_account_explain
+    ,integral_account_type
+    ,integral_trigger
+    )  
+    VALUES(
+     #{account_option,jdbcType=VARCHAR}
+    ,#{user_basics_id,jdbcType=INTEGER}
+    ,#{account_option_name,jdbcType=VARCHAR}
+    ,#{account_add_date,jdbcType=BIGINT}
+    ,#{integral_account_num,jdbcType=INTEGER}
+    ,#{integral_account_explain,jdbcType=VARCHAR}
+    ,#{integral_account_type,jdbcType=INTEGER}
+    ,#{integral_trigger,jdbcType=INTEGER}
+    )   
+    
+</insert> 
+<select id="findIntegraAccount" resultType="IntegralAccount">
+SELECT integral_account_id,account_option,user_basics_id,account_option_name,account_add_date,integral_account_num,integral_account_explain,integral_account_type,integral_trigger FROM integral_account 
+
+WHERE 1=1
+<trim prefix="" suffixOverrides=" ">
+<if test="user_basics_id!=null">
+AND
+ user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+</if>
+<if test="account_option!=null">
+AND
+ account_option=#{account_option,jdbcType=VARCHAR} 
+</if>
+</trim>
+order by integral_account_id desc
+</select>
+<select id="findIntegra" resultType="IntegralAccount" parameterType="IntegralAccount">
+SELECT * FROM integral_account 
+WHERE 1=1
+<if test="user_basics_id!=null">
+AND integral_account.user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+</if>
+<if test="user_basics_id!=null">
+<if test="account_option_name!=null and account_option_name!=''" >
+AND integral_account.user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+AND integral_account.account_option_name=#{account_option_name,jdbcType=VARCHAR}
+</if>
+</if>
+<if test="account_option_name!=null and account_option_name!=''" >
+AND integral_account.account_option_name=#{account_option_name,jdbcType=VARCHAR}
+</if>
+ORDER BY account_add_date DESC
+</select>
+<select id="findUserWXIFGrade" resultType="UserWeiXinAndInformationGrade" parameterType="int">
+SELECT ub.user_nickname,ub.user_register_data,ub.user_register_address,ug.grade_name,ug.grade_nickname,
+       uw.weixin_nickname,uw.weixin_gender,uw.weixin_follow_choice,uw.weixin_follow_data_yes,uw.weixin_follow_data_no, 
+       uf.information_phone,uf.information_qq,uf.information_Email,uf.information_compellation,uf.information_card,
+       uf.card_end,uf.information_sex,uf.nick_name,uf.live_address,uf.registered_address,uf.information_weixin,uf.card_picture,uf.information_age
+FROM user_basics ub LEFT JOIN user_information uf ON (ub.user_basics_id=uf.user_basics_id)
+LEFT JOIN user_weixin uw ON (ub.user_basics_id=uw.user_basics_id)
+LEFT JOIN user_grade ug ON (ub.user_grade_id=ug.user_grade_id)
+WHERE ub.user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+</select>
+</mapper>

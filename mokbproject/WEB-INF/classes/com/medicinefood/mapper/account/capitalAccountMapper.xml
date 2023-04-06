@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.account.CapitalAccountMapper">
+<insert id="batchInsertCapitalAccount" parameterType="java.util.List">  
+    INSERT INTO capital_account (to_user_basics_id
+    ,account_explain
+    ,add_account_date
+    ,capital_number
+    ,capital_account_type
+    ,capital_trigger
+    ,company_id
+    )  
+    VALUES   
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.to_user_basics_id,jdbcType=INTEGER}
+        ,#{item.account_explain,jdbcType=VARCHAR}
+        ,#{item.add_account_date,jdbcType=BIGINT}
+        ,#{item.capital_number,jdbcType=DOUBLE}
+        ,#{item.capital_account_type,jdbcType=INTEGER}
+        ,#{item.capital_trigger,jdbcType=INTEGER}
+        ,#{item.company_id,jdbcType=INTEGER}
+        )  
+    </foreach>  
+</insert> 
+<insert id="insertCapitalAccount" parameterType="CapitalAccount" useGeneratedKeys="true" keyProperty="capital_account_id">  
+    INSERT INTO capital_account (
+    to_user_basics_id
+    ,account_explain
+    ,add_account_date
+    ,capital_number
+    ,capital_account_type
+    ,capital_trigger)  
+    VALUES(
+     #{to_user_basics_id,jdbcType=INTEGER}
+    ,#{account_explain,jdbcType=VARCHAR}
+    ,#{add_account_date,jdbcType=BIGINT}
+    ,#{capital_number,jdbcType=DOUBLE}
+    ,#{capital_account_type,jdbcType=INTEGER}
+    ,#{capital_trigger,jdbcType=INTEGER})   
+    
+</insert> 
+<select id="findCapitalAccount" resultType="CapitalAccount" parameterType="CapitalAccount">
+    SELECT * FROM capital_account c where 1=1 
+    <if test="user_basics_id!=null">
+     AND c.to_user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+    </if>
+    order by capital_number DESC 
+</select>
+<select id="findCapitalCompany" resultType="CapitalAccount" parameterType="java.util.HashMap">
+    SELECT * FROM capital_account where 1=1 and company_id=#{company_id,jdbcType=INTEGER}
+     and add_account_date>=#{start_date,jdbcType=BIGINT}
+     and add_account_date&lt;#{end_date,jdbcType=BIGINT} 
+      <if test="co_user_basics_id!=null"> 
+     and co_user_basics_id=#{co_user_basics_id,jdbcType=INTEGER}
+     </if>
+     ;
+</select>
+<select id="findCapitalOne" resultType="CapitalAccount" parameterType="int">
+    SELECT c.capital_account_id,c.to_user_basics_id,c.account_explain,c.add_account_date,c.capital_number,c.capital_account_type,c.capital_trigger,c.company_id,c.co_user_basics_id
+    FROM user_basics b LEFT JOIN capital_account c ON(b.user_basics_id=c.to_user_basics_id) 
+    WHERE to_user_basics_id=#{to_user_basics_id,jdbcType=INTEGER}
+</select>
+</mapper>

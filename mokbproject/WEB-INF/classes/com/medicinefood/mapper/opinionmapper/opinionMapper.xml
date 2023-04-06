@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.opinionmapper.OpinionMapper" >
+   <insert id="addOpinion" parameterType="int" useGeneratedKeys="true" keyProperty="opinion_id">
+		insert into suggestions_opinion 
+		(user_basics_id,tel_phone,suggest_opinion,star_level,add_date) 
+		value (#{user_basics_id,jdbcType=INTEGER}
+		,#{tel_phone,jdbcType=VARCHAR}
+		,#{suggest_opinion,jdbcType=VARCHAR}
+		,#{star_level,jdbcType=INTEGER}
+		,#{add_date,jdbcType=BIGINT}
+		);
+	</insert>
+	<select id="findSugOpinionByStatus" resultType="SuggestionsOpinion" parameterType="java.util.HashMap">
+		select * from suggestions_opinion where status_state=#{status_state,jdbcType=INTEGER};
+	</select>
+	<update id="updateSugByStatus" parameterType="java.util.HashMap">
+		update suggestions_opinion set status_state=#{status_state,jdbcType=INTEGER}
+		where opinion_id=#{opinion_id,jdbcType=INTEGER};
+	</update>
+</mapper>

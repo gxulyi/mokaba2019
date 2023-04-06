@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.company.CompanyMonthMapper" >
+
+<select id="findMonthSalesOne" resultType="CompanyMonthSales" parameterType="CompanyMonthSales">
+   SELECT *
+   FROM company_month_sales 
+   where 1=1 
+   <if test="month_date!=null">
+ 	and month_date=#{month_date,jdbcType=VARCHAR}
+ 	</if>
+ 	<if test="company_id!=null">
+ 	and company_id=#{company_id,jdbcType=INTEGER}
+ 	</if>
+ 	order by month_id desc 
+</select>
+<select id="selectCompanyMonth" resultType="CompanyMonthSales">
+   SELECT *
+   FROM company_month_sales where 1=1;
+</select>
+
+<select id="selectCompanyMonthone" resultType="CompanyMonthSales" parameterType="java.util.HashMap">
+   SELECT *
+   FROM company_month_sales where 1=1 
+</select>
+<update id="updateCompanyMonth" parameterType="CompanyMonthSales">
+  UPDATE company_month_sales 
+  SET 
+  company_id=#{company_id,jdbcType=VARCHAR}
+ <if test="month_money_timely!=null">
+  ,month_money_timely=month_money_timely+#{month_money_timely,jdbcType=DOUBLE}
+ </if>
+ <if test="start_time!=null">
+  ,start_time=#{start_time,jdbcType=BIGINT}
+ </if>
+ <if test="green_kaba!=null">
+ ,green_kaba=green_kaba+#{green_kaba,jdbcType=DOUBLE}
+ </if>
+ <if test="indigo_kaba!=null">
+ ,indigo_kaba=indigo_kaba+#{indigo_kaba,jdbcType=DOUBLE}
+ </if>
+ <if test="blue_violet_kaba!=null">
+ ,blue_violet_kaba=blue_violet_kaba+#{blue_violet_kaba,jdbcType=DOUBLE}
+ </if>
+ <if test="purple_kaba!=null">
+ ,purple_kaba=purple_kaba+#{purple_kaba,jdbcType=DOUBLE}
+ </if>
+  <if test="end_time!=null">
+ ,end_time=#{end_time,jdbcType=BIGINT}
+ </if>
+ <if test="month_money_untimely!=null">
+ ,month_money_untimely=#{month_money_untimely,jdbcType=DOUBLE}
+ </if>
+ <if test="old_green_kaba!=null">
+ ,old_green_kaba=#{old_green_kaba,jdbcType=DOUBLE}
+ </if>
+ <if test="old_indigo_kaba!=null">
+ ,old_indigo_kaba=#{old_indigo_kaba,jdbcType=DOUBLE}
+ </if>
+ <if test="old_blue_violet_kaba!=null">
+ ,old_blue_violet_kaba=#{old_blue_violet_kaba,jdbcType=DOUBLE}
+ </if>
+ <if test="old_purple_kaba!=null">
+ ,old_purple_kaba=#{old_purple_kaba,jdbcType=DOUBLE}
+ </if>
+ <if test="if_settlement!=null">
+ ,if_settlement=#{if_settlement,jdbcType=INTEGER}
+ </if>
+ <if test="low_month_money_timely!=null">
+ ,low_month_money_timely=#{low_month_money_timely,jdbcType=DOUBLE}
+ </if>
+<if test="low_month_money_untimely!=null">
+ ,low_month_money_untimely=low_month_money_untimely+#{low_month_money_untimely,jdbcType=DOUBLE}
+ </if>
+ <if test="indigo_kaba_num!=null">
+ ,indigo_kaba_num=#{indigo_kaba_num,jdbcType=INTEGER}
+ </if>
+ <if test="blue_violet_kaba_num!=null">
+ ,blue_violet_kaba_num=#{blue_violet_kaba_num,jdbcType=INTEGER}
+ </if>
+ <if test="purple_kaba_num!=null">
+ ,purple_kaba_num=#{purple_kaba_num,jdbcType=INTEGER}
+ </if>
+ WHERE 1=1 
+ 	and month_date=#{month_date,jdbcType=VARCHAR}
+ 	and company_id=#{company_id,jdbcType=INTEGER}
+</update>
+<update id="updateCompanyCompany" parameterType="java.util.HashMap">
+UPDATE company_month_sales 
+  SET month_money_untimely=#{month_money_untimely,jdbcType=DOUBLE} 
+  <if test="if_settlement">
+  and if_settlement=#{if_settlement,jdbcType=INTEGER} 
+  </if>
+  where 1=1
+   and month_date=#{month_date,jdbcType=VARCHAR}
+ 	and company_id=#{company_id,jdbcType=INTEGER}
+</update>
+<insert id="insertCompanyMonth" parameterType="CompanyMonthSales">
+ INSERT INTO company_month_sales 
+ (company_id,month_date,month_money_timely,start_time,end_time,month_money_untimely,green_kaba,indigo_kaba,
+ blue_violet_kaba,purple_kaba,if_settlement
+ ,old_green_kaba,old_indigo_kaba,old_blue_violet_kaba,
+ old_purple_kaba,low_month_money_timely,low_month_money_untimely,
+ indigo_kaba_num,blue_violet_kaba_num,purple_kaba_num)
+ VALUE(#{company_id,jdbcType=INTEGER}
+ ,#{month_date,jdbcType=VARCHAR}
+ ,#{month_money_timely,jdbcType=DOUBLE}
+ ,#{start_time,jdbcType=BIGINT}
+ ,#{end_time,jdbcType=BIGINT}
+ ,#{month_money_untimely,jdbcType=DOUBLE}
+ ,#{green_kaba,jdbcType=DOUBLE}
+ ,#{indigo_kaba,jdbcType=DOUBLE}
+ ,#{blue_violet_kaba,jdbcType=DOUBLE}
+ ,#{purple_kaba,jdbcType=DOUBLE}
+ ,#{if_settlement,jdbcType=INTEGER}
+ ,#{old_green_kaba,jdbcType=DOUBLE}
+ ,#{old_indigo_kaba,jdbcType=DOUBLE}
+ ,#{old_blue_violet_kaba,jdbcType=DOUBLE}
+ ,#{old_purple_kaba,jdbcType=DOUBLE}
+ ,#{low_month_money_timely,jdbcType=DOUBLE}
+ ,#{low_month_money_untimely,jdbcType=DOUBLE}
+ ,#{indigo_kaba_num,jdbcType=INTEGER}
+ ,#{blue_violet_kaba_num,jdbcType=INTEGER}
+ ,#{purple_kaba_num,jdbcType=INTEGER}
+ );
+</insert>
+
+<select id="selectCompanyMonthByMonth" resultType="CompanyMonthSales">
+  SELECT *
+   FROM company_month_sales 
+   where 1=1 
+   <if test="month_date!=null">
+    and month_date =#{month_date,jdbcType=VARCHAR}
+   </if>
+     <if test="company_id!=null">
+    and company_id =#{company_id,jdbcType=VARCHAR}
+   </if>
+   
+   ;
+</select>
+
+
+</mapper>

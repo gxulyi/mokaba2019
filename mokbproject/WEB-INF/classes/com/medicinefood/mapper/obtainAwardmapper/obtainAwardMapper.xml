@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.obtainAwardmapper.ObtainAwardMapper">
+ <!-- 新增协议 -->
+ <insert id="addAward" parameterType="ObtainAward" useGeneratedKeys="true" keyProperty="award_id" >
+  insert into obtain_award
+		(award_num,award_name,probability,start_date,count,award_type,tb_name,tb_id,status_state
+) 
+		value(
+		 #{award_num,jdbcType=INTEGER}
+		,#{award_name,jdbcType=VARCHAR}
+		,#{probability,jdbcType=INTEGER}
+		,#{start_date,jdbcType=BIGINT}
+		,#{count,jdbcType=INTEGER}
+		,#{award_type,jdbcType=INTEGER}
+		,#{tb_name,jdbcType=VARCHAR}
+		,#{tb_id,jdbcType=INTEGER}
+		,#{status_state,jdbcType=INTEGER}
+		);
+ </insert> 
+ <!-- 查询所有奖励项信息-->
+ <select id="findAllObtainAwards" resultType="ObtainAward" parameterType="ObtainAward">
+         select * from obtain_award where 1=1  
+          <if test="status_state!=null">
+            and status_state = #{status_state,jdbcType=INTEGER}
+          </if>
+         order by award_id ASC;
+ </select>
+ <!-- 查询单个银行卡信息-->
+ <!-- <select id="findBankById" resultType="BankEntity" parameterType="BankEntity">
+         select * from real_bank_card where 1=1
+          and card_id =#{card_id,jdbcType=INTEGER}
+ </select> -->
+ <!-- 修改单个银行卡信息-->
+ <!-- <update id="updateBank" parameterType="BankEntity">
+	  update real_bank_card set
+	  	 user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+		,bank_card=#{bank_card,jdbcType=VARCHAR}
+		,affiliated_bank=#{affiliated_bank,jdbcType=VARCHAR}
+		,tel=#{tel,jdbcType=VARCHAR}
+		,card_type=#{card_type,jdbcType=INTEGER}
+	  where card_id=#{card_id,jdbcType=INTEGER} 
+	</update> -->  
+ 
+ <!-- 删除银行卡信息-->
+ <!-- <delete id="deleteBank" parameterType="BankEntity" >
+		delete from real_bank_card where card_id=#{card_id,jdbcType=INTEGER} ;
+	</delete> -->
+ <!-- 修改每次抽奖后中奖商品的数量 ，每抽一次商品数量减1 -->	
+ <update id="updateAwardCount" parameterType="ObtainAward">
+  UPDATE obtain_award 
+  SET 
+  count=count-(#{count,jdbcType=INTEGER}) 
+  WHERE 1=1
+  and award_id = #{award_id,jdbcType=INTEGER}
+ </update>
+ <!-- 当某一商品数量为0时候，该商品概率也清空为0 -->
+ <update id="updateAwardProbality" parameterType="ObtainAward">
+  UPDATE obtain_award 
+  SET 
+  probability=#{probability,jdbcType=INTEGER} 
+  WHERE 1=1
+  and award_id = #{award_id,jdbcType=INTEGER}
+ </update>
+	
+</mapper>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的发布</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/icons-extra.css" />
+		<link rel="stylesheet" href="css/myrelease.css" />
+		<script type="text/javascript" src="js/jquery-1.7.1.js" ></script>
+	</head>
+	<body  style="background: #FFFFFF;">
+		<header class="mui-bar mui-bar-nav" style="background: #299f99;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<div class="title_div">
+				<div class="title_div_li" onclick="clickShowDiv(this,'shaidan_div');">
+					<span style="border-bottom:2px solid #fff;padding-bottom:3px;">晒单</span>
+				</div>
+				<div class="title_div_li" onclick="clickShowDiv(this,'pinglun_div');">
+					<span>评论</span>
+				</div>
+				<div class="title_div_li" onclick="clickShowDiv(this,'spingjia_div');">
+					<span>商品评价</span>
+				</div>
+			</div>
+		</header>
+		<div class="mui-content" style="padding-bottom: 20px;">
+			<div id="shaidan_div" class="kbsj_div_ul">
+				<div style="width: auto;height: auto;">
+					<ul class="mui-table-view">
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+					            <div class="mui-media-body myrel">
+					                <label>慕斯Meath</label>
+					                <span>21分钟前</span>
+					                <p class="mui-ellipsis">这个茶真的很好喝，特别有感觉，推荐大家购买</p>
+					                <ul class="myrel-ul">
+					                	<li>
+					                		<img style="width: 100px;height: 100px;" src="http://placehold.it/400x300">
+					                	</li>
+					                	<li>
+					                		<img style="width: 100px;height: 100px;" src="http://placehold.it/400x300">
+					                	</li>
+					                </ul>
+					            </div>
+					        </a>
+					    </li>
+					</ul>
+					<ul class="myrel-ul-ul">
+			        	<li>
+		        			<i  class="fx"></i>
+		        			<label>分享</label>
+			        	</li>
+			        	<li>
+		        			<i  class="pl"></i>
+		        			<label>评论</label>
+		        			<label>45</label>
+			        	</li>
+			        	<li>
+		        			<i  class="dz"></i>
+		        			<label>点赞</label>
+		        			<label>146</label>
+			        	</li>
+			        </ul>
+		        </div>
+		        <div style="width: auto;height: auto;">
+					<ul class="mui-table-view">
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+					            <div class="mui-media-body myrel">
+					                <label>慕斯Meath</label>
+					                <span>21分钟前</span>
+					                <p class="mui-ellipsis">这个茶真的很好喝，特别有感觉，推荐大家购买</p>
+					                <ul class="myrel-ul">
+					                	<li>
+					                		<img style="width: 100px;height: 100px;" src="http://placehold.it/400x300">
+					                	</li>
+					                	<li>
+					                		<img style="width: 100px;height: 100px;" src="http://placehold.it/400x300">
+					                	</li>
+					                </ul>
+					            </div>
+					        </a>
+					    </li>
+					</ul>
+					<ul class="myrel-ul-ul">
+			        	<!--<li>
+			        		<i class="mui-icon fenxiang"></i>
+			        		<label>分享</label>
+			        	</li>-->
+			        	<li>
+		        			<i  class="fx"></i>
+		        			<label>分享</label>
+			        	</li>
+			        	<li>
+		        			<i  class="pl"></i>
+		        			<label>评论</label>
+		        			<label>45</label>
+			        	</li>
+			        	<li>
+		        			<i  class="dz"></i>
+		        			<label>点赞</label>
+		        			<label>146</label>
+			        	</li>
+			        </ul>
+		        </div>
+	        </div>
+	        <div id="pinglun_div" class="kbsj_div_ul" style="display: none;">
+	        	<div style="width: auto;height: auto;border-bottom: 5px solid #F0F0F0;padding-bottom: 15px;">
+					<ul class="mui-table-view">
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+					            <div class="mui-media-body myrel">
+					                <label>慕斯Meath</label>
+					                <span>21分钟前</span>
+					            </div>
+					        </a>
+					        <p class="mui-ellipsis">这个茶真的很好喝，特别有感觉，推荐大家购买</p>
+					    </li>
+					</ul>
+					<div class="mui-card">
+				        <ul class="mui-table-view">
+				            <li class="mui-table-view-cell">
+				                <a class="mui-navigate-right" style="display: flex;align-items:center;white-space: normal;background: #f0f0f0;">
+				                	<img style="width: 30px;height: 30px;border-radius: 5px;" src="http://placehold.it/30x30">
+				                    <p>给大家分享一个如何利用泡过的茶叶做成肥料的方法，希望大家喜欢</p>
+				                </a>
+				            </li>
+				        </ul>
+				    </div>
+		        </div>
+		        <div style="width: auto;height: auto;border-bottom: 5px solid #F0F0F0;padding-bottom: 15px;">
+					<ul class="mui-table-view">
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+					            <div class="mui-media-body myrel">
+					                <label>慕斯Meath</label>
+					                <span>21分钟前</span>
+					            </div>
+					        </a>
+					        <p class="mui-ellipsis">这个茶真的很好喝，特别有感觉，推荐大家购买</p>
+			                <ul class="myrel-ul">
+			                	<li>
+			                		<img style="width: 100px;height: 100px;" src="http://placehold.it/400x300">
+			                	</li>
+			                	<li>
+			                		<img style="width: 100px;height: 100px;" src="http://placehold.it/400x300">
+			                	</li>
+			                </ul>
+					    </li>
+					</ul>
+					<div class="mui-card">
+				        <ul class="mui-table-view">
+				            <li class="mui-table-view-cell">
+				                <a class="mui-navigate-right" style="display: flex;align-items:center;white-space: normal;background: #f0f0f0;">
+				                	<img style="width: 30px;height: 30px;border-radius: 5px;" src="http://placehold.it/30x30">
+				                    <p>给大家分享一个如何利用泡过的茶叶做成肥料的方法，希望大家喜欢</p>
+				                </a>
+				            </li>
+				        </ul>
+				    </div>
+		        </div>
+	        </div>
+	        <div id="spingjia_div" class="kbsj_div_ul" style="display: none;">
+	        	<div style="width: auto;height: auto;border-bottom: 5px solid #F0F0F0;padding-bottom: 15px;">
+					<ul class="mui-table-view">
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+					            <div class="mui-media-body myrel">
+					                <label>慕斯Meath</label>
+					                <span>21分钟前</span>
+					            </div>
+					        </a>
+					        <p class="mui-ellipsis">这个茶真的很好喝，特别有感觉，推荐大家购买</p>
+					    </li>
+					</ul>
+					<div class="order-detail" onclick="">
+						<div class="order-info">
+							<div class="order-img"> <img src="http://via.placeholder.com/100X100 " onerror="javascript:this.src='http://via.placeholder.com/100X100 '"> </div>
+							<div class="mui-media-body-wz">【日本·cosme用户评价满分全5星】cure水润去角质凝胶250g</div> 
+							<div style="font-size: 12px;color: #666666;margin-top: 2px;">净含量：150g</div> 
+			                <div class="mui-ellipsis" style="float: left;line-height: 30px;width: 60%;">
+								<label style="color: #c65280;font-size: 12px;">￥</label>
+								<span style="color: #c65280 !important;font-size: 12px;">229</span>
+								<del style="font-size: 12px;color: #999;"><label style="font-size: 12px;">￥</label>188</del>
+			                </div>
+			                <div class="mui-pull-right">
+								<label>X2</label>
+							</div>
+						</div>
+					</div>
+		        </div>
+		        <div style="width: auto;height: auto;border-bottom: 5px solid #F0F0F0;padding-bottom: 15px;">
+					<ul class="mui-table-view">
+					    <li class="mui-table-view-cell mui-media">
+					        <a href="javascript:;">
+					            <img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+					            <div class="mui-media-body myrel">
+					                <label>慕斯Meath</label>
+					                <span>21分钟前</span>
+					            </div>
+					        </a>
+					        <p class="mui-ellipsis">这个茶真的很好喝，特别有感觉，推荐大家购买</p>
+			                <ul class="myrel-ul">
+			                	<li>
+			                		<img style="width: 100px;height: 100px;" src="http://placehold.it/400x300">
+			                	</li>
+			                	<li>
+			                		<img style="width: 100px;height: 100px;" src="http://placehold.it/400x300">
+			                	</li>
+			                </ul>
+					    </li>
+					</ul>
+					<div class="order-detail" onclick="">
+						<div class="order-info">
+							<div class="order-img"> <img src="http://via.placeholder.com/100X100 " onerror="javascript:this.src='http://via.placeholder.com/100X100 '"> </div>
+							<div class="mui-media-body-wz">【日本·cosme用户评价满分全5星】cure水润去角质凝胶250g</div> 
+							<div style="font-size: 12px;color: #666666;margin-top: 2px;">净含量：150g</div> 
+			                <div class="mui-ellipsis" style="float: left;line-height: 30px;width: 60%;">
+								<label style="color: #c65280;font-size: 12px;">￥</label>
+								<span style="color: #c65280 !important;font-size: 12px;">229</span>
+								<del style="font-size: 12px;color: #999;"><label style="font-size: 12px;">￥</label>188</del>
+			                </div>
+			                <div class="mui-pull-right">
+								<label>X2</label>
+							</div>
+						</div>
+					</div>
+		        </div>
+	        </div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			function clickShowDiv(e,id){
+				//菜单切换
+				$(".kbsj_div_ul").each(function(){
+					if($(this).attr("id")==id){
+						$(this).show();
+					}else{
+						$(this).hide();
+					}
+				});
+				$(e).children("span").css({
+					"border-bottom":"2px solid #fff",
+					"padding-bottom":"3px"
+					});
+				$(e).siblings().each(function(){
+					if($(this).attr("class")=="title_div_li"){
+						$(this).children("span").css({
+						"border-bottom":"2px solid #299f99",
+						"padding-bottom":"3px"
+					});
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 下级购买奖励 -->
+      <lowerBuy id="lowerBuy">
+           <item>
+              <!-- 商品id -->
+              <store_id>
+                1
+              </store_id>
+              <!-- 奖励人群/奖励方式 -->
+              <correlatedCrowd>
+              <item>
+                 <!-- 一级上级 -->
+                  <name>
+                  S0
+                  </name>
+                  <!-- 奖励项（此value为奖金） -->
+                  <optionAward>
+                  integral_basics
+                  </optionAward>
+                  <!-- 奖励算法 （1为设置具体金额，2为百分比）-->
+                  <bonusArithmetic>
+                  2
+                  </bonusArithmetic>
+                  <!-- 奖励值 -->
+                  <bonusValue>
+                  100
+                  </bonusValue>
+                </item>
+                <item>
+                 <!-- 一级上级 -->
+                  <name>
+                  S1
+                  </name>
+                  <!-- 奖励项（此value为奖金） -->
+                  <optionAward>
+                  integral_basics
+                  </optionAward>
+                  <!-- 奖励算法 （1为设置具体金额，2为百分比）-->
+                  <bonusArithmetic>
+                  2
+                  </bonusArithmetic>
+                  <!-- 奖励值 -->
+                  <bonusValue>
+                  10
+                  </bonusValue>
+                </item>
+                 <item>
+                  <name>
+                  S2
+                  </name>
+                  <!-- 奖励项（此value为奖金） -->
+                  <optionAward>
+                  integral_basics
+                  </optionAward>
+                  <!-- 奖励算法 （1为设置具体金额，2为百分比）-->
+                  <bonusArithmetic>
+                  2
+                  </bonusArithmetic>
+                  <!-- 奖励值 -->
+                  <bonusValue>
+                  5
+                  </bonusValue>
+                </item>
+               </correlatedCrowd>
+             </item>
+           
+           </lowerBuy>

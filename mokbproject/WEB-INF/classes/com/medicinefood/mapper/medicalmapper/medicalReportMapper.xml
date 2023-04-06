@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.medicalmapper.MedicalReportMapper" >
+  <insert id="insertMedicalReport" parameterType="MedicalReportEntity" useGeneratedKeys="true" keyProperty="medical_report_id">
+  INSERT INTO medical_report(height,weight,systolic,diastolic,pulse,moisture,adiposerate,
+  bone,basalMetabolism,bmi,muscle,visceralfat,temperature,ecg,ecgPng,result,bloodoxygen,hb,bloodsugar,
+  uricacid,chol,LEU,NIT,UBG,PRO,PH,SG,BLD,KET,BIL,GLU,VC,user_basics_id,report_add_date,report_edit_date)
+  VALUE(
+  #{height,jdbcType=REAL},#{weight,jdbcType=REAL},
+  #{systolic,jdbcType=INTEGER},#{diastolic,jdbcType=INTEGER},#{pulse,jdbcType=INTEGER},#{moisture,jdbcType=REAL},
+  #{adiposerate,jdbcType=REAL},#{bone,jdbcType=REAL},#{basalMetabolism,jdbcType=DOUBLE},#{bmi,jdbcType=REAL},
+  #{muscle,jdbcType=REAL},#{visceralfat,jdbcType=INTEGER},#{temperature,jdbcType=REAL},#{ecg,jdbcType=VARCHAR},
+  #{ecgPng,jdbcType=VARCHAR},#{result,jdbcType=VARCHAR},#{bloodoxygen,jdbcType=REAL},#{hb,jdbcType=REAL},
+  #{bloodsugar,jdbcType=REAL},#{uricacid,jdbcType=REAL},#{chol,jdbcType=REAL},#{LEU,jdbcType=INTEGER},
+  #{NIT,jdbcType=INTEGER},#{UBG,jdbcType=INTEGER},#{PRO,jdbcType=INTEGER},#{PH,jdbcType=REAL},
+  #{SG,jdbcType=REAL},#{BLD,jdbcType=INTEGER},#{KET,jdbcType=INTEGER},#{BIL,jdbcType=INTEGER},
+  #{GLU,jdbcType=INTEGER},#{VC,jdbcType=VARCHAR},#{user_basics_id,jdbcType=INTEGER},#{report_add_date,jdbcType=BIGINT},
+  #{report_edit_date,jdbcType=BIGINT}
+  )
+  </insert>
+  
+  <update id="updateMedicalRepor" parameterType="MedicalReportEntity">
+  UPDATE medical_report
+    <set>
+      <if test="height!=null and height!=null and height!=0">
+       height=#{height,jdbcType=REAL},
+      </if>
+      <if test="weight!=null and weight!=null and weight!=0">
+       weight=#{weight,jdbcType=REAL},
+      </if>
+      <if test="systolic!=null and systolic!=null and systolic!=0">
+       height=#{systolic,jdbcType=INTEGER},
+      </if>
+      <if test="diastolic!=null and diastolic!=null and diastolic!=0">
+       diastolic=#{diastolic,jdbcType=INTEGER},
+      </if>
+      <if test="pulse!=null and pulse!=null and pulse!=0">
+       pulse=#{pulse,jdbcType=INTEGER},
+      </if>
+      <if test="moisture!=null and moisture!=null and moisture!=0">
+       moisture=#{moisture,jdbcType=REAL},
+      </if>
+       <if test="adiposerate!=null and adiposerate!=null and adiposerate!=0">
+       adiposerate=#{adiposerate,jdbcType=REAL},
+      </if>
+       <if test="bone!=null and bone!=null and bone!=0">
+       bone=#{bone,jdbcType=REAL},
+      </if>
+       <if test="basalMetabolism!=null and basalMetabolism!=null and basalMetabolism!=0">
+       basalMetabolism=#{basalMetabolism,jdbcType=DOUBLE},
+      </if>
+       <if test="bmi!=null and bmi!=null and bmi!=0">
+       bmi=#{bmi,jdbcType=REAL},
+      </if>
+       <if test="muscle!=null and muscle!=null and muscle!=0">
+       muscle=#{muscle,jdbcType=REAL},
+      </if>
+       <if test="visceralfat!=null and visceralfat!=null and visceralfat!=0">
+       visceralfat=#{visceralfat,jdbcType=INTEGER},
+      </if>
+       <if test="temperature!=null and temperature!=null and temperature!=0">
+       temperature=#{temperature,jdbcType=REAL},
+      </if>
+       <if test="ecg!=null and ecg!=null and ecg!=0">
+       ecg=#{ecg,jdbcType=VARHCAR},
+      </if>
+       <if test="ecgPng!=null and ecgPng!=null and ecgPng!=0">
+       ecgPng=#{ecgPng,jdbcType=VARHCAR},
+      </if>
+       <if test="result!=null and result!=null and result!=0">
+       result=#{result,jdbcType=VARCHAR},
+      </if>
+       <if test="bloodoxygen!=null and bloodoxygen!=null and bloodoxygen!=0">
+       bloodoxygen=#{bloodoxygen,jdbcType=DOUBLE},
+      </if>
+       <if test="hb!=null and hb!=null and hb!=0">
+       hb=#{hb,jdbcType=REAL},
+      </if>
+       <if test="bloodsugar!=null and bloodsugar!=null and bloodsugar!=0">
+       bloodsugar=#{bloodsugar,jdbcType=REAL},
+      </if>
+       <if test="uricacid!=null and uricacid!=null and uricacid!=0">
+       uricacid=#{uricacid,jdbcType=REAL},
+      </if>
+       <if test="chol!=null and chol!=null and chol!=0">
+       chol=#{chol,jdbcType=REAL},
+      </if>
+      <if test="LEU!=null and LEU!=null and LEU!=0">
+       LEU=#{LEU,jdbcType=INTEGER},
+      </if>
+      <if test="NIT!=null and NIT!=null and NIT!=0">
+       NIT=#{bone,jdbcType=INTEGER},
+      </if>
+       <if test="UBG!=null and UBG!=null and UBG!=0">
+       UBG=#{UBG,jdbcType=INTEGER},
+      </if>
+       <if test="PRO!=null and PRO!=null and PRO!=0">
+       PRO=#{PRO,jdbcType=INTEGER},
+      </if>
+       <if test="PH!=null and PH!=null and PH!=0">
+       PH=#{PH,jdbcType=REAL},
+      </if> 
+      <if test="SG!=null and SG!=null and SG!=0">
+       SG=#{SG,jdbcType=REAL},
+      </if>
+       <if test="BLD!=null and BLD!=null and BLD!=0">
+       BLD=#{BLD,jdbcType=INTEGER},
+      </if>
+       <if test="KET!=null and KET!=null and KET!=0">
+       KET=#{KET,jdbcType=INTEGER},
+      </if>
+       <if test="BIL!=null and BIL!=null and BIL!=0">
+       BIL=#{BIL,jdbcType=INTEGER},
+      </if>
+      <if test="GLU!=null and GLU!=null and GLU!=0">
+       GLU=#{GLU,jdbcType=INTEGER},
+      </if>
+      <if test="report_edit_date!=null and report_edit_date!=null and report_edit_date!=0">
+       report_edit_date=#{report_edit_date,jdbcType=BIGINT},
+      </if>
+      <if test="VC!=null and VC!=null and VC!=0">
+       VC=#{VC,jdbcType=VARCHAR},
+      </if>
+    </set>
+  WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+  
+  </update>
+  <select id="selectMedicalReportToUid" resultType="MedicalReportEntity" parameterType="int">
+  SELECT height,weight,systolic,diastolic,pulse,moisture,adiposerate,
+  bone,basalMetabolism,bmi,muscle,visceralfat,temperature,ecg,ecgPng,result,bloodoxygen,hb,bloodsugar,
+  uricacid,chol,LEU,NIT,UBG,PRO,PH,SG,BLD,KET,BIL,GLU,VC,user_basics_id,report_add_date,report_edit_date
+  FROM medical_report
+  WHERE user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+  </select>
+</mapper>

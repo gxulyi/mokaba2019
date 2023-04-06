@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.newsmapper.NewsMapper" >
+   <insert id="addNews" parameterType="News" useGeneratedKeys="true" keyProperty="news_id">
+		insert into news 
+		(news_type,news_title,update_date,read_num,thumbs_up,add_date,detail_content,news_picture,status_state,fund_money,news_mp3) 
+		value (#{news_type,jdbcType=INTEGER}
+		,#{news_title,jdbcType=VARCHAR}
+		,#{update_date,jdbcType=BIGINT}
+		,#{read_num,jdbcType=INTEGER}
+		,#{thumbs_up,jdbcType=INTEGER}
+		,#{add_date,jdbcType=BIGINT}
+		,#{detail_content,jdbcType=VARCHAR}
+		,#{news_picture,jdbcType=VARCHAR}
+		,1
+		,#{fund_money,jdbcType=DOUBLE}
+		,#{news_mp3,jdbcType=VARCHAR}
+		);
+	</insert>
+	<select id="findNews" resultType="News" parameterType="java.util.HashMap">
+		select * from news where 1=1 
+		<if test="status_state!=null">
+		and status_state=#{status_state,jdbcType=INTEGER} 
+		</if>
+		<if test="status_state==null">
+		and status_state=0 
+		</if>
+		<if test="news_type!=null">
+		and news_type=#{news_type,jdbcType=INTEGER} 
+		</if>
+		 order by update_date desc;
+	</select>
+	<select id="findNewsOne" resultType="News" parameterType="java.util.HashMap">
+		select * from news where status_state=0
+		<if test="news_type!=null">
+		and news_type=#{news_type,jdbcType=INTEGER} 
+		</if>
+		and news_id=#{news_id,jdbcType=INTEGER};
+	</select>
+	<select id="findNewsO" resultType="News" parameterType="java.util.HashMap">
+		select * from news where status_state=0 and news_id=#{news_id,jdbcType=INTEGER};
+	</select>
+	<update id="deleteNew" parameterType="int">
+		update news set status_state=3 where news_id=#{news_id,jdbcType=INTEGER};
+	</update>
+	<update id="addMoney" parameterType="News">
+		update news set fund_money=fund_money+#{fund_money,jdbcType=INTEGER} where 1=1
+		and news_type=3
+		<if test="news_id!=null">
+		and news_id=#{news_id,jdbcType=INTEGER}
+		</if>
+		and status_state=0
+	</update>
+	<update id="readNews" parameterType="java.util.HashMap">
+		update news set read_num=read_num+1 
+		where 1=1
+		and news_id=#{news_id,jdbcType=INTEGER} 
+		and news_type=#{news_type,jdbcType=INTEGER};
+	</update>
+	<update id="thumbsNews" parameterType="int">
+		update news set thumbs_up=thumbs_up+1 
+		where 1=1
+		and news_type=#{news_type,jdbcType=INTEGER} 
+		and news_id=#{news_id,jdbcType=INTEGER};
+	</update>
+	<select id="findAllEssence" resultType="java.util.HashMap">
+		select * from news_essence order by add_date desc;
+	</select>
+	<select id="findEssenceOne" resultType="int" parameterType="int">
+		select count(*) from news_essence 
+		where 1=1
+		and news_id=#{news_id,jdbcType=INTEGER};
+	</select>
+	<select id="findNewsId" resultType="News" parameterType="int">
+		select * from news 
+		where 1=1
+		and news_id=#{news_id,jdbcType=INTEGER};
+	</select>
+	<select id="findEssence" resultType="News" parameterType="java.util.List">
+          select * from news 
+          where 1=1
+          and status_state=0 and news_id in
+          <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+            #{item,jdbcType=INTEGER} 
+        </foreach>
+  </select>
+   <insert id="addEssence" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="essence_id">
+		insert into news_essence 
+		(news_id,add_date,priority_level) 
+		value (#{news_id,jdbcType=INTEGER}
+		,#{add_date,jdbcType=BIGINT}
+		,#{priority_level,jdbcType=INTEGER}
+		);
+	</insert>
+	<delete id="deleteEssence" parameterType="News">
+		delete from news_essence 
+		where 1=1
+		and news_id=#{news_id,jdbcType=INTEGER};
+	</delete>
+	<insert id="addEssenceEvaluation" parameterType="NewsEvaluation" useGeneratedKeys="true" keyProperty="news_evaluation_id">
+		insert into news_ess_evaluation 
+		(news_id,news_type,weixin_nickname,weixin_portrait,add_date,evaluation_value,super_evaluation_id,read_num,user_basics_id,status_state) 
+		value (#{news_id,jdbcType=INTEGER}
+		,#{news_type,jdbcType=BIGINT}
+		,#{weixin_nickname,jdbcType=VARCHAR}
+		,#{weixin_portrait,jdbcType=VARCHAR}
+		,#{add_date,jdbcType=BIGINT}
+		,#{evaluation_value,jdbcType=VARCHAR}
+		,#{super_evaluation_id,jdbcType=INTEGER}
+		,#{read_num,jdbcType=INTEGER}
+		,#{user_basics_id,jdbcType=INTEGER}
+		,1
+		);
+	</insert>
+	<insert id="addViewEvaluation" parameterType="NewsEvaluation" useGeneratedKeys="true" keyProperty="news_evaluation_id">
+		insert into news_view_evaluation 
+		(news_id,news_type,weixin_nickname,weixin_portrait,add_date,evaluation_value,super_evaluation_id,read_num,user_basics_id,status_state) 
+		value (#{news_id,jdbcType=INTEGER}
+		,#{news_type,jdbcType=BIGINT}
+		,#{weixin_nickname,jdbcType=VARCHAR}
+		,#{weixin_portrait,jdbcType=VARCHAR}
+		,#{add_date,jdbcType=BIGINT}
+		,#{evaluation_value,jdbcType=VARCHAR}
+		,#{super_evaluation_id,jdbcType=INTEGER}
+		,#{read_num,jdbcType=INTEGER}
+		,#{user_basics_id,jdbcType=INTEGER}
+		,1
+		);
+	</insert>
+	<select id="findEssenceEvaluation" resultType="NewsEvaluation" parameterType="NewsEvaluation">
+		select * from news_ess_evaluation 
+		where 1=1
+		and status_state=0 
+		and news_id=#{news_id,jdbcType=INTEGER} 
+		order by add_date desc;
+	</select>
+	<select id="findViewEvaluation" resultType="NewsEvaluation" parameterType="NewsEvaluation">
+		select * from news_view_evaluation 
+		where 1=1
+		and status_state=0 
+		and news_id=#{news_id,jdbcType=INTEGER}
+		 order by add_date desc;
+	</select>
+	
+	<update id="updateViewstate" parameterType="News">
+		update news set 
+			<if test="status_state!=null">
+			status_state=#{status_state,jdbcType=INTEGER}
+			</if>
+		where 1=1
+		and news_id = #{news_id,jdbcType=INTEGER}
+	</update>
+	<select id="findNewsState" resultType="NewsEvaluation" parameterType="java.util.HashMap">
+		select * from news_view_evaluation where 1=1 
+		<if test="status_state!=null">
+		and status_state=#{status_state,jdbcType=INTEGER} 
+		</if>
+		<if test="status_state==null">
+		and status_state=1 
+		</if>
+	</select>
+	<update id="updateVideostate" parameterType="NewsEvaluation">
+		update news_view_evaluation set 
+			<if test="status_state!=null">
+			status_state=#{status_state,jdbcType=INTEGER}
+			</if>
+		where 1=1
+		and news_id = #{news_id,jdbcType=INTEGER}
+	</update>
+	<!-- 查询审核首页功能，审核中数据 status_state =1 -->
+	<select id="findEssEvaluations" resultType="NewsEvaluation" parameterType="NewsEvaluation">
+		select * from news_ess_evaluation 
+		where 1=1
+		and status_state=#{status_state,jdbcType=INTEGER}  
+		order by add_date DESC;
+	</select>
+	<!-- 更新审核首页功能，审核中数据 news_evaluation_id,status_state(0运行，1待审核，2未通过，3删除)-->
+	<update id="updateNewsEvaluationByState" parameterType="NewsEvaluation">
+		update news_ess_evaluation set 
+			<if test="status_state!=null">
+			status_state=#{status_state,jdbcType=INTEGER}
+			</if>
+		where 
+		news_evaluation_id = #{news_evaluation_id,jdbcType=INTEGER}
+	</update>
+	<!-- 根据审核状态为0查看知识动态 -->
+	<select id="findNewsByState" resultType="News" parameterType="News">
+    	select * from news 
+    	where 1=1 
+    	<if test="status_state!=null">
+    	and status_state=#{status_state,jdbcType=INTEGER}
+    	</if>	
+	</select>
+</mapper>

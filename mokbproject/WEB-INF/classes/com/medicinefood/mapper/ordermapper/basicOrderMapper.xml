@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.ordermapper.BasicOrderMapper" >
+   <insert id="addOrder" parameterType="OrderBasics" useGeneratedKeys="true" keyProperty="order_id">
+		insert into order_basics 
+		(order_add_date,order_status,order_edit_date,user_basics_id,add_user_basics_id,store_id,store_amount,order_addr,store_picture,all_price,order_type,payment_date,use_integral) 
+		value (#{order_add_date,jdbcType=BIGINT}
+		,#{order_status,jdbcType=INTEGER}
+		,#{order_edit_date,jdbcType=BIGINT}
+		,#{user_basics_id,jdbcType=INTEGER}
+		,#{add_user_basics_id,jdbcType=INTEGER}
+		,#{store_id,jdbcType=INTEGER}
+		,#{store_amount,jdbcType=INTEGER}
+		,#{order_addr,jdbcType=VARCHAR}
+		,#{store_picture,jdbcType=VARCHAR}
+		,#{all_price,jdbcType=DOUBLE}
+		,#{order_type,jdbcType=DOUBLE}
+		,#{payment_date,jdbcType=BIGINT}
+		,#{use_integral,jdbcType=INTEGER}
+		);
+	</insert>
+	<insert id="addOrderStore" parameterType="java.util.List">
+		insert into order_store 
+		(order_id,store_id,store_num) 
+		
+		value 
+		<foreach collection="list" index="index" item="item" separator="," >
+		(
+            #{item.order_id,jdbcType=INTEGER}
+			,#{item.store_id,jdbcType=INTEGER}
+			,#{item.store_num,jdbcType=INTEGER}
+			)
+        </foreach>
+		
+	</insert>
+	<insert id="addRefund" parameterType="OrderRefund" useGeneratedKeys="true" keyProperty="refund_id">
+		insert into order_refund 
+		(order_id,refund_reason,refund_money,apply_date,examine_date,reason_detail,user_basics_id) 
+		value (#{order_id,jdbcType=INTEGER}
+		,#{refund_reason,jdbcType=VARCHAR}
+		,#{refund_money,jdbcType=DOUBLE}
+		,#{apply_date,jdbcType=BIGINT}
+		,#{examine_date,jdbcType=BIGINT}
+		,#{reason_detail,jdbcType=VARCHAR}
+		,#{user_basics_id,jdbcType=INTEGER}
+		);
+	</insert>
+	<insert id="addRestore" parameterType="OrderRestore" useGeneratedKeys="true" keyProperty="restore_id">
+		insert into order_restore 
+		(order_id,user_basics_id,add_date,examine_date,re_addr,re_reason,waybill_num,reason_detail,restore_money) 
+		value (#{order_id,jdbcType=INTEGER}
+		,#{user_basics_id,jdbcType=INTEGER}
+		,#{add_date,jdbcType=BIGINT}
+		,#{examine_date,jdbcType=BIGINT}
+		,#{re_addr,jdbcType=BIGINT}
+		,#{re_reason,jdbcType=VARCHAR}
+		,#{waybill_num,jdbcType=VARCHAR}
+		,#{reason_detail,jdbcType=VARCHAR}
+		,#{restore_money,jdbcType=DOUBLE}
+		);
+	</insert>
+	<select id="findOrder" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select a.*,b.store_name,b.net_weight,b.store_price,b.discount_price 
+		from order_basics a,store_basics b
+		 WHERE 1=1
+		 and a.user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+		 and a.store_id=b.store_id 
+		 and a.order_status=#{order_status,jdbcType=INTEGER} 
+		<if test="order_type!=3">
+		 and a.order_type=#{order_type,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="weixinfindOrder" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select a.order_id,a.order_add_date,a.order_status,a.order_edit_date,
+		a.user_basics_id,a.add_user_basics_id,a.store_id,a.store_amount,
+		a.order_addr,a.all_price,a.order_type,a.payment_date,a.freight_money,
+		b.store_name,b.net_weight,a.store_picture,a.use_integral,b.prime_price 
+		from order_basics a,store_basics b
+		 WHERE 1=1
+		 and a.store_id=b.store_id
+		 and a.user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+		 <if test="order_status==2">
+		 and a.order_status=#{order_status,jdbcType=INTEGER} 
+		 </if>
+		 <if test="order_status==3">
+		 and a.order_status in (1,3,4)
+		 </if>
+		 <if test="order_status==5">
+		 and a.order_status=#{order_status,jdbcType=INTEGER} 
+		 </if>
+		 <if test="order_status==10">
+		 and a.order_status in (6,7,8,9,10,11,12,13,14,15)
+		 </if>
+		<if test="order_type!=3">
+		 and a.order_type=#{order_type,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="findRefundOne" resultType="OrderRefund" parameterType="java.util.HashMap">
+		select * from order_refund 
+		 WHERE 1=1
+		 and order_id=#{order_id,jdbcType=INTEGER}  
+	</select>
+	<select id="findFinishOrder" resultType="OrderSupplement" parameterType="java.util.HashMap">
+	<!-- 
+		select a.* from order_supplement a left join order_basics b on a.order_id=b.order_id  WHERE b.order_status =2  ;
+		-->
+		select a.* from order_supplement a left join order_basics b on a.order_id=b.order_id  WHERE 1=1 and b.order_status =1  ;
+		 
+	</select>
+	<select id="findReStoreOne" resultType="OrderRestore" parameterType="java.util.HashMap">
+		select * from order_restore  WHERE order_id=#{order_id,jdbcType=INTEGER}  
+	</select>
+	<select id="findOrderAll" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select a.*,b.store_name from order_basics a,store_basics b WHERE a.user_basics_id=#{user_basics_id,jdbcType=INTEGER} and a.store_id=b.store_id;
+		<if test="order_status!=null">
+		and a.order_status=#{order_status,jdbcType=INTEGER} 
+		</if>
+	</select>
+	
+	<select id="findOrderOne" resultType="OrderBasics" parameterType="java.util.HashMap">
+		select * from order_basics WHERE 1=1 and order_id=#{order_id,jdbcType=INTEGER} 
+		<if test="user_basics_id!=null">
+		and  user_basics_id=#{user_basics_id,jdbcType=INTEGER};
+		 </if>
+	</select>
+
+    <delete id="deleteOrder" parameterType="java.util.HashMap" >
+		delete from order_basics 
+		where 1=1 
+		and order_id=#{order_id,jdbcType=INTEGER} 
+		and user_basics_id=#{user_basics_id,jdbcType=INTEGER};
+	</delete>
+	
+	<update id="updateOrderOne" parameterType="java.util.HashMap">
+		update order_basics 
+		set order_status=#{order_status,jdbcType=INTEGER}
+		<if test="payment_date!=null">
+		,payment_date=#{payment_date,jdbcType=BIGINT} 
+		</if>
+		where 1=1
+		and order_id=#{order_id,jdbcType=INTEGER} 
+		<if test="user_basics_id!=null">
+		and user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+		</if>
+		;
+	</update>
+	<update id="updateReMoney" parameterType="java.util.HashMap">
+		update order_refund 
+		set examine_date=#{examine_date,jdbcType=BIGINT}
+		,user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+		where 1=1
+		and order_id=#{order_id,jdbcType=INTEGER} ;
+	</update>
+	<update id="updateFinishOrder" parameterType="java.util.HashMap">
+		update order_basics set order_status=3 
+		where 1=1
+		and order_id=#{order_id,jdbcType=INTEGER} ;
+	</update>
+	<update id="updateReStore" parameterType="java.util.HashMap">
+		update order_restore 
+		set examine_date=#{examine_date,jdbcType=BIGINT}
+		,user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+		where 1=1
+		and order_id=#{order_id,jdbcType=INTEGER} ;
+	</update>
+	<select id="findStoreBasics" resultType="StoreBasics" parameterType="int">
+         select * from store_basics 
+         where 1=1
+         and store_id=#{store_id,jdbcType=INTEGER};
+	</select>
+<insert id="addOrderSup" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="supplement_id">
+		insert into order_supplement 
+		(order_id,user_name,tel_phone,order_addr,store_picture,send_date) 
+		value (#{order_id,jdbcType=INTEGER}
+		,#{user_name,jdbcType=VARCHAR}
+		,#{tel_phone,jdbcType=VARCHAR}
+		,#{order_addr,jdbcType=INTEGER}
+		,#{store_picture,jdbcType=VARCHAR}
+		,#{send_date,jdbcType=BIGINT}
+		);
+	</insert>
+	<select id="adminFindAllStoreBasicsByPage" resultType="java.util.HashMap" parameterType="int">
+		select a.*,c.user_name,c.tel_phone  from order_basics a,order_supplement c
+		 WHERE  1=1
+		 and a.order_id=c.order_id 
+		order by a.order_edit_date desc;
+	</select>
+	<select id="adminFindOrderStatusByPage" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select a.*,b.store_name,c.user_name,c.tel_phone from order_basics a,store_basics b,order_supplement c
+		WHERE  1=1 
+		and a.store_id=b.store_id  
+		and a.order_id=c.order_id 
+		<if test="order_status!=0">
+		and a.order_status=#{order_status,jdbcType=INTEGER} 
+		</if>
+		order by a.order_edit_date desc;
+	</select>
+	 <select id="findOrderAffirm" resultType="OrderBasics" parameterType="Long">
+         SELECT * FROM order_basics 
+         WHERE 1=1
+         and order_status=4 
+         AND order_edit_date  &lt;=#{pointInTime,jdbcType=BIGINT}
+    </select>
+    
+    <update id="BatchUpdateOrderStatus" parameterType="java.util.List">
+        UPDATE order_basics  SET order_status=5 
+        WHERE 1=1
+        and order_id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.order_id,jdbcType=INTEGER}
+        </foreach>
+    </update>
+    <update id="getMoney" parameterType="OrderBasics">
+		update order_basics 
+		set order_status=3
+		,order_edit_date=#{order_edit_date,jdbcType=BIGINT} 
+		where 1=1
+		and order_id=#{order_id,jdbcType=INTEGER} 
+		and order_status=1;
+	</update>
+    <update id="sendStore" parameterType="java.util.HashMap">
+		update order_basics 
+		set order_status=4
+		,order_edit_date=#{order_edit_date,jdbcType=BIGINT} 
+		where 1=1
+		and order_id=#{order_id,jdbcType=INTEGER} 
+		and order_status=3;
+	</update>
+    <update id="sendStoreAddr" parameterType="java.util.HashMap">
+		update order_supplement 
+		set send_date=#{send_date,jdbcType=BIGINT}
+		<if test="courier_services_company!=null">
+		,courier_services_company=#{courier_services_company,jdbcType=VARCHAR}
+		</if>
+		<if test="waybill_number!=null">
+		,waybill_number=#{waybill_number,jdbcType=VARCHAR}
+		</if>
+		 where 1=1
+		 and order_id=#{order_id,jdbcType=INTEGER};
+	</update>
+	<select id="findOrderSup" resultType="OrderSupplement" parameterType="int">
+         select * from order_supplement 
+         where 1=1
+         and order_id=#{order_id,jdbcType=INTEGER};
+	</select>
+	
+	<select id="selectOrderBasicsToUserbasicsidToOrderstatus" resultType="OrderBasics">
+	SELECT order_id,order_add_date,order_status,order_edit_date,user_basics_id,
+	add_user_basics_id,store_id,store_amount,order_addr,store_picture,all_price,order_type,payment_date
+	 FROM(
+	  SELECT  * FROM order_basics WHERE 1=1 and user_basics_id IN
+	 (
+	 <foreach  collection="user_basics_ids" separator="," item="user_basics_id" index="index">
+	 user_basics_id
+	 </foreach>
+	 ) 
+	   ) ob 
+    WHERE 1=1 
+    and order_status=${order_status,jdbcType=INTEGER}
+	</select>
+	<select id="selectOrderBasicsToUserbasicsid" resultType="OrderBasics">
+	SELECT 
+	 order_id,order_add_date,order_status,order_edit_date,user_basics_id,
+	add_user_basics_id,store_id,store_amount,order_addr,store_picture,all_price,order_type,payment_date 
+	FROM order_basics WHERE 1=1 and user_basics_id IN
+	 (
+	 <foreach  collection="user_basics_ids" separator="," item="user_basics_id" index="index">
+	 user_basics_id
+	 </foreach>
+	 ) 
+	</select>
+	<select id="selectOrderBasicsToAnd" resultType="OrderBasics" parameterType="OrderBasics">
+	SELECT order_id,order_add_date,order_status,order_edit_date,user_basics_id,add_user_basics_id,
+	store_id,store_amount,order_addr,store_picture,all_price,order_type,payment_date FROM order_basics
+	WHERE 1=1
+	<if test="order_id!=null and order_id!=''">
+    AND order_id= #{order_id,jdbcType=INTEGER}
+    </if>
+    <if test="order_add_date!=null and order_add_date!=''">
+    AND order_add_date= #{order_add_date,jdbcType=INTEGER}
+    </if>
+    <if test="order_status!=null and order_status!=''">
+    AND order_status= #{order_status,jdbcType=INTEGER}
+    </if>
+    <if test="order_edit_date!=null and order_edit_date!=''">
+    AND order_edit_date= #{order_edit_date,jdbcType=INTEGER}
+    </if>
+    <if test="user_basics_id!=null and user_basics_id!=''">
+    AND user_basics_id= #{user_basics_id,jdbcType=INTEGER}
+    </if>
+    <if test="add_user_basics_id!=null and add_user_basics_id!=''">
+    AND add_user_basics_id= #{add_user_basics_id,jdbcType=INTEGER}
+    </if>
+     <if test="store_id!=null and store_id!=''">
+    AND store_id= #{store_id,jdbcType=INTEGER}
+    </if>
+    <if test="store_amount!=null and store_amount!=''">
+    AND store_amount= #{store_amount,jdbcType=INTEGER}
+    </if>
+    <if test="all_price!=null and all_price!=''">
+    AND all_price= #{all_price,jdbcType=INTEGER}
+    </if>
+    <if test="order_type!=null and order_type!=''">
+    AND order_type= #{order_type,jdbcType=INTEGER}
+    </if>
+    </select>
+	<select id="findOrderTiyan" resultType="int" parameterType="java.util.HashMap">
+		select count(*) from order_basics 
+		WHERE 1=1 and order_status>1 
+		and  <![CDATA[ order_status<>12 ]]> and <![CDATA[ order_status<>14 ]]> and <![CDATA[ order_status<>8 ]]>
+		and store_id=#{store_id,jdbcType=INTEGER}
+		and user_basics_id=#{user_basics_id,jdbcType=INTEGER};
+	</select>
+	<select id="findShoppingCart" resultType="StoreBasics" parameterType="StoreBasics">
+		select a.*,b.store_num from store_basics a 
+		right join shopping_cart b
+		on a.store_id=b.store_id
+		where 1=1
+		and b.cart_status=0
+		and b.user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+		<if test="store_id!=null">
+		and b.store_id=#{store_id,jdbcType=INTEGER}
+		</if>
+		order by b.add_date desc
+	</select>
+	<select id="findOrderStore" resultType="StoreBasics" parameterType="OrderBasics">
+		select b.*,a.store_num from order_store a
+		LEFT JOIN store_basics b
+		ON a.store_id=b.store_id
+		where 1=1 
+		and a.order_id=#{order_id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteShoppingCart">
+		delete from shopping_cart 
+		where 1=1 
+		and user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+		and store_id in
+		<foreach collection="store_ids" item="store_id" index="index" open="(" close=")" separator=",">
+            #{store_id}
+        </foreach>
+	</delete>
+	<delete id="deleteShoppingCartOne">
+		delete from shopping_cart 
+		where 1=1 
+		and user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+		and store_id =#{store_id,jdbcType=INTEGER}
+	</delete>
+	<insert id="addShoppingCart" parameterType="ShoppingCart" useGeneratedKeys="true" keyProperty="cart_id">
+		insert into shopping_cart 
+		(store_id,store_num,user_basics_id,cart_status,add_date) 
+		value (#{store_id,jdbcType=INTEGER}
+		,#{store_num,jdbcType=INTEGER}
+		,#{user_basics_id,jdbcType=INTEGER}
+		,#{cart_status,jdbcType=INTEGER}
+		,#{add_date,jdbcType=BIGINT}
+		);
+	</insert>
+	<update id="weixinUpdateOrder" parameterType="OrderBasics">
+		update order_basics 
+		set 
+		order_status=2
+		<if test="order_add_date!=null">
+		,order_add_date=#{order_add_date,jdbcType=BIGINT}
+		</if>
+		<if test="order_addr!=null">
+		,order_addr=#{order_addr,jdbcType=VARCHAR}
+		</if>
+		,all_price=#{all_price,jdbcType=DOUBLE} 
+		,freight_money=#{freight_money,jdbcType=DOUBLE} 
+		where 1=1
+		and user_basics_id=#{user_basics_id,jdbcType=INTEGER} ;
+	</update>
+</mapper>

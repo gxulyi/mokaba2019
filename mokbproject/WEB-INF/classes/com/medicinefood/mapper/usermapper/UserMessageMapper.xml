@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.usermapper.UserMessageMapper">
+	<insert id="addMessage" parameterType="UserMessage" useGeneratedKeys="true" keyProperty="message_id">
+		insert into user_message 
+		(message_type,tb_name,tb_id,user_basics_id,message_content,add_date,read_date,if_read) 
+		value 
+		(#{message_type,jdbcType=INTEGER}
+		,#{tb_name,jdbcType=VARCHAR}
+		,#{tb_id,jdbcType=INTEGER}
+		,#{user_basics_id,jdbcType=INTEGER}
+		,#{message_content,jdbcType=VARCHAR}
+		,#{add_date,jdbcType=BIGINT}
+		,#{read_date,jdbcType=BIGINT}
+		,#{if_read,jdbcType=INTEGER}
+		);
+	</insert>
+	<update id="updateMessage"  parameterType="UserMessage">
+		UPDATE user_message  
+		<trim prefix="set" suffixOverrides=",">
+			<if test="message_type!=null">message_type=#{message_type,jdbcType=INTEGER},</if>
+			<if test="message_content!=null">message_content=#{message_content,jdbcType=VARCHAR},</if>
+			<if test="add_date!=null">add_date=#{add_date,jdbcType=BIGINT},</if>
+			<if test="read_date!=null">read_date=#{read_date,jdbcType=BIGINT},</if>
+			<if test="if_read!=null">if_read=#{if_read,jdbcType=INTEGER}</if>
+		</trim>
+		WHERE 1=1
+		<if test="user_basics_id!=null">
+		and user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+		</if>
+		<if test="message_id!=null">
+		and message_id=#{message_id,jdbcType=INTEGER}
+		</if>
+	</update>
+  <select id="findUserMessage" resultType="UserMessage" parameterType="UserMessage">
+      SELECT *
+      FROM user_message
+      WHERE 1=1 
+     <if test="message_id!=null">
+     AND message_id= #{message_id,jdbcType=INTEGER}
+     </if>
+     <if test="user_basics_id!=null">
+     AND user_basics_id= #{user_basics_id,jdbcType=INTEGER}
+     </if>
+     ORDER BY if_read ASC ,add_date desc
+ </select>
+ <select id="findUserCount" resultType="int" parameterType="UserMessage">
+      SELECT count(*)
+      FROM user_message
+      WHERE 1=1 
+     <if test="if_read!=null">
+     AND if_read= #{if_read,jdbcType=INTEGER}
+     </if>
+     <if test="user_basics_id!=null">
+     AND user_basics_id= #{user_basics_id,jdbcType=INTEGER}
+     </if>
+ </select>
+</mapper>

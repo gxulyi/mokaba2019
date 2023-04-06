@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.company.CompanyBasicsMapper">
+
+<select id="findCompanyBasicsmp" resultType="CompanyBasicsEntity" parameterType="java.util.HashMap">
+SELECT *
+FROM company_basics 
+WHERE 1=1
+<if test="company_id !=null">
+and company_id=#{company_id,jdbcType=INTEGER}
+</if>
+<if test="status_state !=null">
+and status_state=#{status_state,jdbcType=INTEGER}
+</if>
+<if test="super_company_id!=null">
+and super_company_id=#{super_company_id,jdbcType=INTEGER}
+</if>
+order by company_lv desc
+</select>
+<select id="findCompanyOne" resultType="CompanyBasicsEntity" parameterType="int">
+select * from company_basics 
+where 1=1 
+and company_id=#{company_id,jdbcType=INTEGER};
+</select>
+<update id="updateCompanyBasicsState" parameterType="CompanyBasicsEntity">
+UPDATE company_basics SET
+status_state = #{status_state,jdbcType=INTEGER}
+,apply_date=#{apply_date,jdbcType=BIGINT}
+,examine_date=#{examine_date,jdbcType=BIGINT}
+WHERE 1=1
+and company_id = #{company_id,jdbcType=INTEGER}
+</update>
+<update id="updateCompanyBasics" parameterType="CompanyBasicsEntity">
+UPDATE company_basics 
+SET status_state=#{status_state,jdbcType=INTEGER}
+,company_type=1
+,user_basics_id=null,
+examine_date=#{examine_date,jdbcType=BIGINT}
+,company_name=null
+WHERE 1=1
+and company_id=#{company_id,jdbcType=INTEGER}
+</update>
+<update id="updateCompanyBasicsAgree" parameterType="CompanyBasicsEntity">
+UPDATE company_basics 
+SET status_state=#{status_state,jdbcType=INTEGER}
+WHERE 1=1
+and company_id=#{company_id,jdbcType=INTEGER}
+</update>
+<update id="updateuserinformation" parameterType="CompanyBasicsEntity">
+UPDATE user_information 
+SET company_id=1
+,co_founder=0
+,co_user_basics_id=null
+WHERE 1=1
+and user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+</update>
+<insert id="addCompany" keyProperty="company_id" useGeneratedKeys="true" parameterType="CompanyBasicsEntity">
+   INSERT INTO company_basics (
+   user_basics_id,
+   company_telephone,
+   company_type,
+   company_address,
+   company_account,
+   company_money,
+   status_state,
+   add_date,
+   if_co,
+   company_name,
+   if_founder,
+   super_company_id,
+   company_lv,
+   company_province,
+   urban_district,
+   area,
+   low_company_id,
+   user_basics_id_referee
+   ) 
+   VALUE
+   (#{user_basics_id,jdbcType=INTEGER},
+   #{company_telephone,jdbcType=VARCHAR},
+   #{company_type,jdbcType=INTEGER},
+   #{company_address,jdbcType=VARCHAR},
+   #{company_account,jdbcType=VARCHAR},
+   #{company_money,jdbcType=DOUBLE},
+   #{status_state,jdbcType=INTEGER},
+   #{add_date,jdbcType=BIGINT},
+   1,
+   #{company_name,jdbcType=VARCHAR},
+   1,
+   #{super_company_id,jdbcType=INTEGER},
+   #{company_lv,jdbcType=INTEGER},
+   #{company_province,jdbcType=VARCHAR},
+   #{urban_district,jdbcType=VARCHAR},
+   #{area,jdbcType=VARCHAR},
+   #{low_company_id,jdbcType=VARCHAR},
+   #{user_basics_id_referee,jdbcType=INTEGER}
+   )
+   
+</insert>
+</mapper>

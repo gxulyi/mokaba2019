@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicinefood.mapper.ordermapper.OrderAddrMapper" >
+	<insert id="addOrderAddr" parameterType="int" useGeneratedKeys="true" keyProperty="address_id">
+		insert into order_address 
+		(user_basics_id,tel_phone,user_name,order_addr,priority_level) 
+		value (#{user_basics_id,jdbcType=INTEGER}
+		,#{tel_phone,jdbcType=VARCHAR}
+		,#{user_name,jdbcType=VARCHAR}
+		,#{order_addr,jdbcType=VARCHAR}
+		,#{priority_level,jdbcType=INTEGER}
+		);
+	</insert>
+	<insert id="AddNonceStr" parameterType="int" useGeneratedKeys="true" keyProperty="order_nonce_str_id">
+		insert into order_nonce_str 
+		(order_id,weixin_nonce_str) 
+		value (
+		 #{order_id,jdbcType=INTEGER}
+		,#{weixin_nonce_str,jdbcType=VARCHAR}
+		);
+	</insert>
+	<select id="findNonceStr" resultType="java.util.HashMap" parameterType="int">
+         select * from order_nonce_str 
+         where 1=1
+         and order_id=#{order_id,jdbcType=INTEGER} 
+	</select>
+	<select id="findOrderAddr" resultType="OrderAddr" parameterType="int">
+         select * from order_address 
+         where 1=1
+         and user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+         order by priority_level asc;
+	</select>
+	<select id="findOrderAddrDef" resultType="OrderAddr" parameterType="int">
+         select * from order_address 
+         where 1=1
+         and user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+         order by priority_level asc limit 0,1;
+	</select>
+	<select id="findOrderAddrOne" resultType="OrderAddr" parameterType="java.util.HashMap">
+         select * from order_address 
+         where 1=1
+         and user_basics_id=#{user_basics_id,jdbcType=INTEGER}  
+         and address_id=#{address_id,jdbcType=INTEGER};
+	</select>
+	<update id="updateLevel" parameterType="OrderAddr">
+		update order_address 
+		set priority_level=2 
+		where 1=1
+		and user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+		and address_id=#{address_id,jdbcType=INTEGER};
+	</update>
+	<update id="updateLevel2" parameterType="OrderAddr">
+		update order_address 
+		set priority_level=99 
+		where 1=1
+		and address_id not in (#{address_id,jdbcType=INTEGER});
+	</update>
+	<update id="updateAddress" parameterType="OrderAddr">
+		update order_address set tel_phone=#{tel_phone,jdbcType=VARCHAR} 
+		,user_name=#{user_name,jdbcType=VARCHAR}
+		,order_addr=#{order_addr,jdbcType=VARCHAR}
+		where 1=1
+		and user_basics_id=#{user_basics_id,jdbcType=INTEGER} 
+		and address_id=#{address_id,jdbcType=INTEGER};
+	</update>
+	<delete id="deleteOrderAddr" parameterType="int">
+		delete from order_address 
+		where 1=1 
+		and address_id=#{address_id,jdbcType=INTEGER};
+	</delete>
+	<select id="selectStoreBasicsId" resultType="StoreBasics" parameterType="int">
+	    SELECT u.user_nickname,s.store_name,s.store_price,s.store_picture,s.add_date,s.store_type,s.status_state,s.store_service,s.store_intro
+        FROM  store_basics s LEFT JOIN user_basics u ON (s.user_basics_id=u.user_basics_id)
+        WHERE 1=1 
+        and store_id=#{store_id,jdbcType=INTEGER}
+	</select>
+</mapper>

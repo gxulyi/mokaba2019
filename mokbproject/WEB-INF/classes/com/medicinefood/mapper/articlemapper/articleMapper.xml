@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.articlemapper.ArticleMapper">
+ <!-- 新增轮播图 -->
+ <!-- 查询所有轮播图信息-->
+  <select id="findAllArticle" resultType="ArticleEntity" parameterType="ArticleEntity">
+         select * from t_weixin_article where 1=1
+         <if test="status!=null">
+            and status= #{status,jdbcType=INTEGER}
+         </if>
+         order by article_id ASC;
+ </select> 
+ 
+ <select id="findArticleById" resultType="ArticleEntity" parameterType="ArticleEntity">
+         select * from t_weixin_article where 1=1
+         <if test="status!=null">
+            and article_id= #{article_id,jdbcType=INTEGER}
+         </if>
+         <if test="status!=null">
+            and status= #{status,jdbcType=INTEGER}
+         </if>
+ </select> 
+ 
+ 
+ <!-- 查询轮播图详情信息-->
+ <!-- 修改轮播图信息-->
+ <!-- 删除轮播图信息-->
+</mapper>

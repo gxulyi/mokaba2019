@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.search.SearchUserMapper">
+	<select id="selectLikeUserToUser" parameterType="UserEntity"
+		resultType="UserEntity">
+		SELECT
+		ub.user_basics_id,ub.user_password,ub.user_register_data,ub.user_register_address,ub.user_grade_id,
+		uw.weixin_id,uw.weixin_portrait,uw.weixin_nickname,uw.weixin_gender,uw.weixin_follow_choice,uw.weixin_follow_data_yes,uw.weixin_follow_data_no,uw.share_img,uw.share_img_dated,
+		ui.user_information_id,ui.information_phone,ui.information_qq,ui.information_Email,ui.information_compellation,ui.information_card,ui.company_id,ui.card_end,ui.information_sex,
+		ui.nick_name,ui.live_address,ui.registered_address,ui.information_weixin,ui.card_picture,ui.information_age,ui.co_founder,ui.co_user_basics_id,
+		ug.grade_name,ug.grade_describe,
+		uii.integral_basics,uii.integra_mdfdcurrency,uii.integral_travel,uii.integral_bonus,
+		ua.direct_team_num,ua.records_integral,
+		ur.recommend_superior,ur.recommend_type
+		FROM user_basics ub LEFT JOIN
+		user_weixin uw
+		ON(ub.user_basics_id=uw.user_basics_id)
+		LEFT JOIN
+		user_information ui ON(ub.user_basics_id=ui.user_basics_id)
+		LEFT JOIN
+		user_grade ug ON(ub.user_grade_id=ug.user_grade_id)
+		LEFT JOIN
+		user_recommend ur ON(ub.user_basics_id=ur.user_basics_id)
+		LEFT JOIN
+		user_integral uii ON (ub.user_basics_id=uii.user_basics_id)
+		LEFT JOIN
+		user_achievement ua ON(ub.user_basics_id=ua.user_basics_id)
+		<where>
+		   <if test="user_account_num!=null and user_account_num!=''">
+				 ub.user_account_num like
+				concat('%',#{user_account_num,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="user_basics_id!=null and user_basics_id!=0">
+				OR ub.user_basics_id like
+				concat('%',#{user_basics_id,jdbcType=iNTEGER},'%')
+			</if>
+			<if test="nick_name!=null and nick_name!=''">
+				OR ui.nick_name like
+				concat('%',#{nick_name,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="weixin_nickname!=null and weixin_nickname!=''">
+				OR uw.weixin_nickname like
+				concat('%',#{weixin_nickname,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="information_phone!=null and information_phone!=0">
+				OR ui.information_phone like
+				concat('%',#{information_phone,jdbcType=INTEGER},'%')
+			</if>
+			<if test="information_compellation!=null and information_compellation!=''">
+				OR ui.information_compellation like
+				concat('%',#{information_compellation,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="information_card!=null and information_card!=''">
+				OR ui.information_card like
+				concat('%',#{information_card,jdbcType=VARCHAR},'%')
+			</if>
+			
+		</where>
+	</select>
+	<select id="selectLikeUserBasicsAndWxAndInformationToUser" resultType="UserBasicsAndWxAndInformationEntity">
+		SELECT
+		ub.user_basics_id,ub.user_password,ub.user_register_data,ub.user_register_address,ub.user_grade_id,
+		uw.weixin_id,uw.weixin_portrait,uw.weixin_nickname,uw.weixin_gender,uw.weixin_follow_choice,uw.weixin_follow_data_yes,uw.weixin_follow_data_no,uw.share_img,uw.share_img_dated,
+		ui.user_information_id,ui.information_phone,ui.information_qq,ui.information_Email,ui.information_compellation,ui.information_card,ui.company_id,ui.card_end,ui.information_sex,
+		ui.nick_name,ui.live_address,ui.registered_address,ui.information_weixin,ui.card_picture,ui.information_age,ui.co_founder,ui.co_user_basics_id
+		FROM user_basics ub
+		LEFT JOIN user_weixin uw
+		ON(ub.user_basics_id=uw.user_basics_id)
+		LEFT JOIN user_information ui
+		ON(ub.user_basics_id=ui.user_basics_id)
+		<where>
+		    (
+		    <if test="userEntity.user_account_num!=null and userEntity.user_account_num!=''">
+				ub.user_account_num like
+				concat('%',#{userEntity.user_account_num,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="userEntity.user_basics_id!=null and userEntity.user_basics_id!=0">
+				OR ub.user_basics_id like
+				concat('%',#{userEntity.user_basics_id,jdbcType=INTEGER},'%')
+			</if>
+			<if test="userEntity.nick_name!=null and userEntity.nick_name!=''">
+				OR ui.nick_name like
+				concat('%',#{userEntity.nick_name,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="userEntity.weixin_nickname!=null and userEntity.weixin_nickname!=''">
+				OR uw.weixin_nickname like
+				concat('%',#{userEntity.weixin_nickname,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="userEntity.information_phone!=null and userEntity.information_phone!=0">
+				OR ui.information_phone like
+				concat('%',#{userEntity.information_phone,jdbcType=INTEGER},'%')
+			</if>
+			<if test="userEntity.information_compellation!=null and userEntity.information_compellation!=''">
+				OR ui.information_compellation like
+				concat('%',#{userEntity.information_compellation,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="userEntity.information_card!=null and userEntity.information_card!=''">
+				OR ui.information_card like
+				concat('%',#{userEntity.information_card,jdbcType=VARCHAR},'%')
+			</if>
+			)
+			<if test="administrative_id!=null and administrative_id!=0">
+			AND ub.user_basics_id not in(
+		    SELECT user_basics_id FROM
+		    privilege_administrative_user
+		    WHERE administrative_id=#{administrative_id,jdbcType=INTEGER}
+		    )
+		    </if>
+		</where>
+	</select>
+	<select id="selectUserBasicsAndWxAndInformationToOr" resultType="UserBasicsAndWxAndInformationEntity">
+		SELECT
+		ub.user_basics_id,ub.user_password,ub.user_register_data,ub.user_register_address,ub.user_grade_id,
+		uw.weixin_id,uw.weixin_portrait,uw.weixin_nickname,uw.weixin_gender,uw.weixin_follow_choice,uw.weixin_follow_data_yes,uw.weixin_follow_data_no,uw.share_img,uw.share_img_dated,
+		ui.user_information_id,ui.information_phone,ui.information_qq,ui.information_Email,ui.information_compellation,ui.information_card,ui.company_id,ui.card_end,ui.information_sex,
+		ui.nick_name,ui.live_address,ui.registered_address,ui.information_weixin,ui.card_picture,ui.information_age,ui.co_founder,ui.co_user_basics_id
+		FROM user_basics ub
+		LEFT JOIN user_weixin uw
+		ON(ub.user_basics_id=uw.user_basics_id)
+		LEFT JOIN user_information ui
+		ON(ub.user_basics_id=ui.user_basics_id)
+		<where>
+		  <trim prefix="" suffix="" prefixOverrides="OR" suffixOverrides=",">
+		    <if test="userEntity.user_account_num!=null and userEntity.user_account_num!=''">
+				 OR ub.user_account_num userEntity.user_account_num,jdbcType=VARCHAR},
+			</if>
+			<if test="userEntity.user_basics_id!=null and userEntity.user_basics_id!=0">
+				OR ub.user_basics_id=#{userEntity.user_basics_id,jdbcType=INTEGER},
+			</if>
+			<if test="userEntity.nick_name!=null and userEntity.nick_name!=''">
+				OR ui.nick_name =#{userEntity.nick_name,jdbcType=VARCHAR},
+			</if>
+			<if test="userEntity.weixin_nickname!=null and userEntity.weixin_nickname!=''">
+				OR uw.weixin_nickname =#{userEntity.weixin_nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="userEntity.information_phone!=null and userEntity.information_phone!=0">
+				OR ui.information_phone =#{userEntity.information_phone,jdbcType=INTEGER},
+			</if>
+			<if test="userEntity.information_compellation!=null and userEntity.information_compellation!=''">
+				OR ui.information_compellation =#{userEntity.information_compellation,jdbcType=VARCHAR},
+			</if>
+			<if test="userEntity.information_card!=null and userEntity.information_card!=''">
+				OR ui.information_card =#{userEntity.information_card,jdbcType=VARCHAR},
+			</if>
+		  </trim>	
+		</where>
+	</select>
+	<select id="selectUserBasicsAndWxAndInformationToAnd" resultType="UserBasicsAndWxAndInformationEntity">
+		SELECT
+		ub.user_basics_id,ub.user_password,ub.user_register_data,ub.user_register_address,ub.user_grade_id,
+		uw.weixin_id,uw.weixin_portrait,uw.weixin_nickname,uw.weixin_gender,uw.weixin_follow_choice,uw.weixin_follow_data_yes,uw.weixin_follow_data_no,uw.share_img,uw.share_img_dated,
+		ui.user_information_id,ui.information_phone,ui.information_qq,ui.information_Email,ui.information_compellation,ui.information_card,ui.company_id,ui.card_end,ui.information_sex,
+		ui.nick_name,ui.live_address,ui.registered_address,ui.information_weixin,ui.card_picture,ui.information_age,ui.co_founder,ui.co_user_basics_id
+		FROM user_basics ub
+		LEFT JOIN user_weixin uw
+		ON(ub.user_basics_id=uw.user_basics_id)
+		LEFT JOIN user_information ui
+		ON(ub.user_basics_id=ui.user_basics_id)
+		<where>
+		  <trim prefix="" suffix="" prefixOverrides="AND" suffixOverrides=",">
+		    <if test="userEntity.user_account_num!=null and userEntity.user_account_num!=''">
+				 AND ub.user_account_num userEntity.user_account_num,jdbcType=VARCHAR},
+			</if>
+			<if test="userEntity.user_basics_id!=null and userEntity.user_basics_id!=0">
+				AND ub.user_basics_id=#{userEntity.user_basics_id,jdbcType=INTEGER},
+			</if>
+			<if test="userEntity.nick_name!=null and userEntity.nick_name!=''">
+				AND ui.nick_name =#{userEntity.nick_name,jdbcType=VARCHAR},
+			</if>
+			<if test="userEntity.weixin_nickname!=null and userEntity.weixin_nickname!=''">
+				AND uw.weixin_nickname =#{userEntity.weixin_nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="userEntity.information_phone!=null and userEntity.information_phone!=0">
+				AND ui.information_phone =#{userEntity.information_phone,jdbcType=INTEGER},
+			</if>
+			<if test="userEntity.information_compellation!=null and userEntity.information_compellation!=''">
+				AND ui.information_compellation =#{userEntity.information_compellation,jdbcType=VARCHAR},
+			</if>
+			<if test="userEntity.information_card!=null and userEntity.information_card!=''">
+				AND ui.information_card =#{userEntity.information_card,jdbcType=VARCHAR},
+			</if>
+		  </trim>	
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<item>
+  <value>
+  integral_basics
+  </value>
+  <toValue>
+ 积分
+  </toValue>
+</item>
+<item>
+  <value>
+  integra_mdfdcurrency
+  </value>
+  <toValue>
+脉迪富德币
+  </toValue>
+</item>
+<item>
+  <value>
+  integral_travel
+  </value>
+  <toValue>
+ 旅游积分
+  </toValue>
+</item>
+<item>
+  <value>
+  integral_bonus
+  </value>
+  <toValue>
+奖金
+  </toValue>
+</item>
+
+</root>

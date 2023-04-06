@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicinefood.mapper.obtainAwardmapper.AwardRecordMapper">
+ <!-- 新增抽奖人中奖信息 -->
+<insert id="addAwardRecord" parameterType="AwardRecord" useGeneratedKeys="true" keyProperty="award_record_id" >
+  insert into award_record
+		(user_basics_id,award_id,award_name ,award_nickname,award_date,tb_name,tb_id) 
+		value(
+		 #{user_basics_id,jdbcType=INTEGER}
+		,#{award_id,jdbcType=INTEGER}
+		,#{award_name,jdbcType=VARCHAR}
+		,#{award_nickname,jdbcType=VARCHAR}
+		,#{award_date,jdbcType=BIGINT}
+		,#{tb_name,jdbcType=VARCHAR}
+		,#{tb_id,jdbcType=INTEGER}
+		);
+ </insert>  
+ <!-- 查询个人中奖信息-->
+ <select id="findAllAwardRecord" resultType="AwardRecord" parameterType="AwardRecord">
+         select * from award_record where 1=1 and
+         user_basics_id =  #{user_basics_id,jdbcType=INTEGER}
+         order by award_date DESC;
+ </select>
+ <!-- 查询个人中奖信息次数-->
+ <select id="findAwardByDate" resultType="int" parameterType="java.util.HashMap">
+         select count(*) from award_record where 1=1 
+         and award_date &gt;=  #{startDate,jdbcType=BIGINT}  
+         and award_date &lt;=  #{endDate,jdbcType=BIGINT} 
+         and user_basics_id = #{user_basics_id,jdbcType=INTEGER}
+ </select>
+ <!-- 查询单个银行卡信息-->
+ <!-- <select id="findBankById" resultType="BankEntity" parameterType="BankEntity">
+         select * from real_bank_card where 1=1
+          and card_id =#{card_id,jdbcType=INTEGER}
+ </select> -->
+ <!-- 修改单个银行卡信息-->
+ <!-- <update id="updateBank" parameterType="BankEntity">
+	  update real_bank_card set
+	  	 user_basics_id=#{user_basics_id,jdbcType=INTEGER}
+		,bank_card=#{bank_card,jdbcType=VARCHAR}
+		,affiliated_bank=#{affiliated_bank,jdbcType=VARCHAR}
+		,tel=#{tel,jdbcType=VARCHAR}
+		,card_type=#{card_type,jdbcType=INTEGER}
+	  where card_id=#{card_id,jdbcType=INTEGER} 
+	</update> -->  
+ 
+ <!-- 删除银行卡信息-->
+ <!-- <delete id="deleteBank" parameterType="BankEntity" >
+		delete from real_bank_card where card_id=#{card_id,jdbcType=INTEGER} ;
+	</delete> -->
+ 
+	
+</mapper>
